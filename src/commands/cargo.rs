@@ -4,12 +4,12 @@
 /// - cargo [search terms] -> https://crates.io/search?q=[search terms]
 /// - cargo settings -> https://crates.io/settings/profile
 /// - cargo tokens/api -> https://crates.io/settings/tokens
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct CargoCommand;
 
-impl BunnylolCommand for CargoCommand {
+impl BunnypmslCommand for CargoCommand {
     const BINDINGS: &'static [&'static str] = &["cargo", "crates"];
 
     fn process_args(args: &str) -> String {
@@ -22,8 +22,8 @@ impl BunnylolCommand for CargoCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to crates.io or search for Rust crates".to_string(),
             example: "cargo serde".to_string(),

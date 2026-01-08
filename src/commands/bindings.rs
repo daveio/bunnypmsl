@@ -6,11 +6,11 @@
 /// Examples:
 /// - bindings -> /bindings
 /// - list -> /bindings
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct BindingsCommand;
 
-impl BunnylolCommand for BindingsCommand {
+impl BunnypmslCommand for BindingsCommand {
     const BINDINGS: &'static [&'static str] = &[
         "bindings", "commands", "list", "bunny", "cmd", "cmds", "help",
     ];
@@ -19,10 +19,10 @@ impl BunnylolCommand for BindingsCommand {
         "/bindings".to_string()
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
-            description: "View all Bunnylol command bindings in a web portal".to_string(),
+            description: "View all Bunnypmsl command bindings in a web portal".to_string(),
             example: "bindings".to_string(),
         }
     }

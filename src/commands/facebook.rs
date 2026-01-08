@@ -1,6 +1,6 @@
 /// Facebook command handler
 /// Supports: fb, fb [username/page], fb [search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::{build_path_url, build_search_url};
 
 pub struct FacebookCommand;
@@ -15,7 +15,7 @@ impl FacebookCommand {
     }
 }
 
-impl BunnylolCommand for FacebookCommand {
+impl BunnypmslCommand for FacebookCommand {
     const BINDINGS: &'static [&'static str] = &["fb"];
 
     fn process_args(args: &str) -> String {
@@ -31,8 +31,8 @@ impl BunnylolCommand for FacebookCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Facebook pages or search Facebook".to_string(),
             example: "fb Meta".to_string(),

@@ -1,4 +1,4 @@
-/// Shared URL encoding utilities for Bunnylol commands
+/// Shared URL encoding utilities for Bunnypmsl commands
 ///
 /// This module provides common URL encoding functionality to eliminate
 /// duplication across different command implementations.
@@ -20,7 +20,7 @@ pub const FRAGMENT: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'<').add(b'>'
 ///
 /// # Example
 /// ```
-/// use bunnylol::utils::url_encoding::encode_url;
+/// use bunnypmsl::utils::url_encoding::encode_url;
 ///
 /// let encoded = encode_url("hello world");
 /// assert_eq!(encoded, "hello%20world");
@@ -41,7 +41,7 @@ pub fn encode_url(input: &str) -> String {
 ///
 /// # Example
 /// ```
-/// use bunnylol::utils::url_encoding::build_search_url;
+/// use bunnypmsl::utils::url_encoding::build_search_url;
 ///
 /// let url = build_search_url("https://google.com/search", "q", "hello world");
 /// assert_eq!(url, "https://google.com/search?q=hello%20world");
@@ -62,7 +62,7 @@ pub fn build_search_url(base_url: &str, query_param: &str, query_value: &str) ->
 ///
 /// # Example
 /// ```
-/// use bunnylol::utils::url_encoding::build_path_url;
+/// use bunnypmsl::utils::url_encoding::build_path_url;
 ///
 /// let url = build_path_url("https://github.com", "facebook/react");
 /// assert_eq!(url, "https://github.com/facebook/react");

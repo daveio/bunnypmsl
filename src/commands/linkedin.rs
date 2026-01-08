@@ -1,9 +1,9 @@
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct LinkedInCommand;
 
-impl BunnylolCommand for LinkedInCommand {
+impl BunnypmslCommand for LinkedInCommand {
     const BINDINGS: &'static [&'static str] = &["li", "linkedin"];
 
     fn process_args(args: &str) -> String {
@@ -20,8 +20,8 @@ impl BunnylolCommand for LinkedInCommand {
         )
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to LinkedIn or search".to_string(),
             example: "li software engineer".to_string(),

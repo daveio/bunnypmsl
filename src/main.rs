@@ -7,12 +7,12 @@
 
 use clap::{CommandFactory, Parser, Subcommand};
 
-// BunnylolConfig is needed by both server and CLI
-use bunnylol::BunnylolConfig;
+// BunnypmslConfig is needed by both server and CLI
+use bunnypmsl::BunnypmslConfig;
 
 // CLI-only imports
 #[cfg(feature = "cli")]
-use bunnylol::{BunnylolCommandRegistry, History, utils};
+use bunnypmsl::{BunnypmslCommandRegistry, History, utils};
 #[cfg(feature = "cli")]
 use clap_complete::generate;
 #[cfg(feature = "cli")]
@@ -22,12 +22,12 @@ use tabled::{
 };
 
 #[derive(Parser)]
-#[command(name = "bunnylol")]
+#[command(name = "bunnypmsl")]
 #[command(
     about = "Smart bookmark server and CLI - URL shortcuts for your browser's search bar and terminal"
 )]
 #[command(version)]
-#[command(override_usage = "bunnylol [OPTIONS] [BINDING] [ARGS]")]
+#[command(override_usage = "bunnypmsl [OPTIONS] [BINDING] [ARGS]")]
 struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
@@ -43,7 +43,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Run the bunnylol web server
+    /// Run the bunnypmsl web server
     #[cfg(feature = "server")]
     Serve {
         /// Port to bind the server to (overrides config file)
@@ -67,14 +67,14 @@ enum Commands {
         shell: clap_complete::Shell,
     },
 
-    /// Manage bunnylol service
+    /// Manage bunnypmsl service
     #[cfg(feature = "cli")]
     Service {
         #[command(subcommand)]
         action: ServiceAction,
     },
 
-    /// Execute a bunnylol command
+    /// Execute a bunnypmsl command
     #[cfg(feature = "cli")]
     #[command(external_subcommand)]
     Command(Vec<String>),
@@ -83,13 +83,13 @@ enum Commands {
 #[cfg(feature = "cli")]
 #[derive(Subcommand)]
 enum ServiceAction {
-    /// Install bunnylol server as a service (uses config file for port/address)
+    /// Install bunnypmsl server as a service (uses config file for port/address)
     Install {
         /// Allow network access (bind to 0.0.0.0). Default: localhost only (127.0.0.1)
         #[arg(short, long)]
         network: bool,
     },
-    /// Uninstall bunnylol service
+    /// Uninstall bunnypmsl service
     Uninstall,
     /// Start the server service
     Start,
@@ -113,12 +113,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     // Load configuration
-    let config = match BunnylolConfig::load() {
+    let config = match BunnypmslConfig::load() {
         Ok(cfg) => cfg,
         Err(e) => {
             eprintln!("Warning: {}", e);
             eprintln!("Continuing with default configuration...");
-            BunnylolConfig::default()
+            BunnypmslConfig::default()
         }
     };
 
@@ -142,7 +142,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
             // Launch the server
-            bunnylol::server::launch(server_config).await?;
+            bunnypmsl::server::launch(server_config).await?;
             Ok(())
         }
 
@@ -155,13 +155,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         #[cfg(feature = "cli")]
         Some(Commands::Completion { shell }) => {
             let mut cmd = Cli::command();
-            generate(shell, &mut cmd, "bunnylol", &mut std::io::stdout());
+            generate(shell, &mut cmd, "bunnypmsl", &mut std::io::stdout());
             Ok(())
         }
 
         #[cfg(feature = "cli")]
         Some(Commands::Service { action }) => {
-            use bunnylol::service::*;
+            use bunnypmsl::service::*;
 
             let result = match action {
                 ServiceAction::Install { network } => {
@@ -205,7 +205,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             // Check if there are any remaining arguments (passed as positional)
             let args: Vec<String> = std::env::args()
                 .skip(1)
-                .filter(|arg| !arg.starts_with('-') && arg != "bunnylol")
+                .filter(|arg| !arg.starts_with('-') && arg != "bunnypmsl")
                 .collect();
 
             if args.is_empty() {
@@ -222,7 +222,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         #[cfg(not(feature = "cli"))]
         None => {
             eprintln!("Error: No command provided. This binary was built without CLI support.");
-            eprintln!("Use 'bunnylol serve' to run the server, or rebuild with --features cli");
+            eprintln!("Use 'bunnypmsl serve' to run the server, or rebuild with --features cli");
             std::process::exit(1);
         }
     }
@@ -231,7 +231,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 #[cfg(feature = "cli")]
 fn execute_command(
     args: Vec<String>,
-    config: &BunnylolConfig,
+    config: &BunnypmslConfig,
     dry_run: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // Special case: "list" should print commands table, not execute as a command
@@ -249,7 +249,7 @@ fn execute_command(
     // Extract command and process with config for custom search engine
     let command = utils::get_command_from_query_string(&resolved_args);
     let url =
-        BunnylolCommandRegistry::process_command_with_config(command, &resolved_args, Some(config));
+        BunnypmslCommandRegistry::process_command_with_config(command, &resolved_args, Some(config));
 
     // Print URL
     println!("{}", url);
@@ -273,7 +273,7 @@ fn execute_command(
 }
 
 #[cfg(feature = "cli")]
-fn open_url(url: &str, config: &BunnylolConfig) -> Result<(), Box<dyn std::error::Error>> {
+fn open_url(url: &str, config: &BunnypmslConfig) -> Result<(), Box<dyn std::error::Error>> {
     if let Some(browser) = &config.browser {
         // Open with specified browser
         open::with(url, browser).map_err(|e| {
@@ -305,7 +305,7 @@ struct CommandRow {
 
 #[cfg(feature = "cli")]
 fn print_commands() {
-    let mut commands = BunnylolCommandRegistry::get_all_commands().clone();
+    let mut commands = BunnypmslCommandRegistry::get_all_commands().clone();
     commands.sort_by(|a, b| {
         a.bindings[0]
             .to_lowercase()
@@ -369,7 +369,7 @@ fn print_commands() {
         );
 
     println!("\n{}\n", table);
-    println!("💡 Tip: Use 'bunnylol <command>' to open URLs in your browser");
-    println!("   Example: bunnylol ig reels");
+    println!("💡 Tip: Use 'bunnypmsl <command>' to open URLs in your browser");
+    println!("   Example: bunnypmsl ig reels");
     println!("   Use --dry-run to preview the URL without opening it\n");
 }

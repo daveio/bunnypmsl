@@ -22,7 +22,7 @@ use rocket::request::{self, FromRequest, Request};
 use rocket::response::Redirect;
 
 #[cfg(feature = "server")]
-use crate::{BunnylolCommandRegistry, BunnylolConfig, History, utils};
+use crate::{BunnypmslCommandRegistry, BunnypmslConfig, History, utils};
 
 #[cfg(feature = "server")]
 mod server_impl {
@@ -48,15 +48,15 @@ mod server_impl {
     #[rocket::get("/?<cmd>")]
     pub(super) fn search(
         cmd: Option<&str>,
-        config: &State<BunnylolConfig>,
+        config: &State<BunnypmslConfig>,
         client_ip: ClientIP,
     ) -> Result<Redirect, rocket::response::content::RawHtml<String>> {
         match cmd {
             Some(cmd_str) => {
-                println!("bunnylol command: {}", cmd_str);
+                println!("bunnypmsl command: {}", cmd_str);
 
                 let command = utils::get_command_from_query_string(cmd_str);
-                let redirect_url = BunnylolCommandRegistry::process_command_with_config(
+                let redirect_url = BunnypmslCommandRegistry::process_command_with_config(
                     command,
                     cmd_str,
                     Some(config.inner()),
@@ -92,7 +92,7 @@ mod server_impl {
     #[rocket::catch(404)]
     pub(super) fn not_found(req: &rocket::Request) -> rocket::response::content::RawHtml<String> {
         // Get config from request state
-        if let Some(config) = req.rocket().state::<BunnylolConfig>() {
+        if let Some(config) = req.rocket().state::<BunnypmslConfig>() {
             rocket::response::content::RawHtml(web::render_landing_page_html(config))
         } else {
             // Fallback if config is not available (shouldn't happen)
@@ -106,11 +106,11 @@ mod server_impl {
 #[cfg(feature = "server")]
 use server_impl::*;
 
-/// Launch the Bunnylol web server with the given configuration
+/// Launch the Bunnypmsl web server with the given configuration
 #[cfg(feature = "server")]
-pub async fn launch(config: BunnylolConfig) -> Result<(), Box<rocket::Error>> {
+pub async fn launch(config: BunnypmslConfig) -> Result<(), Box<rocket::Error>> {
     println!(
-        "Bunnylol server starting with default search: {}",
+        "Bunnypmsl server starting with default search: {}",
         config.default_search
     );
     println!(
@@ -122,7 +122,7 @@ pub async fn launch(config: BunnylolConfig) -> Result<(), Box<rocket::Error>> {
         .merge(("address", config.server.address.clone()))
         .merge(("port", config.server.port))
         .merge(("log_level", config.server.log_level.clone()))
-        .merge(("ident", format!("Bunnylol/{}", env!("CARGO_PKG_VERSION"))));
+        .merge(("ident", format!("Bunnypmsl/{}", env!("CARGO_PKG_VERSION"))));
 
     let _rocket = rocket::custom(figment)
         .manage(config)

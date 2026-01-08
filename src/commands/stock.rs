@@ -1,4 +1,4 @@
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
 
 pub struct StockCommand;
@@ -27,7 +27,7 @@ impl StockCommand {
     }
 }
 
-impl BunnylolCommand for StockCommand {
+impl BunnypmslCommand for StockCommand {
     const BINDINGS: &'static [&'static str] = &["stock", "stocks", "finance"];
 
     fn process_args(args: &str) -> String {
@@ -41,8 +41,8 @@ impl BunnylolCommand for StockCommand {
         Self::build_yahoo_finance_url(ticker)
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: vec![
                 "stock".to_string(),
                 "stocks".to_string(),

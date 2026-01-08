@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install git hooks for bunnylol.rs
+# Install git hooks for bunnypmsl
 
 set -e
 

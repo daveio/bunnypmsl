@@ -2,12 +2,12 @@
 /// Supports:
 /// - packagist/composer -> https://packagist.org
 /// - packagist [search terms] -> https://packagist.org/search/?query=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct PackagistCommand;
 
-impl BunnylolCommand for PackagistCommand {
+impl BunnypmslCommand for PackagistCommand {
     const BINDINGS: &'static [&'static str] = &["packagist", "composer"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for PackagistCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to packagist.org or search for PHP packages".to_string(),
             example: "packagist symfony".to_string(),

@@ -1,4 +1,4 @@
-# Multi-stage build for bunnylol.rs
+# Multi-stage build for bunnypmsl
 # Stage 1: Build the application
 FROM rust:1.91.0-slim AS builder
 
@@ -32,20 +32,20 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the built binary from builder
-COPY --from=builder /app/target/release/bunnylol /app/bunnylol
+COPY --from=builder /app/target/release/bunnypmsl /app/bunnypmsl
 
-# Create bunnylol user and system config directory
-RUN useradd -m -u 1000 bunnylol && \
-    mkdir -p /etc/bunnylol
+# Create bunnypmsl user and system config directory
+RUN useradd -m -u 1000 bunnypmsl && \
+    mkdir -p /etc/bunnypmsl
 
 # Copy Docker-specific config template
-COPY config.toml.docker /etc/bunnylol/config.toml
+COPY config.toml.docker /etc/bunnypmsl/config.toml
 
 # Set ownership
-RUN chown -R bunnylol:bunnylol /app /etc/bunnylol
+RUN chown -R bunnypmsl:bunnypmsl /app /etc/bunnypmsl
 
-USER bunnylol
+USER bunnypmsl
 
 # Run the application
-# Config file at /etc/bunnylol/config.toml sets address to 0.0.0.0 for Docker
-CMD ["/app/bunnylol", "serve"]
+# Config file at /etc/bunnypmsl/config.toml sets address to 0.0.0.0 for Docker
+CMD ["/app/bunnypmsl", "serve"]

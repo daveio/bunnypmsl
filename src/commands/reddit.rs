@@ -4,12 +4,12 @@
 /// - r [search terms] -> https://www.reddit.com/search/?q=[search terms]
 /// - r r/[subreddit] -> https://reddit.com/r/[subreddit]
 /// - r r/[subreddit] [search terms] -> https://reddit.com/r/[subreddit]/search/?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct RedditCommand;
 
-impl BunnylolCommand for RedditCommand {
+impl BunnypmslCommand for RedditCommand {
     const BINDINGS: &'static [&'static str] = &["r", "reddit"];
 
     fn process_args(args: &str) -> String {
@@ -39,8 +39,8 @@ impl BunnylolCommand for RedditCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Reddit or search subreddits".to_string(),
             example: "r r/rust".to_string(),

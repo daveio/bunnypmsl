@@ -1,6 +1,6 @@
 # Git Hooks
 
-This directory contains git hooks for the bunnylol.rs project.
+This directory contains git hooks for the bunnypmsl project.
 
 ## Installation
 

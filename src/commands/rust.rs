@@ -2,12 +2,12 @@
 /// Supports:
 /// - rust -> https://doc.rust-lang.org/stable/std/index.html
 /// - rust [search terms] -> https://doc.rust-lang.org/stable/std/index.html?search=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct RustCommand;
 
-impl BunnylolCommand for RustCommand {
+impl BunnypmslCommand for RustCommand {
     const BINDINGS: &'static [&'static str] = &["rust"];
 
     fn process_args(args: &str) -> String {
@@ -23,8 +23,8 @@ impl BunnylolCommand for RustCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Rust documentation or search Rust std docs".to_string(),
             example: "rust HashMap".to_string(),

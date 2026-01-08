@@ -1,5 +1,5 @@
 #!/bin/bash
-# Pre-commit hook for bunnylol.rs
+# Pre-commit hook for bunnypmsl
 # Runs formatting, tests, and checks before allowing commit
 
 set -e

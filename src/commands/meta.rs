@@ -3,11 +3,11 @@
 /// Supports: meta accounts/account -> redirects to Meta Accounts Center
 /// Supports: metaai/meta ai -> redirects to Meta AI
 /// Supports: meta pay -> redirects to Meta Pay
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct MetaCommand;
 
-impl BunnylolCommand for MetaCommand {
+impl BunnypmslCommand for MetaCommand {
     const BINDINGS: &'static [&'static str] = &["meta", "metaai"];
 
     fn process_args(args: &str) -> String {
@@ -24,8 +24,8 @@ impl BunnylolCommand for MetaCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Meta, Meta AI, Meta Accounts Center, or Meta Pay".to_string(),
             example: "meta accounts".to_string(),

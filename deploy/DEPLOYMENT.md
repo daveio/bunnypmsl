@@ -1,6 +1,6 @@
-# Server Deployment Guide for Bunnylol
+# Server Deployment Guide for Bunnypmsl
 
-This guide covers deploying `bunnylol.rs` using either native service installation or Docker.
+This guide covers deploying `bunnypmsl` using either native service installation or Docker.
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ This guide covers deploying `bunnylol.rs` using either native service installati
 
 ## Quick Start: Automated Setup
 
-For new Ubuntu cloud machines (Ubuntu 22.04+), we provide an automated setup script that installs Rust, bunnylol, and sets it up as a `systemd` service in one command.
+For new Ubuntu cloud machines (Ubuntu 22.04+), we provide an automated setup script that installs Rust, bunnypmsl, and sets it up as a `systemd` service in one command.
 
 ### Prerequisites
 
@@ -30,7 +30,7 @@ For new Ubuntu cloud machines (Ubuntu 22.04+), we provide an automated setup scr
 Download and run the setup script:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/alichtman/bunnylol.rs/main/deploy/setup-ubuntu-server.sh -o setup-ubuntu-server.sh
+curl -fsSL https://raw.githubusercontent.com/alichtman/bunnypmsl/main/deploy/setup-ubuntu-server.sh -o setup-ubuntu-server.sh
 chmod +x setup-ubuntu-server.sh
 sudo ./setup-ubuntu-server.sh
 ```
@@ -38,8 +38,8 @@ sudo ./setup-ubuntu-server.sh
 Or clone the repository first and run locally:
 
 ```bash
-git clone https://github.com/alichtman/bunnylol.rs.git
-cd bunnylol.rs
+git clone https://github.com/alichtman/bunnypmsl.git
+cd bunnypmsl
 sudo deploy/setup-ubuntu-server.sh
 ```
 
@@ -51,19 +51,19 @@ The automated setup script will:
 2. ✓ Update system packages
 3. ✓ Install build prerequisites (build-essential, pkg-config, libssl-dev, etc.)
 4. ✓ Install Rust (rustup)
-5. ✓ Install bunnylol from crates.io (`cargo install bunnylol`)
-6. ✓ Install bunnylol as a `systemd` service
+5. ✓ Install bunnypmsl from crates.io (`cargo install bunnypmsl`)
+6. ✓ Install bunnypmsl as a `systemd` service
 7. ✓ Configure service to start on boot
 8. ✓ Start the service immediately
 9. ✓ Verify the installation
 
-After completion, bunnylol will be running on port 8000 as a `systemd` service. The script is safe to run multiple times - it will skip already-installed components and update Rust if it already exists.
+After completion, bunnypmsl will be running on port 8000 as a `systemd` service. The script is safe to run multiple times - it will skip already-installed components and update Rust if it already exists.
 
 ---
 
 ## Native Service Installation
 
-The recommended deployment method for **Linux** is to install bunnylol as a native `systemd` service. This provides better integration with your OS and doesn't require Docker.
+The recommended deployment method for **Linux** is to install bunnypmsl as a native `systemd` service. This provides better integration with your OS and doesn't require Docker.
 
 **Note:** Native service installation is only supported on Linux (`systemd`). For macOS and Windows, please use [Docker Deployment](#docker-deployment) instead.
 
@@ -76,20 +76,20 @@ The recommended deployment method for **Linux** is to install bunnylol as a nati
 ### Installation
 
 ```bash
-# Install bunnylol first
-$ cargo install bunnylol
+# Install bunnypmsl first
+$ cargo install bunnypmsl
 
 # Install as system service (requires sudo, Linux only)
 # Default: localhost only (127.0.0.1)
-$ sudo bunnylol service install
+$ sudo bunnypmsl service install
 
 # For network access (production servers)
-$ sudo bunnylol service install --network
+$ sudo bunnypmsl service install --network
 
 # The installer will:
-# - Find the bunnylol binary in PATH
-# - Create systemd service file at /etc/systemd/system/bunnylol.service
-# - Create config file at /etc/bunnylol/config.toml (if not exists)
+# - Find the bunnypmsl binary in PATH
+# - Create systemd service file at /etc/systemd/system/bunnypmsl.service
+# - Create config file at /etc/bunnypmsl/config.toml (if not exists)
 # - Configure autostart on boot (always enabled)
 # - Start the service immediately
 ```
@@ -98,43 +98,43 @@ $ sudo bunnylol service install --network
 - **Without `--network`** (default): Binds to `127.0.0.1` (localhost only, secure default)
 - **With `--network`**: Binds to `0.0.0.0` (accessible from network, for production servers)
 
-Configuration is managed through the system config file at `/etc/bunnylol/config.toml`:
+Configuration is managed through the system config file at `/etc/bunnypmsl/config.toml`:
 - **Port**: 8000 (default)
 - **Address**: 127.0.0.1 (default) or 0.0.0.0 (with `--network` flag)
 - **Autostart**: Enabled (always)
 - **Run as**: root
 - **Auto-restart**: On failure (5 second delay)
 
-To customize these settings after installation, edit `/etc/bunnylol/config.toml` and restart the service.
+To customize these settings after installation, edit `/etc/bunnypmsl/config.toml` and restart the service.
 
 ### Managing the Service
 
 ```bash
 # Check service status
-$ sudo bunnylol service status
+$ sudo bunnypmsl service status
 
 # View logs (last 20 lines)
-$ sudo bunnylol service logs
+$ sudo bunnypmsl service logs
 
 # View logs (follow mode)
-$ sudo bunnylol service logs -f
+$ sudo bunnypmsl service logs -f
 
 # View more lines
-$ sudo bunnylol service logs -n 100
+$ sudo bunnypmsl service logs -n 100
 
 # Restart the service
-$ sudo bunnylol service restart
+$ sudo bunnypmsl service restart
 
 # Stop the service
-$ sudo bunnylol service stop
+$ sudo bunnypmsl service stop
 
 # Start the service
-$ sudo bunnylol service start
+$ sudo bunnypmsl service start
 ```
 
 ### Customizing Server Settings
 
-Server settings for the system service are configured in `/etc/bunnylol/config.toml` (created automatically during installation):
+Server settings for the system service are configured in `/etc/bunnypmsl/config.toml` (created automatically during installation):
 
 ```toml
 [server]
@@ -150,25 +150,25 @@ log_level = "normal"     # Options: normal, debug, critical
 After editing the config file, restart the service:
 
 ```bash
-$ sudo bunnylol service restart
+$ sudo bunnypmsl service restart
 ```
 
-**Note:** For running `bunnylol serve` manually (non-service), the config file is at `~/.config/bunnylol/config.toml`.
+**Note:** For running `bunnypmsl serve` manually (non-service), the config file is at `~/.config/bunnypmsl/config.toml`.
 
 ### Uninstalling
 
 ```bash
 # Uninstall system service (stops service and removes systemd files)
-$ sudo bunnylol service uninstall
+$ sudo bunnypmsl service uninstall
 ```
 
 ### Platform-Specific Details
 
 #### Linux (`systemd`)
 
-- Service file: `/etc/systemd/system/bunnylol.service`
-- Logs: `journalctl -u bunnylol -f` or `sudo bunnylol service logs -f`
-- Binary location: Detected automatically from PATH (typically `/usr/local/bin/bunnylol`)
+- Service file: `/etc/systemd/system/bunnypmsl.service`
+- Logs: `journalctl -u bunnypmsl -f` or `sudo bunnypmsl service logs -f`
+- Binary location: Detected automatically from PATH (typically `/usr/local/bin/bunnypmsl`)
 - Service runs as: root
 - Restart policy: On failure with 5 second delay
 
@@ -178,7 +178,7 @@ Native service installation is **not supported** on macOS or Windows.
 
 Recommended alternatives:**
  **Docker**: Use `docker compose up -d` (see [Docker Deployment](#docker-deployment))
- **Direct run**: Use `bunnylol serve` (runs in foreground, doesn't auto-start on boot)
+ **Direct run**: Use `bunnypmsl serve` (runs in foreground, doesn't auto-start on boot)
 
 ---
 
@@ -188,12 +188,12 @@ Docker provides an alternative deployment method that's useful for containerized
 
 ### Using Docker Compose
 
-The easiest way to deploy bunnylol with Docker is using Docker Compose:
+The easiest way to deploy bunnypmsl with Docker is using Docker Compose:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/facebook/bunnylol.rs.git
-   cd bunnylol.rs
+   git clone https://github.com/facebook/bunnypmsl.git
+   cd bunnypmsl
    ```
 
 2. **Start the service**:
@@ -201,9 +201,9 @@ The easiest way to deploy bunnylol with Docker is using Docker Compose:
    docker compose up -d
    ```
 
-   To use a custom port, set the `BUNNYLOL_PORT` environment variable:
+   To use a custom port, set the `BUNNYPMSL_PORT` environment variable:
    ```bash
-   BUNNYLOL_PORT=9000 docker compose up -d
+   BUNNYPMSL_PORT=9000 docker compose up -d
    ```
    This maps port 9000 on the host to port 8000 in the container.
 
@@ -224,16 +224,16 @@ The easiest way to deploy bunnylol with Docker is using Docker Compose:
 
 1. **Build the image**:
    ```bash
-   docker build -t bunnylol .
+   docker build -t bunnypmsl .
    ```
 
 2. **Run the container**:
    ```bash
    docker run -d \
-     --name bunnylol \
+     --name bunnypmsl \
      -p 8000:8000 \
      --restart unless-stopped \
-     bunnylol
+     bunnypmsl
    ```
 
 ## Rebuilding and Redeploying
@@ -270,7 +270,7 @@ If your server is running on a remote machine (e.g., Hetzner, AWS, etc.):
 1. **SSH into your server and navigate to the project directory**:
    ```bash
    ssh your-server
-   cd bunnylol.rs
+   cd bunnypmsl
    ```
 
 2. **Pull the latest changes** (if using Git):
@@ -286,7 +286,7 @@ If your server is running on a remote machine (e.g., Hetzner, AWS, etc.):
 4. **Verify the deployment**:
    ```bash
    docker ps
-   docker logs --tail=20 bunnylol
+   docker logs --tail=20 bunnypmsl
    ```
 
 ### One-Liner for Remote Rebuild
@@ -294,7 +294,7 @@ If your server is running on a remote machine (e.g., Hetzner, AWS, etc.):
 If you have SSH configured with a host alias (e.g., `hetzner`), you can rebuild from your local machine:
 
 ```bash
-ssh your-server "cd bunnylol.rs && git pull && docker compose up --build -d"
+ssh your-server "cd bunnypmsl && git pull && docker compose up --build -d"
 ```
 
 ### Verifying the Deployment
@@ -302,7 +302,7 @@ ssh your-server "cd bunnylol.rs && git pull && docker compose up --build -d"
 After rebuilding, check that:
 - The container was created recently: `docker ps` (check CREATED column)
 - The application is running: `curl http://localhost:8000/health`
-- Logs look healthy: `docker logs --tail=50 bunnylol`
+- Logs look healthy: `docker logs --tail=50 bunnypmsl`
 
 ## Auto-Deployment
 
@@ -313,7 +313,7 @@ For production servers, you can set up automatic deployment that checks for upst
 The auto-deployment system:
 1. Checks for new commits on the remote repository every 5 minutes
 2. If changes are detected, pulls them and rebuilds the Docker container
-3. Logs all activity to `/var/log/bunnylol-deploy.log`
+3. Logs all activity to `/var/log/bunnypmsl-deploy.log`
 4. Only rebuilds when there are actual changes (no unnecessary rebuilds)
 
 ### Setup
@@ -321,13 +321,13 @@ The auto-deployment system:
 On your server, run the setup script:
 
 ```bash
-sudo /path/to/bunnylol.rs/deploy/setup-auto-deploy.sh
+sudo /path/to/bunnypmsl/deploy/setup-auto-deploy.sh
 ```
 
 Or if using an SSH alias:
 
 ```bash
-ssh your-server "sudo /root/bunnylol.rs/deploy/setup-auto-deploy.sh"
+ssh your-server "sudo /root/bunnypmsl/deploy/setup-auto-deploy.sh"
 ```
 
 This will:
@@ -356,7 +356,7 @@ LOG_FILE="/var/log/custom-deploy.log" sudo deploy/setup-auto-deploy.sh
 
 **View deployment logs:**
 ```bash
-tail -f /var/log/bunnylol-deploy.log
+tail -f /var/log/bunnypmsl-deploy.log
 ```
 
 **Check cron job status:**
@@ -366,7 +366,7 @@ crontab -l
 
 **Manually trigger deployment:**
 ```bash
-sudo /path/to/bunnylol.rs/deploy/auto-deploy.sh
+sudo /path/to/bunnypmsl/deploy/auto-deploy.sh
 ```
 
 ### Removing Auto-Deployment
@@ -383,16 +383,16 @@ crontab -e
 
 ### Config File Locations
 
-Bunnylol uses different config file locations depending on how it's run:
+Bunnypmsl uses different config file locations depending on how it's run:
 
-- **System service** (installed with `sudo bunnylol service install`): `/etc/bunnylol/config.toml`
-- **User/manual run** (running `bunnylol serve` directly): `~/.config/bunnylol/config.toml`
+- **System service** (installed with `sudo bunnypmsl service install`): `/etc/bunnypmsl/config.toml`
+- **User/manual run** (running `bunnypmsl serve` directly): `~/.config/bunnypmsl/config.toml`
 
 The config file is automatically created with defaults if it doesn't exist.
 
 ### Native Service
 
-For native systemd installations, configuration is in `/etc/bunnylol/config.toml`.
+For native systemd installations, configuration is in `/etc/bunnypmsl/config.toml`.
 
 Example configuration:
 
@@ -422,16 +422,16 @@ log_level = "normal"     # Options: normal, debug, critical
 
 After editing the config file, restart the service:
 ```bash
-sudo bunnylol service restart
+sudo bunnypmsl service restart
 ```
 
 ### Docker
 
-For Docker deployments, you can customize the host port using the `BUNNYLOL_PORT` environment variable:
+For Docker deployments, you can customize the host port using the `BUNNYPMSL_PORT` environment variable:
 
 ```bash
 # .env file (optional)
-BUNNYLOL_PORT=9000
+BUNNYPMSL_PORT=9000
 ```
 
 Then start with:
@@ -441,7 +441,7 @@ docker compose up -d
 
 Or set it inline:
 ```bash
-BUNNYLOL_PORT=9000 docker compose up -d
+BUNNYPMSL_PORT=9000 docker compose up -d
 ```
 
 To customize other settings in Docker, you can mount a config file:
@@ -449,12 +449,12 @@ To customize other settings in Docker, you can mount a config file:
 ```yaml
 # docker-compose.yml
 services:
-  bunnylol:
+  bunnypmsl:
     volumes:
-      - ./config:/etc/bunnylol
+      - ./config:/etc/bunnypmsl
 ```
 
-Then create a local `config/config.toml` file with your settings, and it will be mounted into the container at `/etc/bunnylol/config.toml`.
+Then create a local `config/config.toml` file with your settings, and it will be mounted into the container at `/etc/bunnypmsl/config.toml`.
 
 ## Running on Boot
 
@@ -474,7 +474,7 @@ When running containers, use a restart policy:
 **With Docker Compose** (add to your `docker-compose.yml`):
 ```yaml
 services:
-  bunnylol:
+  bunnypmsl:
     restart: unless-stopped
 ```
 
@@ -533,7 +533,7 @@ For production deployments with HTTPS, use a reverse proxy like Caddy or nginx.
 <!---->
 <!-- 2. **Configure nginx**: -->
 <!--    ```bash -->
-<!--    sudo nano /etc/nginx/sites-available/bunnylol -->
+<!--    sudo nano /etc/nginx/sites-available/bunnypmsl -->
 <!--    ``` -->
 <!---->
 <!--    Add: -->
@@ -552,7 +552,7 @@ For production deployments with HTTPS, use a reverse proxy like Caddy or nginx.
 <!---->
 <!-- 3. **Enable and restart**: -->
 <!--    ```bash -->
-<!--    sudo ln -s /etc/nginx/sites-available/bunnylol /etc/nginx/sites-enabled/ -->
+<!--    sudo ln -s /etc/nginx/sites-available/bunnypmsl /etc/nginx/sites-enabled/ -->
 <!--    sudo systemctl restart nginx -->
 <!--    ``` -->
 
@@ -563,7 +563,7 @@ For production deployments with HTTPS, use a reverse proxy like Caddy or nginx.
 **Container won't start:**
 ```bash
 # Check logs
-docker compose logs bunnylol
+docker compose logs bunnypmsl
 
 # Check if port is already in use
 sudo netstat -tlnp | grep 8000
@@ -582,7 +582,7 @@ sudo usermod -aG docker $USER
 sudo systemctl status docker
 
 # Check restart policy
-docker inspect bunnylol | grep -A 3 RestartPolicy
+docker inspect bunnypmsl | grep -A 3 RestartPolicy
 ```
 
 ### Build Issues
@@ -593,10 +593,10 @@ docker inspect bunnylol | grep -A 3 RestartPolicy
 docker system prune -a
 
 # Rebuild without cache
-docker build --no-cache -t bunnylol .
+docker build --no-cache -t bunnypmsl .
 ```
 
 ## Support
 
 For issues or questions:
-- GitHub Issues: https://github.com/facebook/bunnylol.rs/issues
+- GitHub Issues: https://github.com/facebook/bunnypmsl/issues

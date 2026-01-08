@@ -2,12 +2,12 @@
 /// Supports:
 /// - stackoverflow/so -> https://stackoverflow.com
 /// - stackoverflow [search terms] -> https://stackoverflow.com/search?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct StackOverflowCommand;
 
-impl BunnylolCommand for StackOverflowCommand {
+impl BunnypmslCommand for StackOverflowCommand {
     const BINDINGS: &'static [&'static str] = &["stackoverflow", "so"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for StackOverflowCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Stack Overflow or search for programming questions"
                 .to_string(),

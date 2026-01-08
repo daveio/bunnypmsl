@@ -1,9 +1,9 @@
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct WikipediaCommand;
 
-impl BunnylolCommand for WikipediaCommand {
+impl BunnypmslCommand for WikipediaCommand {
     const BINDINGS: &'static [&'static str] = &["wiki", "wikipedia"];
 
     fn process_args(args: &str) -> String {
@@ -18,8 +18,8 @@ impl BunnylolCommand for WikipediaCommand {
         )
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: vec!["wiki".to_string(), "wikipedia".to_string()],
             description: "Search on Wikipedia".to_string(),
             example: "wiki rust programming".to_string(),

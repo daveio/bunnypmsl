@@ -8,11 +8,11 @@
 /// - transfer/transfers/payments: Transfers and payments page
 /// - security: Security settings page
 /// - contact/contactus/call: Contact us page
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct SchwabCommand;
 
-impl BunnylolCommand for SchwabCommand {
+impl BunnypmslCommand for SchwabCommand {
     const BINDINGS: &'static [&'static str] = &["schwab"];
 
     fn process_args(args: &str) -> String {
@@ -34,8 +34,8 @@ impl BunnylolCommand for SchwabCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description:
                 "Charles Schwab shortcuts (billpay, orders, trade, transfer, security, contact)"

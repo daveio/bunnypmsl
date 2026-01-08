@@ -3,12 +3,12 @@
 /// - gitlab/gl -> https://gitlab.com
 /// - gitlab [user/project] -> https://gitlab.com/[user/project]
 /// - gitlab [search terms] -> https://gitlab.com/search?search=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct GitlabCommand;
 
-impl BunnylolCommand for GitlabCommand {
+impl BunnypmslCommand for GitlabCommand {
     const BINDINGS: &'static [&'static str] = &["gitlab", "gl"];
 
     fn process_args(args: &str) -> String {
@@ -35,8 +35,8 @@ impl BunnylolCommand for GitlabCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to GitLab projects or search GitLab".to_string(),
             example: "gitlab gitlab-org/gitlab".to_string(),

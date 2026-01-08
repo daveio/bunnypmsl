@@ -2,12 +2,12 @@
 /// Supports:
 /// - npm/npmjs -> https://www.npmjs.com
 /// - npm [search terms] -> https://www.npmjs.com/search?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct NpmCommand;
 
-impl BunnylolCommand for NpmCommand {
+impl BunnypmslCommand for NpmCommand {
     const BINDINGS: &'static [&'static str] = &["npm", "npmjs"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for NpmCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to npmjs.com or search for npm packages".to_string(),
             example: "npm react".to_string(),

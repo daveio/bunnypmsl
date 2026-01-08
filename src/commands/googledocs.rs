@@ -1,18 +1,18 @@
 /// Google Docs command handler
 /// Supports: docs, gdoc -> redirects to Google Docs
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct GoogleDocsCommand;
 
-impl BunnylolCommand for GoogleDocsCommand {
+impl BunnypmslCommand for GoogleDocsCommand {
     const BINDINGS: &'static [&'static str] = &["docs", "gdoc"];
 
     fn process_args(_args: &str) -> String {
         "https://docs.google.com/document/u/0/".to_string()
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Google Docs".to_string(),
             example: "docs".to_string(),

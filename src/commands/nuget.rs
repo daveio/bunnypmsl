@@ -2,12 +2,12 @@
 /// Supports:
 /// - nuget -> https://www.nuget.org
 /// - nuget [search terms] -> https://www.nuget.org/packages?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct NugetCommand;
 
-impl BunnylolCommand for NugetCommand {
+impl BunnypmslCommand for NugetCommand {
     const BINDINGS: &'static [&'static str] = &["nuget"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for NugetCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to nuget.org or search for .NET packages".to_string(),
             example: "nuget newtonsoft".to_string(),

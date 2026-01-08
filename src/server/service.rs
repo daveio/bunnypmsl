@@ -17,10 +17,10 @@ use std::path::PathBuf;
 use std::process::Command;
 
 /// Service label used for systemd
-pub const SERVICE_LABEL: &str = "bunnylol";
+pub const SERVICE_LABEL: &str = "bunnypmsl";
 
 /// Service name used in systemctl/journalctl commands
-pub const SERVICE_NAME: &str = "bunnylol";
+pub const SERVICE_NAME: &str = "bunnypmsl";
 
 // ============================================================================
 // Error Types
@@ -45,9 +45,9 @@ impl fmt::Display for ServiceError {
             ServiceError::BinaryNotFound => {
                 write!(
                     f,
-                    "bunnylol binary not found in PATH\n\n\
-                    Please install bunnylol first:\n  \
-                    cargo install bunnylol\n\n\
+                    "bunnypmsl binary not found in PATH\n\n\
+                    Please install bunnypmsl first:\n  \
+                    cargo install bunnypmsl\n\n\
                     Or install from the current directory:\n  \
                     cargo install --path ."
                 )
@@ -68,7 +68,7 @@ impl fmt::Display for ServiceError {
                     For macOS and Windows, please use Docker instead:\n  \
                     docker compose up -d\n\n\
                     Or run the server directly:\n  \
-                    bunnylol serve"
+                    bunnypmsl serve"
                 )
             }
         }
@@ -129,34 +129,34 @@ fn setup_manager() -> Result<(Box<dyn ServiceManager>, ServiceLabel), ServiceErr
 // Service Lifecycle Functions
 // ============================================================================
 
-/// Install bunnylol service using systemd (Linux only)
+/// Install bunnypmsl service using systemd (Linux only)
 #[cfg(target_os = "linux")]
 pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError> {
-    println!("Installing bunnylol system service...");
+    println!("Installing bunnypmsl system service...");
     println!("Platform: Linux (systemd)");
     println!();
 
-    let binary_path = which::which("bunnylol").map_err(|_| ServiceError::BinaryNotFound)?;
-    println!("✓ Found bunnylol binary: {}", binary_path.display());
+    let binary_path = which::which("bunnypmsl").map_err(|_| ServiceError::BinaryNotFound)?;
+    println!("✓ Found bunnypmsl binary: {}", binary_path.display());
     println!(
         "✓ Service file will be created at: /etc/systemd/system/{}.service",
         SERVICE_NAME
     );
 
-    // Create or update config file at /etc/bunnylol/config.toml
-    let system_config_path = PathBuf::from("/etc/bunnylol/config.toml");
+    // Create or update config file at /etc/bunnypmsl/config.toml
+    let system_config_path = PathBuf::from("/etc/bunnypmsl/config.toml");
 
     // Create directory if needed
-    std::fs::create_dir_all("/etc/bunnylol")
-        .map_err(|e| ServiceError::ConfigError(format!("Failed to create /etc/bunnylol: {}", e)))?;
+    std::fs::create_dir_all("/etc/bunnypmsl")
+        .map_err(|e| ServiceError::ConfigError(format!("Failed to create /etc/bunnypmsl: {}", e)))?;
 
-    use crate::config::BunnylolConfig;
+    use crate::config::BunnypmslConfig;
 
     if system_config_path.exists() {
-        println!("✓ Found existing config file: /etc/bunnylol/config.toml");
+        println!("✓ Found existing config file: /etc/bunnypmsl/config.toml");
 
         // Load existing config
-        let mut existing_config = BunnylolConfig::load().map_err(|e| {
+        let mut existing_config = BunnypmslConfig::load().map_err(|e| {
             ServiceError::ConfigError(format!("Failed to load existing config: {}", e))
         })?;
 
@@ -179,10 +179,10 @@ pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError
             }
         }
     } else {
-        println!("✓ Creating system config file: /etc/bunnylol/config.toml");
+        println!("✓ Creating system config file: /etc/bunnypmsl/config.toml");
 
         // Create new config with provided ServiceConfig settings
-        let mut default_config = BunnylolConfig::default();
+        let mut default_config = BunnypmslConfig::default();
         default_config.server.port = config.port;
         default_config.server.address = config.address.clone();
         default_config.server.log_level = config.log_level.clone();
@@ -201,8 +201,8 @@ pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError
     println!("Service configuration:");
     println!("  Label:       {}", SERVICE_LABEL);
     println!("  Binary:      {}", binary_path.display());
-    println!("  Command:     bunnylol serve");
-    println!("  Config:      /etc/bunnylol/config.toml");
+    println!("  Command:     bunnypmsl serve");
+    println!("  Config:      /etc/bunnypmsl/config.toml");
     println!(
         "    Port:      {} (can be changed in config file)",
         config.port
@@ -256,7 +256,7 @@ pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError
     println!("✓ Service started");
 
     println!();
-    println!("🎉 Bunnylol server installed successfully!");
+    println!("🎉 Bunnypmsl server installed successfully!");
     println!();
     println!(
         "Server URL (from config): http://{}:{}",
@@ -267,15 +267,15 @@ pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError
         config.address, config.port
     );
     println!();
-    println!("To change port/address, edit: /etc/bunnylol/config.toml");
-    println!("Then restart the service: sudo bunnylol service restart");
+    println!("To change port/address, edit: /etc/bunnypmsl/config.toml");
+    println!("Then restart the service: sudo bunnypmsl service restart");
 
     println!();
     println!("Manage service:");
-    println!("  bunnylol service status");
-    println!("  bunnylol service logs");
-    println!("  bunnylol service restart");
-    println!("  bunnylol service uninstall");
+    println!("  bunnypmsl service status");
+    println!("  bunnypmsl service logs");
+    println!("  bunnypmsl service restart");
+    println!("  bunnypmsl service uninstall");
 
     Ok(())
 }
@@ -285,10 +285,10 @@ pub fn install_systemd_service(_config: ServiceConfig) -> Result<(), ServiceErro
     Err(ServiceError::UnsupportedPlatform)
 }
 
-/// Uninstall bunnylol service (Linux only)
+/// Uninstall bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn uninstall_service() -> Result<(), ServiceError> {
-    println!("Uninstalling bunnylol system service...");
+    println!("Uninstalling bunnypmsl system service...");
     println!("Service file: /etc/systemd/system/{}.service", SERVICE_NAME);
     println!();
 
@@ -322,7 +322,7 @@ pub fn uninstall_service() -> Result<(), ServiceError> {
 
     println!("✓ Service file removed");
     println!();
-    println!("✓ Bunnylol service uninstalled successfully");
+    println!("✓ Bunnypmsl service uninstalled successfully");
 
     Ok(())
 }
@@ -332,7 +332,7 @@ pub fn uninstall_service() -> Result<(), ServiceError> {
     Err(ServiceError::UnsupportedPlatform)
 }
 
-/// Start the bunnylol service (Linux only)
+/// Start the bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn start_service() -> Result<(), ServiceError> {
     let (manager, label) = setup_manager()?;
@@ -350,7 +350,7 @@ pub fn start_service() -> Result<(), ServiceError> {
     Err(ServiceError::UnsupportedPlatform)
 }
 
-/// Stop the bunnylol service (Linux only)
+/// Stop the bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn stop_service() -> Result<(), ServiceError> {
     let (manager, label) = setup_manager()?;
@@ -368,10 +368,10 @@ pub fn stop_service() -> Result<(), ServiceError> {
     Err(ServiceError::UnsupportedPlatform)
 }
 
-/// Restart the bunnylol service (Linux only)
+/// Restart the bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn restart_service() -> Result<(), ServiceError> {
-    println!("Restarting bunnylol service...");
+    println!("Restarting bunnypmsl service...");
 
     let (manager, label) = setup_manager()?;
 
@@ -395,7 +395,7 @@ pub fn restart_service() -> Result<(), ServiceError> {
     Err(ServiceError::UnsupportedPlatform)
 }
 
-/// Get the status of the bunnylol service (Linux systemd only)
+/// Get the status of the bunnypmsl service (Linux systemd only)
 #[cfg(target_os = "linux")]
 pub fn service_status() -> Result<(), ServiceError> {
     let cmd = Command::new("systemctl")
@@ -418,7 +418,7 @@ pub fn service_status() -> Result<(), ServiceError> {
     Err(ServiceError::UnsupportedPlatform)
 }
 
-/// View logs for the bunnylol service (Linux systemd only)
+/// View logs for the bunnypmsl service (Linux systemd only)
 #[cfg(target_os = "linux")]
 pub fn service_logs(follow: bool, lines: u32) -> Result<(), ServiceError> {
     let mut cmd = Command::new("journalctl");

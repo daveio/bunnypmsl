@@ -1,10 +1,10 @@
-# `bunnylol.rs` — Smart browser bookmarks with Rust
+# `bunnypmsl` — Smart browser bookmarks with Rust
 
-[![Crates.io](https://img.shields.io/crates/v/bunnylol.svg?style=flat-square)](https://crates.io/crates/bunnylol)
-[![Downloads](https://img.shields.io/crates/d/bunnylol.svg?style=flat-square)](https://crates.io/crates/bunnylol)
-[![Contributors](https://img.shields.io/github/contributors/facebook/bunnylol.rs.svg?style=flat-square)](https://github.com/facebook/bunnylol.rs/graphs/contributors)
-[![Stargazers](https://img.shields.io/github/stars/facebook/bunnylol.rs.svg?style=flat-square)](https://github.com/facebook/bunnylol.rs/stargazers)
-[![License](https://img.shields.io/github/license/facebook/bunnylol.rs?style=flat-square)](https://github.com/facebook/bunnylol.rs/blob/master/LICENSE)
+[![Crates.io](https://img.shields.io/crates/v/bunnypmsl.svg?style=flat-square)](https://crates.io/crates/bunnypmsl)
+[![Downloads](https://img.shields.io/crates/d/bunnypmsl.svg?style=flat-square)](https://crates.io/crates/bunnypmsl)
+[![Contributors](https://img.shields.io/github/contributors/facebook/bunnypmsl.svg?style=flat-square)](https://github.com/facebook/bunnypmsl/graphs/contributors)
+[![Stargazers](https://img.shields.io/github/stars/facebook/bunnypmsl.svg?style=flat-square)](https://github.com/facebook/bunnypmsl/stargazers)
+[![License](https://img.shields.io/github/license/facebook/bunnypmsl?style=flat-square)](https://github.com/facebook/bunnypmsl/blob/master/LICENSE)
 
 <p align="center">
     A modern rust clone of <a href="https://github.com/ccheever/bunny1">bunny1</a>.
@@ -14,35 +14,35 @@
 
 Enter `gh facebook/react` in your browser's address bar to open the React repository on GitHub.
 
-![bunnylol.rs demo](demo.gif)
+![bunnypmsl demo](demo.gif)
 
 Or run the CLI:
 
 ```sh
-$ bunnylol gh facebook/react
+$ bunnypmsl gh facebook/react
 ```
 
 ## Installation
 
-Install from [crates.io](https://crates.io/crates/bunnylol):
+Install from [crates.io](https://crates.io/crates/bunnypmsl):
 
 ```sh
 # Install both CLI and server (3.9MB)
-$ cargo install bunnylol
+$ cargo install bunnypmsl
 
 # Install just the CLI (1.4MB - recommended for terminal use only)
-$ cargo install bunnylol --features cli --no-default-features
+$ cargo install bunnypmsl --features cli --no-default-features
 
 # Install just the server (3.6MB - recommended for web server deployments)
-$ cargo install bunnylol --features server --no-default-features
+$ cargo install bunnypmsl --features server --no-default-features
 ```
 
 Or build from source:
 
 ```sh
 # Clone the repository
-$ git clone https://github.com/facebook/bunnylol.rs.git
-$ cd bunnylol.rs
+$ git clone https://github.com/facebook/bunnypmsl.git
+$ cd bunnypmsl
 
 # Install both CLI and server
 $ cargo install --path .
@@ -56,41 +56,41 @@ $ cargo install --path . --features server --no-default-features
 
 ## CLI Quickstart
 
-Use `bunnylol` to open URLs directly from your terminal!
+Use `bunnypmsl` to open URLs directly from your terminal!
 
 ### Basic Usage
 
 ```sh
 # Open GitHub
-$ bunnylol gh
+$ bunnypmsl gh
 
 # Open Instagram Reels
-$ bunnylol ig reels
+$ bunnypmsl ig reels
 
 # Open a specific GitHub repository
-$ bunnylol gh facebook/react
+$ bunnypmsl gh facebook/react
 
 # Preview URL without opening browser (dry-run)
-$ bunnylol --dry-run gh facebook/react
+$ bunnypmsl --dry-run gh facebook/react
 # Output: https://github.com/facebook/react
 
 # List all available commands with a beautiful table
-$ bunnylol list
+$ bunnypmsl list
 ```
 
 ### Quick Examples
 
 | CLI Command | What it does |
 |-------------|-------------|
-| `bunnylol gh` | Open GitHub homepage |
-| `bunnylol gh facebook/react` | Open facebook/react repository |
-| `bunnylol ig reels` | Open Instagram Reels |
-| `bunnylol tw @facebook` | Open Twitter profile |
-| `bunnylol r r/rust` | Open r/rust subreddit |
-| `bunnylol --dry-run meta ai` | Print Meta AI URL without opening |
-| `bunnylol --help` | Show help information |
-| `bunnylol --version` | Show version information |
-| `bunnylol list` | Display all commands in a formatted table |
+| `bunnypmsl gh` | Open GitHub homepage |
+| `bunnypmsl gh facebook/react` | Open facebook/react repository |
+| `bunnypmsl ig reels` | Open Instagram Reels |
+| `bunnypmsl tw @facebook` | Open Twitter profile |
+| `bunnypmsl r r/rust` | Open r/rust subreddit |
+| `bunnypmsl --dry-run meta ai` | Print Meta AI URL without opening |
+| `bunnypmsl --help` | Show help information |
+| `bunnypmsl --version` | Show version information |
+| `bunnypmsl list` | Display all commands in a formatted table |
 
 ### Recommended: Create a Shell Alias
 
@@ -98,7 +98,7 @@ For even faster access, add an alias to your shell configuration:
 
 ```sh
 # Add to ~/.bashrc or ~/.zshrc
-alias b="bunnylol"
+alias b="bunnypmsl"
 
 # Then use it like this:
 $ b ig reels
@@ -108,20 +108,20 @@ $ b list
 
 ## CLI Configuration
 
-The bunnylol CLI supports optional configuration via a TOML file following the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
+The bunnypmsl CLI supports optional configuration via a TOML file following the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 
 ### Configuration File Location
 
-Bunnylol uses different config file locations depending on how it's run:
+Bunnypmsl uses different config file locations depending on how it's run:
 
-**For CLI and manual server usage (`bunnylol serve`):**
-- **Linux/macOS**: `~/.config/bunnylol/config.toml` (or `$XDG_CONFIG_HOME/bunnylol/config.toml` if set)
-- **Windows**: `%APPDATA%\bunnylol\config.toml`
+**For CLI and manual server usage (`bunnypmsl serve`):**
+- **Linux/macOS**: `~/.config/bunnypmsl/config.toml` (or `$XDG_CONFIG_HOME/bunnypmsl/config.toml` if set)
+- **Windows**: `%APPDATA%\bunnypmsl\config.toml`
 
-**For system service (`sudo bunnylol service install`):**
-- **Linux**: `/etc/bunnylol/config.toml`
+**For system service (`sudo bunnypmsl service install`):**
+- **Linux**: `/etc/bunnypmsl/config.toml`
 
-The config file is automatically created with sensible defaults when you first run bunnylol.
+The config file is automatically created with sensible defaults when you first run bunnypmsl.
 
 ### Configuration Features
 
@@ -132,7 +132,7 @@ The CLI works perfectly fine without any configuration file. However, you can cu
 Specify which browser to open URLs in:
 
 ```toml
-# ~/.config/bunnylol/config.toml
+# ~/.config/bunnypmsl/config.toml
 browser = "firefox"  # or "chrome", "chromium", "safari", etc.
 ```
 
@@ -151,10 +151,10 @@ dotfiles = "gh username/dotfiles"
 
 Then use them like any built-in command:
 ```sh
-$ bunnylol work
+$ bunnypmsl work
 # Opens: https://github.com/mycompany
 
-$ bunnylol blog
+$ bunnypmsl blog
 # Opens: https://github.com/username/blog
 ```
 
@@ -179,15 +179,15 @@ max_entries = 1000
 ```
 
 History is stored at:
-- **Linux/macOS**: `~/.local/share/bunnylol/history` (or `$XDG_DATA_HOME/bunnylol/history` if set)
-- **Windows**: `%APPDATA%\bunnylol\history`
+- **Linux/macOS**: `~/.local/share/bunnypmsl/history` (or `$XDG_DATA_HOME/bunnypmsl/history` if set)
+- **Windows**: `%APPDATA%\bunnypmsl\history`
 
 ### Complete Configuration Example
 
 Here's a full example with all available options:
 
 ```toml
-# ~/.config/bunnylol/config.toml
+# ~/.config/bunnypmsl/config.toml
 
 # Browser to open URLs in (optional)
 browser = "firefox"
@@ -208,7 +208,7 @@ default_search = "ddg"
 enabled = true
 max_entries = 1000
 
-# Server configuration (for bunnylol serve) (optional)
+# Server configuration (for bunnypmsl serve) (optional)
 [server]
 port = 8000
 address = "127.0.0.1"  # Use "0.0.0.0" for network access
@@ -222,64 +222,64 @@ The CLI uses platform-appropriate directories for configuration and data:
 
 | Platform | Type | Path |
 |----------|------|------|
-| **Linux/macOS** | User Config | `~/.config/bunnylol/config.toml`<br>(or `$XDG_CONFIG_HOME/bunnylol/config.toml`) |
-| **Linux** | System Config | `/etc/bunnylol/config.toml`<br>(when running as system service) |
-| **Linux/macOS** | Data | `~/.local/share/bunnylol/`<br>(or `$XDG_DATA_HOME/bunnylol/`) |
-| **Windows** | Config | `%APPDATA%\bunnylol\config.toml` |
-| **Windows** | Data | `%APPDATA%\bunnylol\` |
+| **Linux/macOS** | User Config | `~/.config/bunnypmsl/config.toml`<br>(or `$XDG_CONFIG_HOME/bunnypmsl/config.toml`) |
+| **Linux** | System Config | `/etc/bunnypmsl/config.toml`<br>(when running as system service) |
+| **Linux/macOS** | Data | `~/.local/share/bunnypmsl/`<br>(or `$XDG_DATA_HOME/bunnypmsl/`) |
+| **Windows** | Config | `%APPDATA%\bunnypmsl\config.toml` |
+| **Windows** | Data | `%APPDATA%\bunnypmsl\` |
 
 ## Quickstart - Web Server
 
-After [installing](#installation) bunnylol, start the server:
+After [installing](#installation) bunnypmsl, start the server:
 
 ```sh
-$ bunnylol serve
+$ bunnypmsl serve
 ```
 
 Or use Docker:
 
 ```sh
-$ git clone https://github.com/facebook/bunnylol.rs.git
-$ cd bunnylol.rs
+$ git clone https://github.com/facebook/bunnypmsl.git
+$ cd bunnypmsl
 $ docker compose up -d
 ```
 
 Or build from source:
 
 ```sh
-$ git clone https://github.com/facebook/bunnylol.rs.git
-$ cd bunnylol.rs
+$ git clone https://github.com/facebook/bunnypmsl.git
+$ cd bunnypmsl
 $ cargo run -- serve
 ```
 
 ### Installing as a System Service
 
-For production use on **Linux**, install bunnylol as a `systemd` service that starts automatically on boot:
+For production use on **Linux**, install bunnypmsl as a `systemd` service that starts automatically on boot:
 
 ```sh
-# Install bunnylol first
-$ cargo install bunnylol
+# Install bunnypmsl first
+$ cargo install bunnypmsl
 
 # Install as system service (requires sudo, Linux only)
 # Default: localhost only (127.0.0.1)
-$ sudo bunnylol service install
+$ sudo bunnypmsl service install
 
 # For network access (production servers)
-$ sudo bunnylol service install --network
+$ sudo bunnypmsl service install --network
 
 # The installer will:
-# - Create /etc/systemd/system/bunnylol.service
-# - Create /etc/bunnylol/config.toml with server settings
+# - Create /etc/systemd/system/bunnypmsl.service
+# - Create /etc/bunnypmsl/config.toml with server settings
 # - Enable autostart on boot
 # - Start the service immediately
 
 # Manage the service
-$ sudo bunnylol service status
-$ sudo bunnylol service logs -f
-$ sudo bunnylol service restart
+$ sudo bunnypmsl service status
+$ sudo bunnypmsl service logs -f
+$ sudo bunnypmsl service restart
 
 # Uninstall
-$ sudo bunnylol service uninstall
+$ sudo bunnypmsl service uninstall
 ```
 
 **Network Access:**
@@ -289,19 +289,19 @@ $ sudo bunnylol service uninstall
 The service installer works on:
 - **Linux**: `systemd` (Ubuntu 16.04+, Debian 8+, CentOS 7+, etc.)
 
-**macOS and Windows:** Use Docker instead (see above) or run `bunnylol serve` directly.
+**macOS and Windows:** Use Docker instead (see above) or run `bunnypmsl serve` directly.
 
 For more details, see the [Deployment Guide](deploy/DEPLOYMENT.md).
 
 Open your web browser and navigate to `http://localhost:8000/?cmd=fb` to get redirected to Facebook.
 
-Open `http://localhost:8000/?cmd=gh facebook/bunnylol.rs` to be redirected to this repo.
+Open `http://localhost:8000/?cmd=gh facebook/bunnypmsl` to be redirected to this repo.
 
-## Setting `bunnylol` to be your default search engine
+## Setting `bunnypmsl` to be your default search engine
 
-You can set your default search engine to `http://localhost:8000/?cmd=%s` and use `bunnylol.rs` for everything. For this to work, you will need to have the server deployed and running locally or on a server.
+You can set your default search engine to `http://localhost:8000/?cmd=%s` and use `bunnypmsl` for everything. For this to work, you will need to have the server deployed and running locally or on a server.
 
-**Note:** For best results, deploy bunnylol on a networked server accessible from all your devices, rather than just running it locally.
+**Note:** For best results, deploy bunnypmsl on a networked server accessible from all your devices, rather than just running it locally.
 
 ### Desktop Browsers
 
@@ -407,11 +407,11 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 | `wiki` | `wikipedia` | Search on Wikipedia | `wiki rust programming` |
 | `ddg` | `duckduckgo` | Search DuckDuckGo | `ddg rust programming` |
 
-### Bunnylol Development Tools
+### Bunnypmsl Development Tools
 
 | Command | Aliases | Description | Example |
 |---------|---------|-------------|---------|
-| `bindings` | `commmands`, `list`, `bunny`, `cmd`, `cmds`, `help` | View all Bunnylol command bindings in a web portal | `bindings` |
+| `bindings` | `commmands`, `list`, `bunny`, `cmd`, `cmds`, `help` | View all Bunnypmsl command bindings in a web portal | `bindings` |
 
 ### Special Syntax
 
@@ -436,7 +436,7 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 <!-- GETTING STARTED -->
 ## Getting Started
 
-See the [Installation](#installation) section to install bunnylol from crates.io.
+See the [Installation](#installation) section to install bunnypmsl from crates.io.
 
 To build from source or contribute to the project, see [Manual Setup](#manual-setup) below.
 
@@ -445,8 +445,8 @@ To build from source or contribute to the project, see [Manual Setup](#manual-se
 Make sure you have [Rust installed](https://rust-lang.org/tools/install/).
 
 ```sh
-$ git clone https://github.com/facebook/bunnylol.rs.git
-$ cd bunnylol.rs
+$ git clone https://github.com/facebook/bunnypmsl.git
+$ cd bunnypmsl
 
 # Run the web server
 $ cargo run -- serve
@@ -460,14 +460,14 @@ $ cargo install --path .
 
 ## Deployment with Docker
 
-`Bunnylol` is designed to be easy to deploy anywhere using Docker.
+`Bunnypmsl` is designed to be easy to deploy anywhere using Docker.
 
 ```sh
 # run on default port 8000
 $ docker compose up -d
 
 # run on custom port 9000
-$BUNNYLOL_PORT=9000·docker compose up
+$BUNNYPMSL_PORT=9000·docker compose up
 ```
 
 The application will be running at `http://localhost:8000` by default.

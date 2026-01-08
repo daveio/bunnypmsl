@@ -1,18 +1,18 @@
 /// Google Chat command handler
 /// Supports: gchat -> redirects to Google Chat
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct GoogleChatCommand;
 
-impl BunnylolCommand for GoogleChatCommand {
+impl BunnypmslCommand for GoogleChatCommand {
     const BINDINGS: &'static [&'static str] = &["gchat"];
 
     fn process_args(_args: &str) -> String {
         "https://chat.google.com/".to_string()
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Google Chat".to_string(),
             example: "gchat".to_string(),

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-pub mod bunnylol_command_registry;
+pub mod bunnypmsl_command_registry;
 pub mod commands;
 pub mod config;
 pub mod history;
@@ -19,7 +19,7 @@ pub mod server;
 #[cfg(feature = "cli")]
 pub use server::service;
 
-pub use bunnylol_command_registry::BunnylolCommandRegistry;
-pub use commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
-pub use config::BunnylolConfig;
+pub use bunnypmsl_command_registry::BunnypmslCommandRegistry;
+pub use commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
+pub use config::BunnypmslConfig;
 pub use history::{History, HistoryEntry};

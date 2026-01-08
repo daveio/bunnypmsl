@@ -7,12 +7,12 @@
 /// - az cart -> https://www.amazon.com/gp/cart/view.html/
 /// - az pay/wallet -> https://www.amazon.com/cpe/yourpayments/wallet
 /// - az [search terms] -> https://www.amazon.com/s?k=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct AmazonCommand;
 
-impl BunnylolCommand for AmazonCommand {
+impl BunnypmslCommand for AmazonCommand {
     const BINDINGS: &'static [&'static str] = &["az", "amzn", "azn", "amazon"];
 
     fn process_args(args: &str) -> String {
@@ -34,8 +34,8 @@ impl BunnylolCommand for AmazonCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Amazon or search for products".to_string(),
             example: "az headphones".to_string(),

@@ -1,18 +1,18 @@
 /// Gmail command handler
 /// Supports: mail (simple redirect to Gmail)
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct GmailCommand;
 
-impl BunnylolCommand for GmailCommand {
+impl BunnypmslCommand for GmailCommand {
     const BINDINGS: &'static [&'static str] = &["gmail", "mail"];
 
     fn process_args(_args: &str) -> String {
         "https://mail.google.com".to_string()
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Gmail".to_string(),
             example: "mail".to_string(),

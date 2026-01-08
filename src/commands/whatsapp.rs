@@ -1,18 +1,18 @@
 /// WhatsApp command handler
 /// Supports: wa, whatsapp -> redirects to WhatsApp Web
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct WhatsAppCommand;
 
-impl BunnylolCommand for WhatsAppCommand {
+impl BunnypmslCommand for WhatsAppCommand {
     const BINDINGS: &'static [&'static str] = &["wa", "whatsapp"];
 
     fn process_args(_args: &str) -> String {
         "https://www.whatsapp.com".to_string()
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to WhatsApp".to_string(),
             example: "wa".to_string(),

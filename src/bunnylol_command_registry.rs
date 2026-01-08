@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 // Type alias for command handler functions
 type CommandHandler = fn(&str) -> String;
 
 // Global command lookup table, initialized once on first access
 static COMMAND_LOOKUP: OnceLock<HashMap<&'static str, CommandHandler>> = OnceLock::new();
-static BINDINGS_DATA: OnceLock<Vec<BunnylolCommandInfo>> = OnceLock::new();
+static BINDINGS_DATA: OnceLock<Vec<BunnypmslCommandInfo>> = OnceLock::new();
 
 /// Macro to register all commands in one place
 /// This prevents bugs where a command is defined but not registered
@@ -29,7 +29,7 @@ macro_rules! register_commands {
         }
 
         /// Get all registered command bindings
-        fn get_all_commands_impl() -> Vec<BunnylolCommandInfo> {
+        fn get_all_commands_impl() -> Vec<BunnypmslCommandInfo> {
             vec![
                 $(
                     <$cmd>::get_info(),
@@ -39,13 +39,13 @@ macro_rules! register_commands {
     };
 }
 
-/// Bunnylol Command Registry that manages all Bunnylol commands
+/// Bunnypmsl Command Registry that manages all Bunnypmsl commands
 ///
 /// This struct provides a centralized way to register and lookup commands
 /// without requiring changes to the main routing logic when adding new services.
-pub struct BunnylolCommandRegistry;
+pub struct BunnypmslCommandRegistry;
 
-impl BunnylolCommandRegistry {
+impl BunnypmslCommandRegistry {
     // Register all commands here - ADD NEW COMMANDS TO THIS LIST
     register_commands! {
         crate::commands::BindingsCommand,
@@ -120,7 +120,7 @@ impl BunnylolCommandRegistry {
     pub fn process_command_with_config(
         command: &str,
         full_args: &str,
-        config: Option<&crate::config::BunnylolConfig>,
+        config: Option<&crate::config::BunnypmslConfig>,
     ) -> String {
         use crate::commands::*;
 
@@ -146,7 +146,7 @@ impl BunnylolCommandRegistry {
     }
 
     /// Get all registered command bindings
-    pub fn get_all_commands() -> &'static Vec<BunnylolCommandInfo> {
+    pub fn get_all_commands() -> &'static Vec<BunnypmslCommandInfo> {
         BINDINGS_DATA.get_or_init(Self::get_all_commands_impl)
     }
 }
@@ -157,7 +157,7 @@ mod cache_tests {
 
     #[test]
     fn test_command_lookup_contains_all_bindings() {
-        let lookup = COMMAND_LOOKUP.get_or_init(BunnylolCommandRegistry::initialize_command_lookup);
+        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialize_command_lookup);
 
         // Verify key bindings are present (using actual command bindings)
         assert!(lookup.contains_key("gh"));
@@ -179,7 +179,7 @@ mod cache_tests {
     fn test_command_lookup_correctness() {
         use crate::commands::*;
 
-        let lookup = COMMAND_LOOKUP.get_or_init(BunnylolCommandRegistry::initialize_command_lookup);
+        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialize_command_lookup);
 
         // Test GitHub command handler
         let gh_handler = lookup.get("gh").expect("GitHub command should exist");
@@ -192,13 +192,13 @@ mod cache_tests {
 
     #[test]
     fn test_bindings_data_cache() {
-        let commands = BunnylolCommandRegistry::get_all_commands();
+        let commands = BunnypmslCommandRegistry::get_all_commands();
 
         // Verify we have all expected commands
         assert_eq!(commands.len(), 46, "Expected 46 commands");
 
         // Verify cache returns same pointer (not regenerated)
-        let commands2 = BunnylolCommandRegistry::get_all_commands();
+        let commands2 = BunnypmslCommandRegistry::get_all_commands();
         assert!(
             std::ptr::eq(commands, commands2),
             "Cache should return same reference"
@@ -209,7 +209,7 @@ mod cache_tests {
     fn test_no_binding_collisions() {
         use std::collections::HashMap;
 
-        let commands = BunnylolCommandRegistry::get_all_commands();
+        let commands = BunnypmslCommandRegistry::get_all_commands();
         let mut binding_to_command: HashMap<&str, &str> = HashMap::new();
         let mut collisions: Vec<String> = Vec::new();
 

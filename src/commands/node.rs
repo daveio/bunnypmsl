@@ -2,7 +2,7 @@
 /// Supports:
 /// - node/nodejs -> https://nodejs.org/api/
 /// - node [module] -> https://nodejs.org/api/[module].html
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct NodeCommand;
 
@@ -19,7 +19,7 @@ impl NodeCommand {
     }
 }
 
-impl BunnylolCommand for NodeCommand {
+impl BunnypmslCommand for NodeCommand {
     const BINDINGS: &'static [&'static str] = &["node", "nodejs"];
 
     fn process_args(args: &str) -> String {
@@ -35,8 +35,8 @@ impl BunnylolCommand for NodeCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Node.js API documentation or specific module docs"
                 .to_string(),

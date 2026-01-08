@@ -2,7 +2,7 @@
 /// Supports: ig, instagram, ig @[username], ig [search terms]
 /// Supports: ig reels -> redirects to Instagram Reels
 /// Supports: ig messages/msg/chat -> redirects to Instagram Direct Inbox
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::{build_path_url, build_search_url};
 
 pub struct InstagramCommand;
@@ -21,7 +21,7 @@ impl InstagramCommand {
     }
 }
 
-impl BunnylolCommand for InstagramCommand {
+impl BunnypmslCommand for InstagramCommand {
     const BINDINGS: &'static [&'static str] = &["ig", "instagram"];
 
     fn process_args(args: &str) -> String {
@@ -52,8 +52,8 @@ impl BunnylolCommand for InstagramCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description:
                 "Navigate to Instagram profiles, search Instagram, or access Reels/Messages"

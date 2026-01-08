@@ -1,9 +1,9 @@
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct SoundCloudCommand;
 
-impl BunnylolCommand for SoundCloudCommand {
+impl BunnypmslCommand for SoundCloudCommand {
     const BINDINGS: &'static [&'static str] = &["sc", "soundcloud"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for SoundCloudCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to SoundCloud (supports: likes)".to_string(),
             example: "sc edm".to_string(),

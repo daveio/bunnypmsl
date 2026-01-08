@@ -5,12 +5,12 @@
 /// - python tutorial -> https://docs.python.org/3/tutorial/
 /// - python library -> https://docs.python.org/3/library/
 /// - python reference -> https://docs.python.org/3/reference/
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct PythonCommand;
 
-impl BunnylolCommand for PythonCommand {
+impl BunnypmslCommand for PythonCommand {
     const BINDINGS: &'static [&'static str] = &["python", "pydocs", "py"];
 
     fn process_args(args: &str) -> String {
@@ -24,8 +24,8 @@ impl BunnylolCommand for PythonCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Python documentation or search for Python resources"
                 .to_string(),

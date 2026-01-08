@@ -5,12 +5,12 @@
 /// - go playground -> https://go.dev/play/
 /// - go tour -> https://go.dev/tour/
 /// - go docs -> https://go.dev/doc/
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct GopkgCommand;
 
-impl BunnylolCommand for GopkgCommand {
+impl BunnypmslCommand for GopkgCommand {
     const BINDINGS: &'static [&'static str] = &["go", "golang", "gopkg"];
 
     fn process_args(args: &str) -> String {
@@ -24,8 +24,8 @@ impl BunnylolCommand for GopkgCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to pkg.go.dev or search for Go packages".to_string(),
             example: "go http".to_string(),

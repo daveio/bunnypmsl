@@ -1,5 +1,5 @@
 #!/bin/bash
-# Setup script for automatic deployment of bunnylol.rs
+# Setup script for automatic deployment of bunnypmsl
 # This script configures auto-deployment to check for updates every 5 minutes
 
 set -e
@@ -15,11 +15,11 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Configuration
-LOG_FILE="${LOG_FILE:-/var/log/bunnylol-deploy.log}"
+LOG_FILE="${LOG_FILE:-/var/log/bunnypmsl-deploy.log}"
 BRANCH="${BRANCH:-main}"
 CRON_SCHEDULE="${CRON_SCHEDULE:-*/5 * * * *}" # Every 5 minutes by default
 
-echo -e "${GREEN}=== Bunnylol Auto-Deployment Setup ===${NC}\n"
+echo -e "${GREEN}=== Bunnypmsl Auto-Deployment Setup ===${NC}\n"
 
 # Check if running as root
 if [ "$EUID" -ne 0 ]; then

@@ -2,12 +2,12 @@
 /// Supports:
 /// - pypi/pip -> https://pypi.org
 /// - pypi [search terms] -> https://pypi.org/search/?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct PypiCommand;
 
-impl BunnylolCommand for PypiCommand {
+impl BunnypmslCommand for PypiCommand {
     const BINDINGS: &'static [&'static str] = &["pypi", "pip"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for PypiCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to pypi.org or search for Python packages".to_string(),
             example: "pypi requests".to_string(),

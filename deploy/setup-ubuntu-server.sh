@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #############################################################################
-# Ubuntu Server Setup Script for bunnylol.rs
+# Ubuntu Server Setup Script for bunnypmsl
 #############################################################################
-# This script installs Rust, bunnylol, and sets it up as a systemd service
+# This script installs Rust, bunnypmsl, and sets it up as a systemd service
 #
 # Usage:
 #   sudo ./setup-ubuntu-server.sh
@@ -146,45 +146,45 @@ install_rust() {
     log_success "Rust installed successfully"
 }
 
-install_bunnylol() {
-    log_info "Installing bunnylol from crates.io..."
+install_bunnypmsl() {
+    log_info "Installing bunnypmsl from crates.io..."
 
     # Install as the non-root user if run with sudo
     if [ -n "${SUDO_USER:-}" ]; then
-        sudo -u "$SUDO_USER" bash -c "source ~/.cargo/env && cargo install bunnylol"
+        sudo -u "$SUDO_USER" bash -c "source ~/.cargo/env && cargo install bunnypmsl"
     else
         source "$HOME/.cargo/env"
-        cargo install bunnylol
+        cargo install bunnypmsl
     fi
 
     # Verify installation
-    if command -v bunnylol &> /dev/null; then
-        log_success "bunnylol installed successfully ($(bunnylol --version))"
+    if command -v bunnypmsl &> /dev/null; then
+        log_success "bunnypmsl installed successfully ($(bunnypmsl --version))"
     else
-        log_error "bunnylol installation failed - binary not found in PATH"
+        log_error "bunnypmsl installation failed - binary not found in PATH"
         exit 1
     fi
 }
 
 install_service() {
-    log_info "Installing bunnylol as systemd service..."
+    log_info "Installing bunnypmsl as systemd service..."
 
-    # The bunnylol binary should be in the user's PATH
+    # The bunnypmsl binary should be in the user's PATH
     # We need to install the service as root
-    bunnylol service install
+    bunnypmsl service install
 
-    log_success "Bunnylol service installed and started"
+    log_success "Bunnypmsl service installed and started"
 }
 
 verify_installation() {
     log_info "Verifying installation..."
 
     # Check if service is running
-    if systemctl is-active --quiet bunnylol; then
-        log_success "Bunnylol service is running"
+    if systemctl is-active --quiet bunnypmsl; then
+        log_success "Bunnypmsl service is running"
     else
-        log_error "Bunnylol service is not running"
-        systemctl status bunnylol
+        log_error "Bunnypmsl service is not running"
+        systemctl status bunnypmsl
         exit 1
     fi
 
@@ -197,7 +197,7 @@ verify_installation() {
         log_success "HTTP endpoint is responding"
     else
         log_warning "HTTP endpoint may not be ready yet"
-        log_info "Check status with: sudo bunnylol service status"
+        log_info "Check status with: sudo bunnypmsl service status"
     fi
 }
 
@@ -210,16 +210,16 @@ show_completion_message() {
     echo -e "Application is running at: ${BLUE}http://$(hostname -I | awk '{print $1}'):8000${NC}"
     echo ""
     echo "Useful commands:"
-    echo "  - View status:     sudo bunnylol service status"
-    echo "  - View logs:       sudo bunnylol service logs"
-    echo "  - Follow logs:     sudo bunnylol service logs -f"
-    echo "  - Restart service: sudo bunnylol service restart"
-    echo "  - Stop service:    sudo bunnylol service stop"
-    echo "  - Start service:   sudo bunnylol service start"
-    echo "  - Uninstall:       sudo bunnylol service uninstall"
+    echo "  - View status:     sudo bunnypmsl service status"
+    echo "  - View logs:       sudo bunnypmsl service logs"
+    echo "  - Follow logs:     sudo bunnypmsl service logs -f"
+    echo "  - Restart service: sudo bunnypmsl service restart"
+    echo "  - Stop service:    sudo bunnypmsl service stop"
+    echo "  - Start service:   sudo bunnypmsl service start"
+    echo "  - Uninstall:       sudo bunnypmsl service uninstall"
     echo ""
     echo "Service details:"
-    echo "  - Service file:    /etc/systemd/system/bunnylol.service"
+    echo "  - Service file:    /etc/systemd/system/bunnypmsl.service"
     echo "  - Autostart:       Enabled (starts on boot)"
     echo "  - Running as:      root"
     echo ""
@@ -230,7 +230,7 @@ show_completion_message() {
 #############################################################################
 
 main() {
-    log_info "Starting Ubuntu Server setup for bunnylol.rs..."
+    log_info "Starting Ubuntu Server setup for bunnypmsl..."
     echo ""
 
     check_root
@@ -238,7 +238,7 @@ main() {
     update_system
     install_prerequisites
     install_rust
-    install_bunnylol
+    install_bunnypmsl
     install_service
     verify_installation
     show_completion_message

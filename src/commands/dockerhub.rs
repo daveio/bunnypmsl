@@ -2,12 +2,12 @@
 /// Supports:
 /// - dockerhub/docker -> https://hub.docker.com
 /// - dockerhub [search terms] -> https://hub.docker.com/search?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct DockerhubCommand;
 
-impl BunnylolCommand for DockerhubCommand {
+impl BunnypmslCommand for DockerhubCommand {
     const BINDINGS: &'static [&'static str] = &["dockerhub", "docker"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for DockerhubCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Docker Hub or search for container images".to_string(),
             example: "docker nginx".to_string(),

@@ -2,12 +2,12 @@
 /// Supports:
 /// - rubygems/gem/gems -> https://rubygems.org
 /// - rubygems [search terms] -> https://rubygems.org/search?query=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct RubygemsCommand;
 
-impl BunnylolCommand for RubygemsCommand {
+impl BunnypmslCommand for RubygemsCommand {
     const BINDINGS: &'static [&'static str] = &["rubygems", "gem", "gems"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for RubygemsCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to rubygems.org or search for Ruby gems".to_string(),
             example: "gem rails".to_string(),

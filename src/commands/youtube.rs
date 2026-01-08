@@ -2,12 +2,12 @@
 /// Supports:
 /// - yt/youtube -> https://youtube.com/
 /// - yt [search terms] -> https://www.youtube.com/results?search_query=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct YouTubeCommand;
 
-impl BunnylolCommand for YouTubeCommand {
+impl BunnypmslCommand for YouTubeCommand {
     const BINDINGS: &'static [&'static str] = &["yt", "youtube"];
 
     fn process_args(args: &str) -> String {
@@ -23,8 +23,8 @@ impl BunnylolCommand for YouTubeCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to YouTube or search for videos".to_string(),
             example: "yt rust programming".to_string(),

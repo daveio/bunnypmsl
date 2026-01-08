@@ -1,9 +1,9 @@
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct GoogleMapsCommand;
 
-impl BunnylolCommand for GoogleMapsCommand {
+impl BunnypmslCommand for GoogleMapsCommand {
     const BINDINGS: &'static [&'static str] = &["gmaps", "maps"];
 
     fn process_args(args: &str) -> String {
@@ -17,8 +17,8 @@ impl BunnylolCommand for GoogleMapsCommand {
         format!("https://www.google.com/maps/search/{}/", encoded_query)
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Google Maps or search for a location".to_string(),
             example: "gmaps san francisco".to_string(),

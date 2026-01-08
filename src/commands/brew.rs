@@ -2,12 +2,12 @@
 /// Supports:
 /// - brew/homebrew -> https://formulae.brew.sh
 /// - brew [search terms] -> https://formulae.brew.sh/?search=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::encode_url;
 
 pub struct BrewCommand;
 
-impl BunnylolCommand for BrewCommand {
+impl BunnypmslCommand for BrewCommand {
     const BINDINGS: &'static [&'static str] = &["brew", "homebrew"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for BrewCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to formulae.brew.sh or search for Homebrew packages".to_string(),
             example: "brew wget".to_string(),

@@ -2,12 +2,12 @@
 /// Supports:
 /// - choco/chocolatey -> https://community.chocolatey.org
 /// - choco [search terms] -> https://community.chocolatey.org/packages?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct ChocoCommand;
 
-impl BunnylolCommand for ChocoCommand {
+impl BunnypmslCommand for ChocoCommand {
     const BINDINGS: &'static [&'static str] = &["choco", "chocolatey"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for ChocoCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to community.chocolatey.org or search for Windows packages"
                 .to_string(),

@@ -2,12 +2,12 @@
 /// Supports:
 /// - mdn -> https://developer.mozilla.org
 /// - mdn [search terms] -> https://developer.mozilla.org/en-US/search?q=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct MdnCommand;
 
-impl BunnylolCommand for MdnCommand {
+impl BunnypmslCommand for MdnCommand {
     const BINDINGS: &'static [&'static str] = &["mdn"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for MdnCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to MDN Web Docs or search for web development resources"
                 .to_string(),

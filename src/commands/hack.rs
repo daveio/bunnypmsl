@@ -2,12 +2,12 @@
 /// Supports:
 /// - hack -> https://docs.hhvm.com/hack/
 /// - hack [search terms] -> https://docs.hhvm.com/search?term=[search terms]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_search_url;
 
 pub struct HackCommand;
 
-impl BunnylolCommand for HackCommand {
+impl BunnypmslCommand for HackCommand {
     const BINDINGS: &'static [&'static str] = &["hack"];
 
     fn process_args(args: &str) -> String {
@@ -19,8 +19,8 @@ impl BunnylolCommand for HackCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to Hack documentation or search Hack docs".to_string(),
             example: "hack async".to_string(),

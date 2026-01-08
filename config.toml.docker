@@ -1,5 +1,5 @@
-# Bunnylol Configuration File
-# https://github.com/facebook/bunnylol.rs
+# Bunnypmsl Configuration File
+# https://github.com/facebook/bunnypmsl
 
 # Browser to open URLs in (optional)
 # Examples: "firefox", "chrome", "chromium", "safari"
@@ -20,7 +20,7 @@ default_search = "google"
 enabled = true
 max_entries = 1000
 
-# Server configuration (for bunnylol serve)
+# Server configuration (for bunnypmsl serve)
 [server]
 port = 8000
 address = "0.0.0.0"

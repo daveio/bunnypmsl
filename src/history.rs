@@ -9,7 +9,7 @@ use std::fs;
 use std::io::{BufRead, BufReader, Write};
 use std::path::PathBuf;
 
-use crate::config::BunnylolConfig;
+use crate::config::BunnypmslConfig;
 
 /// Command history entry
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -66,8 +66,8 @@ pub struct History {
 
 impl History {
     /// Create a new history manager
-    pub fn new(config: &BunnylolConfig) -> Option<Self> {
-        let path = BunnylolConfig::get_history_path()?;
+    pub fn new(config: &BunnypmslConfig) -> Option<Self> {
+        let path = BunnypmslConfig::get_history_path()?;
         Some(Self {
             path,
             max_entries: config.history.max_entries,

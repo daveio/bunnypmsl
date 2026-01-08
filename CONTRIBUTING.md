@@ -1,4 +1,4 @@
-# Contributing to bunnylol.rs
+# Contributing to bunnypmsl
 
 We actively welcome your feature-related pull requests, however, we will not be able to accept all contributions relating to adding / changing bindings. One benefit of open source software is that you can fork it and change whatever you would like to :)
 
@@ -15,5 +15,5 @@ We actively welcome your feature-related pull requests, however, we will not be 
 
 ## License
 
-By contributing to `bunnylol.rs`, you agree that your contributions will be
+By contributing to `bunnypmsl`, you agree that your contributions will be
 licensed under the [`LICENSE`](LICENSE) file in the root directory of this source tree.

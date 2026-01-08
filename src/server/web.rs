@@ -10,12 +10,12 @@ use std::sync::OnceLock;
 use leptos::*;
 use serde::{Deserialize, Serialize};
 
-use crate::{BunnylolCommandInfo, BunnylolCommandRegistry, BunnylolConfig};
+use crate::{BunnypmslCommandInfo, BunnypmslCommandRegistry, BunnypmslConfig};
 
 static LANDING_PAGE_HTML_CACHE: OnceLock<String> = OnceLock::new();
 
 /// Render the landing page HTML with the given config
-pub fn render_landing_page_html(config: &BunnylolConfig) -> String {
+pub fn render_landing_page_html(config: &BunnypmslConfig) -> String {
     LANDING_PAGE_HTML_CACHE
         .get_or_init(|| {
             let display_url = config.server.get_display_url();
@@ -33,7 +33,7 @@ pub fn render_landing_page_html(config: &BunnylolConfig) -> String {
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>bunnylol</title>
+                        <title>bunnypmsl</title>
                         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐰</text></svg>">
                         <link rel="preconnect" href="https://fonts.googleapis.com">
                         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,8 +88,8 @@ pub struct BindingData {
     pub example: String,
 }
 
-impl From<BunnylolCommandInfo> for BindingData {
-    fn from(info: BunnylolCommandInfo) -> Self {
+impl From<BunnypmslCommandInfo> for BindingData {
+    fn from(info: BunnypmslCommandInfo) -> Self {
         Self {
             command: info
                 .bindings
@@ -161,7 +161,7 @@ fn BindingCard(binding: BindingData) -> impl IntoView {
 
 #[component]
 pub fn LandingPage(server_display_url: String) -> impl IntoView {
-    let mut bindings: Vec<BindingData> = BunnylolCommandRegistry::get_all_commands()
+    let mut bindings: Vec<BindingData> = BunnypmslCommandRegistry::get_all_commands()
         .iter()
         .map(|cmd| (*cmd).clone().into())
         .collect();
@@ -170,7 +170,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
     bindings.sort_by(|a, b| a.command.to_lowercase().cmp(&b.command.to_lowercase()));
 
     // Clone server_display_url for use in the view
-    let example_url = format!("{}/?cmd=gh facebook/bunnylol.rs", server_display_url);
+    let example_url = format!("{}/?cmd=gh facebook/bunnypmsl", server_display_url);
 
     view! {
         <div
@@ -190,14 +190,14 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
                 style:font-size="3em"
                 style:font-weight="700"
             >
-                "bunnylol"
+                "bunnypmsl"
             </h1>
             <div
                 style:text-align="center"
                 style:margin-bottom="20px"
             >
                 <a
-                    href="https://github.com/facebook/bunnylol.rs"
+                    href="https://github.com/facebook/bunnypmsl"
                     target="_blank"
                     rel="noopener noreferrer"
                     style:color="var(--accent-blue)"
@@ -222,7 +222,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
                     <span>
                         <span style:color="var(--accent-purple)" style:font-weight="600">"facebook"</span>
                         <span style:color="var(--text-dark)" style:padding-left="2px" style:padding-right="2px">"/"</span>
-                        <span style:color="var(--accent-blue)" style:font-weight="600">"bunnylol.rs"</span>
+                        <span style:color="var(--accent-blue)" style:font-weight="600">"bunnypmsl"</span>
                     </span>
                 </a>
             </div>
@@ -270,7 +270,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
                     // Setup guides within web usage section
                     <div style:margin-top="15px">
                         <div style:font-weight="600" style:margin-bottom="15px" style:color="var(--text-dark)" style:font-size="1em" style:text-align="center">
-                            "Set bunnylol as your default search engine!"
+                            "Set bunnypmsl as your default search engine!"
                         </div>
                         <p style:margin-bottom="15px" style:text-align="center" style:color="var(--text-medium)" style:line-height="1.8" style:max-width="800" style:margin-left="auto" style:margin-right="auto">
                             "Once configured, just enter "
@@ -284,7 +284,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
                                 style:font-size="0.9em"
                                 style:white-space="nowrap"
                             >
-                                "gh facebook/bunnylol.rs"
+                                "gh facebook/bunnypmsl"
                             </code>
                             " in your address bar to get the same result."
                         </p>

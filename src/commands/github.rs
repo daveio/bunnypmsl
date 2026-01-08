@@ -1,11 +1,11 @@
 /// GitHub command handler
 /// Supports: gh, gh [user], gh [user/repo]
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 use crate::utils::url_encoding::build_path_url;
 
 pub struct GitHubCommand;
 
-impl BunnylolCommand for GitHubCommand {
+impl BunnypmslCommand for GitHubCommand {
     const BINDINGS: &'static [&'static str] = &["gh"];
 
     fn process_args(args: &str) -> String {
@@ -17,8 +17,8 @@ impl BunnylolCommand for GitHubCommand {
         }
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to GitHub repositories".to_string(),
             example: "gh facebook/react".to_string(),

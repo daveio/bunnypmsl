@@ -1,5 +1,5 @@
 #!/bin/bash
-# Auto-deployment script for bunnylol.rs
+# Auto-deployment script for bunnypmsl
 # Checks for upstream changes and redeploys if necessary
 #
 # This script is designed to be run by cron every 5 minutes.
@@ -12,7 +12,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Configuration (can be overridden by environment variables)
-LOG_FILE="${LOG_FILE:-/var/log/bunnylol-deploy.log}"
+LOG_FILE="${LOG_FILE:-/var/log/bunnypmsl-deploy.log}"
 BRANCH="${BRANCH:-main}"
 
 # Logging function
@@ -39,7 +39,7 @@ REMOTE=$(git rev-parse origin/$BRANCH)
 
 # Check if container is running
 CONTAINER_RUNNING=false
-if docker ps | grep -q bunnylol; then
+if docker ps | grep -q bunnypmsl; then
     CONTAINER_RUNNING=true
 fi
 
@@ -80,13 +80,13 @@ if curl -f http://localhost:8000/health > /dev/null 2>&1; then
     log "✓ Health check passed"
 else
     log "ERROR: Health check failed!"
-    docker compose logs --tail=50 bunnylol | tee -a "$LOG_FILE"
+    docker compose logs --tail=50 bunnypmsl | tee -a "$LOG_FILE"
     exit 1
 fi
 
 # Verify deployment
-if docker ps | grep -q bunnylol; then
-    CONTAINER_ID=$(docker ps --filter "name=bunnylol" --format "{{.ID}}")
+if docker ps | grep -q bunnypmsl; then
+    CONTAINER_ID=$(docker ps --filter "name=bunnypmsl" --format "{{.ID}}")
     CONTAINER_CREATED=$(docker inspect "$CONTAINER_ID" --format='{{.Created}}')
     NEW_COMMIT=$(git rev-parse HEAD)
     log "SUCCESS: Deployment completed"
@@ -95,7 +95,7 @@ if docker ps | grep -q bunnylol; then
     log "  Created at: $CONTAINER_CREATED"
 else
     log "ERROR: Container not running after deployment!"
-    docker compose logs --tail=50 bunnylol | tee -a "$LOG_FILE"
+    docker compose logs --tail=50 bunnypmsl | tee -a "$LOG_FILE"
     exit 1
 fi
 

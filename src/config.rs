@@ -10,9 +10,9 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 
-/// Configuration for bunnylol CLI
+/// Configuration for bunnypmsl CLI
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct BunnylolConfig {
+pub struct BunnypmslConfig {
     /// Browser to open URLs in (optional)
     /// Examples: "firefox", "chrome", "chromium", "safari"
     #[serde(default)]
@@ -31,12 +31,12 @@ pub struct BunnylolConfig {
     #[serde(default)]
     pub history: HistoryConfig,
 
-    /// Server configuration (for bunnylol serve)
+    /// Server configuration (for bunnypmsl serve)
     #[serde(default)]
     pub server: ServerConfig,
 }
 
-impl Default for BunnylolConfig {
+impl Default for BunnypmslConfig {
     fn default() -> Self {
         Self {
             browser: None,
@@ -69,7 +69,7 @@ impl Default for HistoryConfig {
     }
 }
 
-/// Configuration for bunnylol server
+/// Configuration for bunnypmsl server
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ServerConfig {
     /// Port to bind the server to
@@ -171,36 +171,36 @@ fn default_log_level() -> String {
     "normal".to_string()
 }
 
-impl BunnylolConfig {
-    /// Get the XDG base directories for bunnylol
+impl BunnypmslConfig {
+    /// Get the XDG base directories for bunnypmsl
     fn get_xdg_dirs() -> Option<xdg::BaseDirectories> {
-        Some(xdg::BaseDirectories::with_prefix("bunnylol"))
+        Some(xdg::BaseDirectories::with_prefix("bunnypmsl"))
     }
 
-    /// Get the XDG config directory path for bunnylol
-    /// Returns: $XDG_CONFIG_HOME/bunnylol (defaults to ~/.config/bunnylol)
+    /// Get the XDG config directory path for bunnypmsl
+    /// Returns: $XDG_CONFIG_HOME/bunnypmsl (defaults to ~/.config/bunnypmsl)
     pub fn get_config_dir() -> Option<PathBuf> {
         Self::get_xdg_dirs().and_then(|xdg| xdg.get_config_home())
     }
 
-    /// Get the XDG data directory path for bunnylol
-    /// Returns: $XDG_DATA_HOME/bunnylol (defaults to ~/.local/share/bunnylol)
+    /// Get the XDG data directory path for bunnypmsl
+    /// Returns: $XDG_DATA_HOME/bunnypmsl (defaults to ~/.local/share/bunnypmsl)
     pub fn get_data_dir() -> Option<PathBuf> {
         Self::get_xdg_dirs().and_then(|xdg| xdg.get_data_home())
     }
 
-    /// Get the XDG cache directory path for bunnylol
-    /// Returns: $XDG_CACHE_HOME/bunnylol (defaults to ~/.cache/bunnylol)
+    /// Get the XDG cache directory path for bunnypmsl
+    /// Returns: $XDG_CACHE_HOME/bunnypmsl (defaults to ~/.cache/bunnypmsl)
     pub fn get_cache_dir() -> Option<PathBuf> {
         Self::get_xdg_dirs().and_then(|xdg| xdg.get_cache_home())
     }
 
     /// Get the full path to the config file
-    /// Returns: /etc/bunnylol/config.toml (system-wide, preferred)
-    ///       or $XDG_CONFIG_HOME/bunnylol/config.toml (user-specific fallback)
+    /// Returns: /etc/bunnypmsl/config.toml (system-wide, preferred)
+    ///       or $XDG_CONFIG_HOME/bunnypmsl/config.toml (user-specific fallback)
     pub fn get_config_path() -> Option<PathBuf> {
         // Check system-wide config first
-        let system_config = PathBuf::from("/etc/bunnylol/config.toml");
+        let system_config = PathBuf::from("/etc/bunnypmsl/config.toml");
         let user_config = Self::get_config_dir().map(|dir| dir.join("config.toml"));
 
         if system_config.exists() {
@@ -221,11 +221,11 @@ impl BunnylolConfig {
     }
 
     /// Get the full path to the config file for writing
-    /// Returns: /etc/bunnylol/config.toml if writable (running as root)
-    ///       or $XDG_CONFIG_HOME/bunnylol/config.toml otherwise
+    /// Returns: /etc/bunnypmsl/config.toml if writable (running as root)
+    ///       or $XDG_CONFIG_HOME/bunnypmsl/config.toml otherwise
     pub fn get_config_path_for_writing() -> Option<PathBuf> {
-        // If running as root (or /etc/bunnylol exists and is writable), use system config
-        let system_config_dir = PathBuf::from("/etc/bunnylol");
+        // If running as root (or /etc/bunnypmsl exists and is writable), use system config
+        let system_config_dir = PathBuf::from("/etc/bunnypmsl");
         if system_config_dir.exists() || std::fs::create_dir_all(&system_config_dir).is_ok() {
             return Some(system_config_dir.join("config.toml"));
         }
@@ -235,7 +235,7 @@ impl BunnylolConfig {
     }
 
     /// Get the full path to the history file
-    /// Returns: $XDG_DATA_HOME/bunnylol/history
+    /// Returns: $XDG_DATA_HOME/bunnypmsl/history
     pub fn get_history_path() -> Option<PathBuf> {
         Self::get_data_dir().map(|dir| dir.join("history"))
     }
@@ -288,11 +288,11 @@ impl BunnylolConfig {
     /// Convert config to TOML string with helpful comments
     fn to_toml_with_comments(&self) -> String {
         format!(
-            r#"# Bunnylol Configuration File
-# https://github.com/facebook/bunnylol.rs
+            r#"# Bunnypmsl Configuration File
+# https://github.com/facebook/bunnypmsl
 #
 # NOTE: Configuration is loaded once at server startup.
-#       You must restart the server (bunnylol serve) to apply changes.
+#       You must restart the server (bunnypmsl serve) to apply changes.
 
 # Browser to open URLs in (optional)
 # Examples: "firefox", "chrome", "chromium", "safari"
@@ -313,7 +313,7 @@ default_search = "{}"
 enabled = {}
 max_entries = {}
 
-# Server configuration (for bunnylol serve)
+# Server configuration (for bunnypmsl serve)
 # server_display_url: Public-facing URL shown in the bindings page
 #   Smart defaults when protocol is omitted:
 #     - "bunny.example.com" → "https://bunny.example.com"
@@ -385,7 +385,7 @@ mod tests {
 
     #[test]
     fn test_default_config() {
-        let config = BunnylolConfig::default();
+        let config = BunnypmslConfig::default();
         assert_eq!(config.browser, None);
         assert_eq!(config.default_search, "google");
         assert!(config.aliases.is_empty());
@@ -399,7 +399,7 @@ mod tests {
 
     #[test]
     fn test_resolve_command_with_alias() {
-        let mut config = BunnylolConfig::default();
+        let mut config = BunnypmslConfig::default();
         config
             .aliases
             .insert("work".to_string(), "gh mycompany".to_string());
@@ -410,7 +410,7 @@ mod tests {
 
     #[test]
     fn test_get_search_url_google() {
-        let config = BunnylolConfig::default();
+        let config = BunnypmslConfig::default();
         let url = config.get_search_url("hello world");
         assert!(url.starts_with("https://www.google.com/search?q="));
         assert!(url.contains("hello"));
@@ -419,7 +419,7 @@ mod tests {
 
     #[test]
     fn test_get_search_url_ddg() {
-        let mut config = BunnylolConfig::default();
+        let mut config = BunnypmslConfig::default();
         config.default_search = "ddg".to_string();
         let url = config.get_search_url("test query");
         assert!(url.starts_with("https://duckduckgo.com/?q="));
@@ -427,7 +427,7 @@ mod tests {
 
     #[test]
     fn test_get_search_url_bing() {
-        let mut config = BunnylolConfig::default();
+        let mut config = BunnypmslConfig::default();
         config.default_search = "bing".to_string();
         let url = config.get_search_url("test query");
         assert!(url.starts_with("https://www.bing.com/search?q="));
@@ -462,7 +462,7 @@ mod tests {
             log_level = "debug"
         "#;
 
-        let config: BunnylolConfig = toml::from_str(toml_str).unwrap();
+        let config: BunnypmslConfig = toml::from_str(toml_str).unwrap();
         assert_eq!(config.browser, Some("firefox".to_string()));
         assert_eq!(config.default_search, "ddg");
         assert_eq!(
@@ -570,7 +570,7 @@ mod tests {
             server_display_url = "bunny.alichtman.com"
         "#;
 
-        let config: BunnylolConfig = toml::from_str(toml_str).unwrap();
+        let config: BunnypmslConfig = toml::from_str(toml_str).unwrap();
         assert_eq!(
             config.server.server_display_url,
             Some("bunny.alichtman.com".to_string())

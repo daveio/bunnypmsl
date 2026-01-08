@@ -1,10 +1,10 @@
 /// Claude command handler
 /// Supports: claude -> redirects to claude.ai
-use crate::commands::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
 
 pub struct ClaudeCommand;
 
-impl BunnylolCommand for ClaudeCommand {
+impl BunnypmslCommand for ClaudeCommand {
     const BINDINGS: &'static [&'static str] = &["claude"];
 
     fn process_args(args: &str) -> String {
@@ -31,8 +31,8 @@ impl BunnylolCommand for ClaudeCommand {
         result
     }
 
-    fn get_info() -> BunnylolCommandInfo {
-        BunnylolCommandInfo {
+    fn get_info() -> BunnypmslCommandInfo {
+        BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description:
                 "Navigate to Claude AI (supports: billing, cost, artifacts, chats, projects)"

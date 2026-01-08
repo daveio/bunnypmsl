@@ -1,25 +1,25 @@
 [package]
-name = "bunnylol"
+name = "bunnypmsl"
 version = "0.1.2"
 authors = ["Aaron Lichtman <alichtman@meta.com>", "Joe Previte <jprevite@fb.com>"]
 edition = "2024"
 description = "Smart bookmark server and CLI: URL shortcuts for your browser's search bar and terminal"
 license = "MIT"
-repository = "https://github.com/facebook/bunnylol.rs"
+repository = "https://github.com/facebook/bunnypmsl"
 readme = "README.md"
-homepage = "https://github.com/facebook/bunnylol.rs"
+homepage = "https://github.com/facebook/bunnypmsl"
 keywords = ["browser", "bookmarks", "shortcuts", "url", "search"]
 categories = ["command-line-utilities", "web-programming::http-server", "development-tools"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "bunnylol"
+name = "bunnypmsl"
 path = "src/lib.rs"
 crate-type = ["rlib", "dylib"]  # Enable dynamic linking for faster dev builds
 
 [[bin]]
-name = "bunnylol"
+name = "bunnypmsl"
 path = "src/main.rs"
 
 [dependencies]
@@ -33,7 +33,7 @@ xdg = "3.0"
 clap = { version = "4.5", features = ["derive"] }
 
 # Async runtime (used by server, available to CLI)
-tokio = { version = "1.47", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.49", features = ["macros", "rt-multi-thread"] }
 
 # These are marked as optional so that we can optimize the size of each binary
 # They are all needed for one or the other
@@ -61,7 +61,7 @@ server = ["rocket", "leptos", "leptos_meta"]
 cli = ["open", "tabled", "terminal_size", "whoami", "service-manager", "which", "clap_complete"]
 
 [dev-dependencies]
-assert_cmd = "2.0"
+assert_cmd = "2.1"
 predicates = "3.1"
 
 [profile.release]
