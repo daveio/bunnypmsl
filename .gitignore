@@ -11,3 +11,10 @@ data/
 # Watchman
 .watchmanconfig
 .watchman-cookie-*
+
+# IntelliJ
+.idea/
+
+# macOS
+.DS_Store
+
