@@ -1,13 +1,13 @@
 [package]
 name = "bunnypmsl"
-version = "0.1.2"
-authors = ["Aaron Lichtman <alichtman@meta.com>", "Joe Previte <jprevite@fb.com>"]
+version = "0.0.0-pre1"
+authors = ["Dave Williams <dave@dave.io>"]
 edition = "2024"
-description = "Smart bookmark server and CLI: URL shortcuts for your browser's search bar and terminal"
+description = "Custom fork of bunnylol.rs"
 license = "MIT"
-repository = "https://github.com/facebook/bunnypmsl"
+repository = "https://github.com/daveio/bunnypmsl"
 readme = "README.md"
-homepage = "https://github.com/facebook/bunnypmsl"
+homepage = "https://github.com/daveio/bunnypmsl"
 keywords = ["browser", "bookmarks", "shortcuts", "url", "search"]
 categories = ["command-line-utilities", "web-programming::http-server", "development-tools"]
 

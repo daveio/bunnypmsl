@@ -2,9 +2,9 @@
 
 [![Crates.io](https://img.shields.io/crates/v/bunnypmsl.svg?style=flat-square)](https://crates.io/crates/bunnypmsl)
 [![Downloads](https://img.shields.io/crates/d/bunnypmsl.svg?style=flat-square)](https://crates.io/crates/bunnypmsl)
-[![Contributors](https://img.shields.io/github/contributors/facebook/bunnypmsl.svg?style=flat-square)](https://github.com/facebook/bunnypmsl/graphs/contributors)
-[![Stargazers](https://img.shields.io/github/stars/facebook/bunnypmsl.svg?style=flat-square)](https://github.com/facebook/bunnypmsl/stargazers)
-[![License](https://img.shields.io/github/license/facebook/bunnypmsl?style=flat-square)](https://github.com/facebook/bunnypmsl/blob/master/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors/daveio/bunnypmsl.svg?style=flat-square)](https://github.com/daveio/bunnypmsl/graphs/contributors)
+[![Stargazers](https://img.shields.io/github/stars/daveio/bunnypmsl.svg?style=flat-square)](https://github.com/daveio/bunnypmsl/stargazers)
+[![License](https://img.shields.io/github/license/daveio/bunnypmsl?style=flat-square)](https://github.com/daveio/bunnypmsl/blob/master/LICENSE)
 
 <p align="center">
     A modern rust clone of <a href="https://github.com/ccheever/bunny1">bunny1</a>.
@@ -41,7 +41,7 @@ Or build from source:
 
 ```sh
 # Clone the repository
-$ git clone https://github.com/facebook/bunnypmsl.git
+$ git clone https://github.com/daveio/bunnypmsl.git
 $ cd bunnypmsl
 
 # Install both CLI and server
@@ -80,17 +80,17 @@ $ bunnypmsl list
 
 ### Quick Examples
 
-| CLI Command | What it does |
-|-------------|-------------|
-| `bunnypmsl gh` | Open GitHub homepage |
-| `bunnypmsl gh facebook/react` | Open facebook/react repository |
-| `bunnypmsl ig reels` | Open Instagram Reels |
-| `bunnypmsl tw @facebook` | Open Twitter profile |
-| `bunnypmsl r r/rust` | Open r/rust subreddit |
-| `bunnypmsl --dry-run meta ai` | Print Meta AI URL without opening |
-| `bunnypmsl --help` | Show help information |
-| `bunnypmsl --version` | Show version information |
-| `bunnypmsl list` | Display all commands in a formatted table |
+| CLI Command                   | What it does                              |
+| ----------------------------- | ----------------------------------------- |
+| `bunnypmsl gh`                | Open GitHub homepage                      |
+| `bunnypmsl gh facebook/react` | Open facebook/react repository            |
+| `bunnypmsl ig reels`          | Open Instagram Reels                      |
+| `bunnypmsl tw @facebook`      | Open Twitter profile                      |
+| `bunnypmsl r r/rust`          | Open r/rust subreddit                     |
+| `bunnypmsl --dry-run meta ai` | Print Meta AI URL without opening         |
+| `bunnypmsl --help`            | Show help information                     |
+| `bunnypmsl --version`         | Show version information                  |
+| `bunnypmsl list`              | Display all commands in a formatted table |
 
 ### Recommended: Create a Shell Alias
 
@@ -115,10 +115,12 @@ The bunnypmsl CLI supports optional configuration via a TOML file following the 
 Bunnypmsl uses different config file locations depending on how it's run:
 
 **For CLI and manual server usage (`bunnypmsl serve`):**
+
 - **Linux/macOS**: `~/.config/bunnypmsl/config.toml` (or `$XDG_CONFIG_HOME/bunnypmsl/config.toml` if set)
 - **Windows**: `%APPDATA%\bunnypmsl\config.toml`
 
 **For system service (`sudo bunnypmsl service install`):**
+
 - **Linux**: `/etc/bunnypmsl/config.toml`
 
 The config file is automatically created with sensible defaults when you first run bunnypmsl.
@@ -150,6 +152,7 @@ dotfiles = "gh username/dotfiles"
 ```
 
 Then use them like any built-in command:
+
 ```sh
 $ bunnypmsl work
 # Opens: https://github.com/mycompany
@@ -179,6 +182,7 @@ max_entries = 1000
 ```
 
 History is stored at:
+
 - **Linux/macOS**: `~/.local/share/bunnypmsl/history` (or `$XDG_DATA_HOME/bunnypmsl/history` if set)
 - **Windows**: `%APPDATA%\bunnypmsl\history`
 
@@ -220,13 +224,13 @@ server_display_url = "https://bunny.example.com"  # Public URL shown on bindings
 
 The CLI uses platform-appropriate directories for configuration and data:
 
-| Platform | Type | Path |
-|----------|------|------|
-| **Linux/macOS** | User Config | `~/.config/bunnypmsl/config.toml`<br>(or `$XDG_CONFIG_HOME/bunnypmsl/config.toml`) |
-| **Linux** | System Config | `/etc/bunnypmsl/config.toml`<br>(when running as system service) |
-| **Linux/macOS** | Data | `~/.local/share/bunnypmsl/`<br>(or `$XDG_DATA_HOME/bunnypmsl/`) |
-| **Windows** | Config | `%APPDATA%\bunnypmsl\config.toml` |
-| **Windows** | Data | `%APPDATA%\bunnypmsl\` |
+| Platform        | Type          | Path                                                                               |
+| --------------- | ------------- | ---------------------------------------------------------------------------------- |
+| **Linux/macOS** | User Config   | `~/.config/bunnypmsl/config.toml`<br>(or `$XDG_CONFIG_HOME/bunnypmsl/config.toml`) |
+| **Linux**       | System Config | `/etc/bunnypmsl/config.toml`<br>(when running as system service)                   |
+| **Linux/macOS** | Data          | `~/.local/share/bunnypmsl/`<br>(or `$XDG_DATA_HOME/bunnypmsl/`)                    |
+| **Windows**     | Config        | `%APPDATA%\bunnypmsl\config.toml`                                                  |
+| **Windows**     | Data          | `%APPDATA%\bunnypmsl\`                                                             |
 
 ## Quickstart - Web Server
 
@@ -239,7 +243,7 @@ $ bunnypmsl serve
 Or use Docker:
 
 ```sh
-$ git clone https://github.com/facebook/bunnypmsl.git
+$ git clone https://github.com/daveio/bunnypmsl.git
 $ cd bunnypmsl
 $ docker compose up -d
 ```
@@ -247,7 +251,7 @@ $ docker compose up -d
 Or build from source:
 
 ```sh
-$ git clone https://github.com/facebook/bunnypmsl.git
+$ git clone https://github.com/daveio/bunnypmsl.git
 $ cd bunnypmsl
 $ cargo run -- serve
 ```
@@ -283,10 +287,12 @@ $ sudo bunnypmsl service uninstall
 ```
 
 **Network Access:**
+
 - **Without `--network`** (default): Binds to `127.0.0.1` (localhost only, secure default)
 - **With `--network`**: Binds to `0.0.0.0` (accessible from network, for production servers)
 
 The service installer works on:
+
 - **Linux**: `systemd` (Ubuntu 16.04+, Debian 8+, CentOS 7+, etc.)
 
 **macOS and Windows:** Use Docker instead (see above) or run `bunnypmsl serve` directly.
@@ -295,7 +301,7 @@ For more details, see the [Deployment Guide](deploy/DEPLOYMENT.md).
 
 Open your web browser and navigate to `http://localhost:8000/?cmd=fb` to get redirected to Facebook.
 
-Open `http://localhost:8000/?cmd=gh facebook/bunnypmsl` to be redirected to this repo.
+Open `http://localhost:8000/?cmd=gh daveio/bunnypmsl` to be redirected to this repo.
 
 ## Setting `bunnypmsl` to be your default search engine
 
@@ -313,13 +319,16 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 **Note:** iOS Safari does not support custom search engines, so you'll need to use Firefox (or another browser that does) instead.
 
 #### iOS (Firefox)
+
 1. Install Firefox and [set it as the default browser](https://support.covenanteyes.com/hc/en-us/articles/12223357002267-How-do-I-set-a-default-browser-on-an-iPhone)
 2. Change your [default search engine in Firefox for iOS](https://support.mozilla.org/en-US/kb/change-your-default-search-engine-firefox-ios)
 
 #### Android (Firefox)
+
 - [Guide for managing default search engines in Firefox for Android](https://support.mozilla.org/en-US/kb/manage-my-default-search-engines-firefox-android)
 
 <!-- USAGE EXAMPLES -->
+
 ## Command Reference
 
 <details>
@@ -329,88 +338,88 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 
 ### Development & Package Managers
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `gh` | — | Navigate to GitHub repositories | `gh facebook/react` |
-| `gitlab` | `gl` | Navigate to GitLab projects or search GitLab | `gitlab gitlab-org/gitlab` |
-| `cargo` | `crates` | Navigate to crates.io or search for Rust crates | `cargo serde` |
-| `npm` | `npmjs` | Navigate to npmjs.com or search for npm packages | `npm react` |
-| `pypi` | `pip` | Navigate to pypi.org or search for Python packages | `pypi requests` |
-| `rubygems` | `gem`, `gems` | Navigate to rubygems.org or search for Ruby gems | `gem rails` |
-| `go` | `golang`, `gopkg` | Navigate to pkg.go.dev or search for Go packages | `go http` |
-| `nuget` | — | Navigate to nuget.org or search for .NET packages | `nuget newtonsoft` |
-| `packagist` | `composer` | Navigate to packagist.org or search for PHP packages | `packagist symfony` |
-| `brew` | `homebrew` | Navigate to formulae.brew.sh or search for Homebrew packages | `brew wget` |
-| `choco` | `chocolatey` | Navigate to community.chocolatey.org or search for Windows packages | `choco git` |
-| `dockerhub` | `docker` | Navigate to Docker Hub or search for container images | `docker nginx` |
+| Command     | Aliases           | Description                                                         | Example                    |
+| ----------- | ----------------- | ------------------------------------------------------------------- | -------------------------- |
+| `gh`        | —                 | Navigate to GitHub repositories                                     | `gh facebook/react`        |
+| `gitlab`    | `gl`              | Navigate to GitLab projects or search GitLab                        | `gitlab gitlab-org/gitlab` |
+| `cargo`     | `crates`          | Navigate to crates.io or search for Rust crates                     | `cargo serde`              |
+| `npm`       | `npmjs`           | Navigate to npmjs.com or search for npm packages                    | `npm react`                |
+| `pypi`      | `pip`             | Navigate to pypi.org or search for Python packages                  | `pypi requests`            |
+| `rubygems`  | `gem`, `gems`     | Navigate to rubygems.org or search for Ruby gems                    | `gem rails`                |
+| `go`        | `golang`, `gopkg` | Navigate to pkg.go.dev or search for Go packages                    | `go http`                  |
+| `nuget`     | —                 | Navigate to nuget.org or search for .NET packages                   | `nuget newtonsoft`         |
+| `packagist` | `composer`        | Navigate to packagist.org or search for PHP packages                | `packagist symfony`        |
+| `brew`      | `homebrew`        | Navigate to formulae.brew.sh or search for Homebrew packages        | `brew wget`                |
+| `choco`     | `chocolatey`      | Navigate to community.chocolatey.org or search for Windows packages | `choco git`                |
+| `dockerhub` | `docker`          | Navigate to Docker Hub or search for container images               | `docker nginx`             |
 
 ### Programming Documentation
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `rust` | — | Navigate to Rust documentation or search Rust std docs | `rust HashMap` |
-| `python` | `pydocs`, `py` | Navigate to Python documentation or search for Python resources | `python list` |
-| `node` | `nodejs` | Navigate to Node.js API documentation or specific module docs | `node fs` |
-| `godocs` | — | Navigate to Go language documentation | `godocs` |
-| `hack` | — | Navigate to Hack documentation or search Hack docs | `hack async` |
-| `mdn` | — | Navigate to MDN Web Docs or search for web development resources | `mdn flexbox` |
-| `stackoverflow` | `so` | Navigate to Stack Overflow or search for programming questions | `so rust ownership` |
+| Command         | Aliases        | Description                                                      | Example             |
+| --------------- | -------------- | ---------------------------------------------------------------- | ------------------- |
+| `rust`          | —              | Navigate to Rust documentation or search Rust std docs           | `rust HashMap`      |
+| `python`        | `pydocs`, `py` | Navigate to Python documentation or search for Python resources  | `python list`       |
+| `node`          | `nodejs`       | Navigate to Node.js API documentation or specific module docs    | `node fs`           |
+| `godocs`        | —              | Navigate to Go language documentation                            | `godocs`            |
+| `hack`          | —              | Navigate to Hack documentation or search Hack docs               | `hack async`        |
+| `mdn`           | —              | Navigate to MDN Web Docs or search for web development resources | `mdn flexbox`       |
+| `stackoverflow` | `so`           | Navigate to Stack Overflow or search for programming questions   | `so rust ownership` |
 
 ### Social Media
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `ig` | `instagram` | Navigate to Instagram profiles, search, or access Reels/Messages | `ig @instagram` |
-| `tw` | — | Navigate to Twitter profiles or search Twitter | `tw @MetaOpenSource` |
-| `threads` | — | Navigate to Threads profiles or search Threads | `threads @zuck` |
-| `fb` | — | Navigate to Facebook pages or search Facebook | `fb Meta` |
-| `li` | `linkedin` | Navigate to LinkedIn or search | `li software engineer` |
-| `reddit` | `r` | Navigate to Reddit or search subreddits | `r r/rust` |
-| `yt` | `youtube` | Navigate to YouTube or search for videos (supports: `studio`, `subs`) | `yt rust programming` |
-| `wa` | `whatsapp` | Navigate to WhatsApp | `wa` |
+| Command   | Aliases     | Description                                                           | Example                |
+| --------- | ----------- | --------------------------------------------------------------------- | ---------------------- |
+| `ig`      | `instagram` | Navigate to Instagram profiles, search, or access Reels/Messages      | `ig @instagram`        |
+| `tw`      | —           | Navigate to Twitter profiles or search Twitter                        | `tw @MetaOpenSource`   |
+| `threads` | —           | Navigate to Threads profiles or search Threads                        | `threads @zuck`        |
+| `fb`      | —           | Navigate to Facebook pages or search Facebook                         | `fb Meta`              |
+| `li`      | `linkedin`  | Navigate to LinkedIn or search                                        | `li software engineer` |
+| `reddit`  | `r`         | Navigate to Reddit or search subreddits                               | `r r/rust`             |
+| `yt`      | `youtube`   | Navigate to YouTube or search for videos (supports: `studio`, `subs`) | `yt rust programming`  |
+| `wa`      | `whatsapp`  | Navigate to WhatsApp                                                  | `wa`                   |
 
 ### Google Services
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `g` | (default) | Search Google (default fallback for any unrecognized command) | `g rust programming` |
-| `gmail` | `mail` | Navigate to Gmail | `mail` |
-| `docs` | `gdoc` | Navigate to Google Docs | `docs` |
-| `gsheets` | — | Navigate to Google Sheets | `gsheets` |
-| `gslides` | — | Navigate to Google Slides | `gslides` |
-| `gchat` | — | Navigate to Google Chat | `gchat` |
-| `gmaps` | `maps` | Navigate to Google Maps or search for a location | `gmaps san francisco` |
+| Command   | Aliases   | Description                                                   | Example               |
+| --------- | --------- | ------------------------------------------------------------- | --------------------- |
+| `g`       | (default) | Search Google (default fallback for any unrecognized command) | `g rust programming`  |
+| `gmail`   | `mail`    | Navigate to Gmail                                             | `mail`                |
+| `docs`    | `gdoc`    | Navigate to Google Docs                                       | `docs`                |
+| `gsheets` | —         | Navigate to Google Sheets                                     | `gsheets`             |
+| `gslides` | —         | Navigate to Google Slides                                     | `gslides`             |
+| `gchat`   | —         | Navigate to Google Chat                                       | `gchat`               |
+| `gmaps`   | `maps`    | Navigate to Google Maps or search for a location              | `gmaps san francisco` |
 
 ### Meta / AI Services
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `meta` | `metaai` | Navigate to Meta, Meta AI, Meta Accounts Center, or Meta Pay | `meta accounts` |
-| `claude` | — | Navigate to Claude AI (supports: `billing`, `cost`, `artifacts`, `chats`, `projects`) | `claude projects` |
-| `chatgpt` | — | Navigate to ChatGPT | `chatgpt` |
+| Command   | Aliases  | Description                                                                           | Example           |
+| --------- | -------- | ------------------------------------------------------------------------------------- | ----------------- |
+| `meta`    | `metaai` | Navigate to Meta, Meta AI, Meta Accounts Center, or Meta Pay                          | `meta accounts`   |
+| `claude`  | —        | Navigate to Claude AI (supports: `billing`, `cost`, `artifacts`, `chats`, `projects`) | `claude projects` |
+| `chatgpt` | —        | Navigate to ChatGPT                                                                   | `chatgpt`         |
 
 ### Shopping & Finance
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `az` | `amzn`, `azn`, `amazon` | Navigate to Amazon or search for products | `az headphones` |
-| `rei` | — | Navigate to REI or search for outdoor gear | `rei hiking boots` |
-| `schwab` | — | Charles Schwab shortcuts (`billpay`, `orders`, `trade`, `transfer`, `security`, `contact`) | `schwab trade` |
-| `stock` | `stocks`, `finance`, `$<ticker>` | Look up stock prices on Yahoo Finance | `stock META` or `$META` |
+| Command  | Aliases                          | Description                                                                                | Example                 |
+| -------- | -------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------- |
+| `az`     | `amzn`, `azn`, `amazon`          | Navigate to Amazon or search for products                                                  | `az headphones`         |
+| `rei`    | —                                | Navigate to REI or search for outdoor gear                                                 | `rei hiking boots`      |
+| `schwab` | —                                | Charles Schwab shortcuts (`billpay`, `orders`, `trade`, `transfer`, `security`, `contact`) | `schwab trade`          |
+| `stock`  | `stocks`, `finance`, `$<ticker>` | Look up stock prices on Yahoo Finance                                                      | `stock META` or `$META` |
 
 ### Other Services
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
-| `1password` | `1p`, `onepassword` | 1Password home page | `1p` |
-| `soundcloud` | `sc` | Navigate to SoundCloud (supports: `likes`) | `sc edm` |
-| `wiki` | `wikipedia` | Search on Wikipedia | `wiki rust programming` |
-| `ddg` | `duckduckgo` | Search DuckDuckGo | `ddg rust programming` |
+| Command      | Aliases             | Description                                | Example                 |
+| ------------ | ------------------- | ------------------------------------------ | ----------------------- |
+| `1password`  | `1p`, `onepassword` | 1Password home page                        | `1p`                    |
+| `soundcloud` | `sc`                | Navigate to SoundCloud (supports: `likes`) | `sc edm`                |
+| `wiki`       | `wikipedia`         | Search on Wikipedia                        | `wiki rust programming` |
+| `ddg`        | `duckduckgo`        | Search DuckDuckGo                          | `ddg rust programming`  |
 
 ### Bunnypmsl Development Tools
 
-| Command | Aliases | Description | Example |
-|---------|---------|-------------|---------|
+| Command    | Aliases                                             | Description                                         | Example    |
+| ---------- | --------------------------------------------------- | --------------------------------------------------- | ---------- |
 | `bindings` | `commmands`, `list`, `bunny`, `cmd`, `cmds`, `help` | View all Bunnypmsl command bindings in a web portal | `bindings` |
 
 ### Special Syntax
@@ -426,14 +435,14 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 
 ### Built With
 
-
-* [Rust](https://www.rust-lang.org/)
-* [Rocket](https://rocket.rs/) - Web framework
-* [Leptos](https://leptos.dev/) - Frontend framework for the bindings page
-* [clap](https://github.com/clap-rs/clap) - CLI argument parser
-* [tabled](https://github.com/zhiburt/tabled) - Beautiful terminal tables
+- [Rust](https://www.rust-lang.org/)
+- [Rocket](https://rocket.rs/) - Web framework
+- [Leptos](https://leptos.dev/) - Frontend framework for the bindings page
+- [clap](https://github.com/clap-rs/clap) - CLI argument parser
+- [tabled](https://github.com/zhiburt/tabled) - Beautiful terminal tables
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 See the [Installation](#installation) section to install bunnypmsl from crates.io.
@@ -445,7 +454,7 @@ To build from source or contribute to the project, see [Manual Setup](#manual-se
 Make sure you have [Rust installed](https://rust-lang.org/tools/install/).
 
 ```sh
-$ git clone https://github.com/facebook/bunnypmsl.git
+$ git clone https://github.com/daveio/bunnypmsl.git
 $ cd bunnypmsl
 
 # Run the web server
@@ -475,6 +484,7 @@ The application will be running at `http://localhost:8000` by default.
 ### Where to Deploy
 
 Docker makes it easy to deploy anywhere:
+
 - Any cloud provider (AWS, GCP, Azure, DigitalOcean, Hetzner, etc.)
 - VPS / home servers
 
@@ -490,6 +500,6 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information
 
 ## Acknowledgments
 
-* [The Rust Community](https://www.rust-lang.org/community)
-* [Rocket.rs](https://rocket.rs/)
-* [@othneildrew](https://github.com/othneildrew) - for the [README template](https://github.com/othneildrew/Best-README-Template)
+- [The Rust Community](https://www.rust-lang.org/community)
+- [Rocket.rs](https://rocket.rs/)
+- [@othneildrew](https://github.com/othneildrew) - for the [README template](https://github.com/othneildrew/Best-README-Template)

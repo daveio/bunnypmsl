@@ -7,11 +7,11 @@ We actively welcome your feature-related pull requests, however, we will not be 
 1. Fork the repo and create your branch from `main`.
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
 3. Commit your changes.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the tests pass (`cargo test`).
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-6. Open a pull request
+4. If you've added code that should be tested, add tests.
+5. If you've changed APIs, update the documentation.
+6. Ensure the tests pass (`cargo test`).
+7. Push to the branch (`git push origin feature/AmazingFeature`)
+8. Open a pull request
 
 ## License
 

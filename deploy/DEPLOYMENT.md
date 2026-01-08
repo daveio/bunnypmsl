@@ -95,10 +95,12 @@ $ sudo bunnypmsl service install --network
 ```
 
 **Network Access:**
+
 - **Without `--network`** (default): Binds to `127.0.0.1` (localhost only, secure default)
 - **With `--network`**: Binds to `0.0.0.0` (accessible from network, for production servers)
 
 Configuration is managed through the system config file at `/etc/bunnypmsl/config.toml`:
+
 - **Port**: 8000 (default)
 - **Address**: 127.0.0.1 (default) or 0.0.0.0 (with `--network` flag)
 - **Autostart**: Enabled (always)
@@ -144,6 +146,7 @@ log_level = "normal"     # Options: normal, debug, critical
 ```
 
 **Network Access:**
+
 - `address = "127.0.0.1"` - Localhost only (secure default, installed without `--network`)
 - `address = "0.0.0.0"` - Network accessible (production servers, installed with `--network`)
 
@@ -176,9 +179,9 @@ $ sudo bunnypmsl service uninstall
 
 Native service installation is **not supported** on macOS or Windows.
 
-Recommended alternatives:**
- **Docker**: Use `docker compose up -d` (see [Docker Deployment](#docker-deployment))
- **Direct run**: Use `bunnypmsl serve` (runs in foreground, doesn't auto-start on boot)
+Recommended alternatives:\*\*
+**Docker**: Use `docker compose up -d` (see [Docker Deployment](#docker-deployment))
+**Direct run**: Use `bunnypmsl serve` (runs in foreground, doesn't auto-start on boot)
 
 ---
 
@@ -191,26 +194,31 @@ Docker provides an alternative deployment method that's useful for containerized
 The easiest way to deploy bunnypmsl with Docker is using Docker Compose:
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/facebook/bunnypmsl.git
    cd bunnypmsl
    ```
 
 2. **Start the service**:
+
    ```bash
    docker compose up -d
    ```
 
    To use a custom port, set the `BUNNYPMSL_PORT` environment variable:
+
    ```bash
    BUNNYPMSL_PORT=9000 docker compose up -d
    ```
+
    This maps port 9000 on the host to port 8000 in the container.
 
 3. **Access the application**:
    Open your browser to `http://localhost:8000`
 
 4. **View logs**:
+
    ```bash
    docker compose logs -f
    ```
@@ -223,6 +231,7 @@ The easiest way to deploy bunnypmsl with Docker is using Docker Compose:
 ### Using Docker directly
 
 1. **Build the image**:
+
    ```bash
    docker build -t bunnypmsl .
    ```
@@ -249,6 +258,7 @@ docker compose up --build -d
 ```
 
 This command will:
+
 - Build a new image with your latest changes
 - Stop the old container
 - Start a new container with the updated image
@@ -268,17 +278,20 @@ docker compose up -d
 If your server is running on a remote machine (e.g., Hetzner, AWS, etc.):
 
 1. **SSH into your server and navigate to the project directory**:
+
    ```bash
    ssh your-server
    cd bunnypmsl
    ```
 
 2. **Pull the latest changes** (if using Git):
+
    ```bash
    git pull
    ```
 
 3. **Rebuild and redeploy**:
+
    ```bash
    docker compose up --build -d
    ```
@@ -300,6 +313,7 @@ ssh your-server "cd bunnypmsl && git pull && docker compose up --build -d"
 ### Verifying the Deployment
 
 After rebuilding, check that:
+
 - The container was created recently: `docker ps` (check CREATED column)
 - The application is running: `curl http://localhost:8000/health`
 - Logs look healthy: `docker logs --tail=50 bunnypmsl`
@@ -311,6 +325,7 @@ For production servers, you can set up automatic deployment that checks for upst
 ### How It Works
 
 The auto-deployment system:
+
 1. Checks for new commits on the remote repository every 5 minutes
 2. If changes are detected, pulls them and rebuilds the Docker container
 3. Logs all activity to `/var/log/bunnypmsl-deploy.log`
@@ -331,6 +346,7 @@ ssh your-server "sudo /root/bunnypmsl/deploy/setup-auto-deploy.sh"
 ```
 
 This will:
+
 - Make the auto-deploy script executable
 - Create the log file and directory
 - Configure git settings for automated pulling
@@ -355,16 +371,19 @@ LOG_FILE="/var/log/custom-deploy.log" sudo deploy/setup-auto-deploy.sh
 ### Monitoring
 
 **View deployment logs:**
+
 ```bash
 tail -f /var/log/bunnypmsl-deploy.log
 ```
 
 **Check cron job status:**
+
 ```bash
 crontab -l
 ```
 
 **Manually trigger deployment:**
+
 ```bash
 sudo /path/to/bunnypmsl/deploy/auto-deploy.sh
 ```
@@ -421,6 +440,7 @@ log_level = "normal"     # Options: normal, debug, critical
 ```
 
 After editing the config file, restart the service:
+
 ```bash
 sudo bunnypmsl service restart
 ```
@@ -435,11 +455,13 @@ BUNNYPMSL_PORT=9000
 ```
 
 Then start with:
+
 ```bash
 docker compose up -d
 ```
 
 Or set it inline:
+
 ```bash
 BUNNYPMSL_PORT=9000 docker compose up -d
 ```
@@ -463,6 +485,7 @@ Docker containers can automatically start on system boot using restart policies.
 ### Enable Docker Service
 
 First, ensure the Docker daemon starts on boot:
+
 ```bash
 sudo systemctl enable docker
 ```
@@ -472,6 +495,7 @@ sudo systemctl enable docker
 When running containers, use a restart policy:
 
 **With Docker Compose** (add to your `docker-compose.yml`):
+
 ```yaml
 services:
   bunnypmsl:
@@ -479,11 +503,13 @@ services:
 ```
 
 **With Docker run**:
+
 ```bash
 docker run -d --restart unless-stopped ...
 ```
 
 Available restart policies:
+
 - `always`: Always restart, even if manually stopped and system reboots
 - `unless-stopped`: Restart unless explicitly stopped by user
 - `on-failure`: Only restart on crashes
@@ -561,6 +587,7 @@ For production deployments with HTTPS, use a reverse proxy like Caddy or nginx.
 ### Docker Issues
 
 **Container won't start:**
+
 ```bash
 # Check logs
 docker compose logs bunnypmsl
@@ -570,6 +597,7 @@ sudo netstat -tlnp | grep 8000
 ```
 
 **Permission denied errors:**
+
 ```bash
 # Add your user to docker group
 sudo usermod -aG docker $USER
@@ -577,6 +605,7 @@ sudo usermod -aG docker $USER
 ```
 
 **Container not starting on boot:**
+
 ```bash
 # Verify Docker service is enabled
 sudo systemctl status docker
@@ -588,6 +617,7 @@ docker inspect bunnypmsl | grep -A 3 RestartPolicy
 ### Build Issues
 
 **Docker build fails:**
+
 ```bash
 # Clean build cache
 docker system prune -a
@@ -599,4 +629,5 @@ docker build --no-cache -t bunnypmsl .
 ## Support
 
 For issues or questions:
+
 - GitHub Issues: https://github.com/facebook/bunnypmsl/issues

@@ -6,7 +6,7 @@ use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo}
 // Type alias for command handler functions
 type CommandHandler = fn(&str) -> String;
 
-// Global command lookup table, initialized once on first access
+// Global command lookup table, initialised once on first access
 static COMMAND_LOOKUP: OnceLock<HashMap<&'static str, CommandHandler>> = OnceLock::new();
 static BINDINGS_DATA: OnceLock<Vec<BunnypmslCommandInfo>> = OnceLock::new();
 
@@ -14,9 +14,9 @@ static BINDINGS_DATA: OnceLock<Vec<BunnypmslCommandInfo>> = OnceLock::new();
 /// This prevents bugs where a command is defined but not registered
 macro_rules! register_commands {
     ($($cmd:ty),+ $(,)?) => {
-        /// Initialize the command lookup HashMap
+        /// Initialise the command lookup HashMap
         /// Maps all command aliases to their handler functions
-        fn initialize_command_lookup() -> HashMap<&'static str, CommandHandler> {
+        fn initialise_command_lookup() -> HashMap<&'static str, CommandHandler> {
             let mut map = HashMap::new();
 
             $(
@@ -41,7 +41,7 @@ macro_rules! register_commands {
 
 /// Bunnypmsl Command Registry that manages all Bunnypmsl commands
 ///
-/// This struct provides a centralized way to register and lookup commands
+/// This struct provides a centralised way to register and lookup commands
 /// without requiring changes to the main routing logic when adding new services.
 pub struct BunnypmslCommandRegistry;
 
@@ -116,7 +116,7 @@ impl BunnypmslCommandRegistry {
         Self::process_command_with_config(command, full_args, None)
     }
 
-    /// Process a command string with optional config for custom search engine
+    /// Process a command string with optional config for a custom search engine
     pub fn process_command_with_config(
         command: &str,
         full_args: &str,
@@ -129,13 +129,13 @@ impl BunnypmslCommandRegistry {
             return url;
         }
 
-        // Initialize lookup table once, then use O(1) HashMap lookup
-        let lookup = COMMAND_LOOKUP.get_or_init(Self::initialize_command_lookup);
+        // Initialise lookup table once, then use O(1) HashMap lookup
+        let lookup = COMMAND_LOOKUP.get_or_init(Self::initialise_command_lookup);
 
         match lookup.get(command) {
             Some(handler) => handler(full_args),
             None => {
-                // Use configured search engine if provided, otherwise default to Google
+                // Use a configured search engine if provided, otherwise default to Google
                 if let Some(cfg) = config {
                     cfg.get_search_url(full_args)
                 } else {
@@ -157,7 +157,7 @@ mod cache_tests {
 
     #[test]
     fn test_command_lookup_contains_all_bindings() {
-        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialize_command_lookup);
+        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialise_command_lookup);
 
         // Verify key bindings are present (using actual command bindings)
         assert!(lookup.contains_key("gh"));
@@ -179,7 +179,7 @@ mod cache_tests {
     fn test_command_lookup_correctness() {
         use crate::commands::*;
 
-        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialize_command_lookup);
+        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialise_command_lookup);
 
         // Test GitHub command handler
         let gh_handler = lookup.get("gh").expect("GitHub command should exist");

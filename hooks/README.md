@@ -13,6 +13,7 @@ To install the pre-commit hook that runs tests before each commit:
 ## What it does
 
 The pre-commit hook will:
+
 1. Run `cargo fmt --all` (automatically format all code)
 2. Re-stage any Rust files that were modified by formatting
 3. Run `cargo check --all-features` (fast compilation check)

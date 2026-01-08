@@ -30,10 +30,12 @@ cargo fmt                       # Auto-format
 ### Dual Binary with Feature Flags
 
 The crate produces a single binary that can operate as:
+
 - **CLI tool**: Opens URLs in browser or prints them (`--dry-run`)
 - **Web server**: Rocket-based HTTP server that redirects `/?cmd=<query>` to URLs
 
 Features in `Cargo.toml`:
+
 - `default = ["server", "cli"]` - Both modes
 - `server` - Web server (Rocket + Leptos SSR)
 - `cli` - Terminal UI (tabled, open, service-manager)
@@ -51,6 +53,7 @@ pub trait BunnypmslCommand {
 ```
 
 **Adding a new command:**
+
 1. Create `src/commands/myservice.rs` implementing `BunnypmslCommand`
 2. Add module and re-export in `src/commands/mod.rs`
 3. Register in `register_commands!` macro in `src/bunnypmsl_command_registry.rs`
@@ -59,17 +62,17 @@ The registry uses `OnceLock` for O(1) HashMap lookup of commands by alias.
 
 ### Key Files
 
-| Path | Purpose |
-|------|---------|
-| `src/main.rs` | CLI argument parsing (clap), subcommands (serve, service, completion) |
-| `src/lib.rs` | Library exports, feature-gated module declarations |
-| `src/bunnypmsl_command_registry.rs` | Central command registry with `register_commands!` macro |
-| `src/commands/bunnypmsl_command.rs` | `BunnypmslCommand` trait definition |
-| `src/commands/*.rs` | Individual command implementations (46 commands) |
-| `src/server/mod.rs` | Rocket routes: `/?cmd=` redirect, `/health`, 404 handler |
-| `src/server/web.rs` | Leptos SSR landing page with command grid |
-| `src/config.rs` | `BunnypmslConfig` (TOML), XDG paths, search engine fallback |
-| `src/server/service.rs` | systemd service install/uninstall (Linux only) |
+| Path                                | Purpose                                                               |
+| ----------------------------------- | --------------------------------------------------------------------- |
+| `src/main.rs`                       | CLI argument parsing (clap), subcommands (serve, service, completion) |
+| `src/lib.rs`                        | Library exports, feature-gated module declarations                    |
+| `src/bunnypmsl_command_registry.rs` | Central command registry with `register_commands!` macro              |
+| `src/commands/bunnypmsl_command.rs` | `BunnypmslCommand` trait definition                                   |
+| `src/commands/*.rs`                 | Individual command implementations (46 commands)                      |
+| `src/server/mod.rs`                 | Rocket routes: `/?cmd=` redirect, `/health`, 404 handler              |
+| `src/server/web.rs`                 | Leptos SSR landing page with command grid                             |
+| `src/config.rs`                     | `BunnypmslConfig` (TOML), XDG paths, search engine fallback           |
+| `src/server/service.rs`             | systemd service install/uninstall (Linux only)                        |
 
 ### Request Flow
 
@@ -81,6 +84,7 @@ Unrecognized commands fall through to the configured default search engine (Goog
 ### Configuration
 
 TOML config at `~/.config/bunnypmsl/config.toml` (or `/etc/bunnypmsl/config.toml` for system service):
+
 - `browser`: Override default browser
 - `aliases`: Custom command shortcuts
 - `default_search`: Fallback search engine
