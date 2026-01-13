@@ -12,7 +12,7 @@ use std::path::PathBuf;
 
 /// Configuration for bunnypmsl CLI
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct                          BunnypmslConfig {
+pub struct BunnypmslConfig {
     /// Browser to open URLs in (optional)
     /// Examples: "firefox", "chrome", "chromium", "safari"
     #[serde(default)]

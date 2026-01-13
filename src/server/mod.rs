@@ -15,14 +15,14 @@ pub mod service;
 
 // Server runtime code below only compiled with server feature
 #[cfg(feature = "server")]
-use rocket::State;
-#[cfg(feature = "server")]
 use rocket::request::{self, FromRequest, Request};
 #[cfg(feature = "server")]
 use rocket::response::Redirect;
+#[cfg(feature = "server")]
+use rocket::State;
 
 #[cfg(feature = "server")]
-use crate::{BunnypmslCommandRegistry, BunnypmslConfig, History, utils};
+use crate::{utils, BunnypmslCommandRegistry, BunnypmslConfig, History};
 
 #[cfg(feature = "server")]
 mod server_impl {

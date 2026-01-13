@@ -19,8 +19,9 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   disabled:
-    - rustfmt
+    - shfmt
   enabled:
+    - rustfmt@1.65.0
     - actionlint@1.7.10
     - checkov@3.2.497
     - clippy@1.92.0
@@ -30,22 +31,11 @@ lint:
     - osv-scanner@2.3.1
     - prettier@3.7.4
     - shellcheck@0.11.0
-    - shfmt@3.6.0
     - taplo@0.10.0
     - trufflehog@3.92.4
     - yamllint@1.38.0
 actions:
-  definitions:
-    - id: cargo-fmt
-      display_name: cargo fmt --all
-      run: cargo fmt --all
-      runtime: rust
-      run_from: workspace
-      triggers:
-        - git_hooks:
-            - pre-commit
   enabled:
-    - cargo-fmt
     - trunk-announce
     - trunk-check-pre-push
     - trunk-fmt-pre-commit

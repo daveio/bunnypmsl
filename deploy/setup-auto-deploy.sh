@@ -27,7 +27,7 @@ if [[ "${EUID}" -ne 0 ]]; then
 	exit 1
 fi
 
-echo -e "${GREEN}✓${NC} Repository detected at${ $REPO_D}IR"
+echo -e "${GREEN}✓${NC} Repository detected at ${REPO_DIR}"
 
 # Check if docker-compose.yml exists
 if [[ ! -f "${REPO_DIR}/docker-compose.yml" ]]; then
@@ -51,13 +51,13 @@ echo -e "${GREEN}✓${NC} Made auto-deploy.sh executable"
 LOG_DIR=$(dirname "${LOG_FILE}")
 if [[ ! -d "${LOG_DIR}" ]]; then
 	mkdir -p "${LOG_DIR}"
-	echo -e "${GREEN}✓${NC} Created log directory${ $LOG_D}IR"
+echo -e "${GREEN}✓${NC} Created log directory ${LOG_DIR}"
 fi
 
 # Create log file with proper permissions
 touch "${LOG_FILE}"
 chmod 644 "${LOG_FILE}"
-echo -e "${GREEN}✓${NC} Created log file${ $LOG_FI}LE"
+echo -e "${GREEN}✓${NC} Created log file ${LOG_FILE}"
 
 # Configure git to avoid asking for credentials (useful for cron)
 cd "${REPO_DIR}"
@@ -81,7 +81,7 @@ fi
 	crontab -l 2>/dev/null
 	echo "${CRON_JOB}"
 ) | crontab -
-echo -e "${GREEN}✓${NC} Added cron job${ $CRON_SCHEDU}LE"
+echo -e "${GREEN}✓${NC} Added cron job ${CRON_SCHEDULE}"
 
 echo -e "\n${GREEN}=== Setup Complete! ===${NC}\n"
 echo "Configuration:"
