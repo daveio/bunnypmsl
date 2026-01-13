@@ -15,7 +15,7 @@ Enter `gh facebook/react` in your browser's address bar to open the React reposi
 Or run the CLI:
 
 ```sh
-$ bunnypmsl gh facebook/react
+bunnypmsl gh facebook/react
 ```
 
 ## Installation
@@ -24,30 +24,30 @@ Install from [crates.io](https://crates.io/crates/bunnypmsl):
 
 ```sh
 # Install both CLI and server (3.9MB)
-$ cargo install bunnypmsl
+cargo install bunnypmsl
 
 # Install just the CLI (1.4MB - recommended for terminal use only)
-$ cargo install bunnypmsl --features cli --no-default-features
+cargo install bunnypmsl --features cli --no-default-features
 
 # Install just the server (3.6MB - recommended for web server deployments)
-$ cargo install bunnypmsl --features server --no-default-features
+cargo install bunnypmsl --features server --no-default-features
 ```
 
 Or build from the source:
 
 ```sh
 # Clone the repository
-$ git clone https://github.com/daveio/bunnypmsl.git
-$ cd bunnypmsl
+git clone https://github.com/daveio/bunnypmsl.git
+cd bunnypmsl
 
 # Install both CLI and server
-$ cargo install --path .
+cargo install --path .
 
 # Install just the CLI
-$ cargo install --path . --features cli --no-default-features
+cargo install --path . --features cli --no-default-features
 
 # Install just the server
-$ cargo install --path . --features server --no-default-features
+cargo install --path . --features server --no-default-features
 ```
 
 ## CLI Quickstart
@@ -58,20 +58,20 @@ Use `bunnypmsl` to open URLs directly from your terminal!
 
 ```sh
 # Open GitHub
-$ bunnypmsl gh
+bunnypmsl gh
 
 # Open Instagram Reels
-$ bunnypmsl ig reels
+bunnypmsl ig reels
 
 # Open a specific GitHub repository
-$ bunnypmsl gh facebook/react
+bunnypmsl gh facebook/react
 
 # Preview URL without opening browser (dry-run)
-$ bunnypmsl --dry-run gh facebook/react
+bunnypmsl --dry-run gh facebook/react
 # Output: https://github.com/facebook/react
 
 # List all available commands with a beautiful table
-$ bunnypmsl list
+bunnypmsl list
 ```
 
 ### Quick Examples
@@ -97,9 +97,9 @@ For even faster access, add an alias to your shell configuration:
 alias b="bunnypmsl"
 
 # Then use it like this:
-$ b ig reels
-$ b gh facebook/react
-$ b list
+b ig reels
+b gh facebook/react
+b list
 ```
 
 ## CLI Configuration
@@ -150,10 +150,10 @@ dotfiles = "gh username/dotfiles"
 Then use them like any built-in command:
 
 ```sh
-$ bunnypmsl work
+bunnypmsl work
 # Opens: https://github.com/mycompany
 
-$ bunnypmsl blog
+bunnypmsl blog
 # Opens: https://github.com/username/blog
 ```
 
@@ -220,36 +220,36 @@ server_display_url = "https://bunny.example.com"  # Public URL shown on bindings
 
 The CLI uses platform-appropriate directories for configuration and data:
 
-| Platform        | Type          | Path                                                                               |
-| --------------- | ------------- | ---------------------------------------------------------------------------------- |
-| **Linux/macOS** | User Config   | `~/.config/bunnypmsl/config.toml`<br>(or `$XDG_CONFIG_HOME/bunnypmsl/config.toml`) |
-| **Linux**       | System Config | `/etc/bunnypmsl/config.toml`<br>(when running as system service)                   |
-| **Linux/macOS** | Data          | `~/.local/share/bunnypmsl/`<br>(or `$XDG_DATA_HOME/bunnypmsl/`)                    |
-| **Windows**     | Config        | `%APPDATA%\bunnypmsl\config.toml`                                                  |
-| **Windows**     | Data          | `%APPDATA%\bunnypmsl\`                                                             |
+| Platform        | Type          | Path                                                                            |
+| --------------- | ------------- | ------------------------------------------------------------------------------- |
+| **Linux/macOS** | User Config   | `~/.config/bunnypmsl/config.toml` (or `$XDG_CONFIG_HOME/bunnypmsl/config.toml`) |
+| **Linux**       | System Config | `/etc/bunnypmsl/config.toml (when running as system service)                    |
+| **Linux/macOS** | Data          | `~/.local/share/bunnypmsl/` (or `$XDG_DATA_HOME/bunnypmsl/`)                    |
+| **Windows**     | Config        | `%APPDATA%\bunnypmsl\config.toml`                                               |
+| **Windows**     | Data          | `%APPDATA%\bunnypmsl\`                                                          |
 
 ## Quickstart - Web Server
 
 After [installing](#installation) bunnypmsl, start the server:
 
 ```sh
-$ bunnypmsl serve
+bunnypmsl serve
 ```
 
 Or use Docker:
 
 ```sh
-$ git clone https://github.com/daveio/bunnypmsl.git
-$ cd bunnypmsl
-$ docker compose up -d
+git clone https://github.com/daveio/bunnypmsl.git
+cd bunnypmsl
+docker compose up -d
 ```
 
 Or build from source:
 
 ```sh
-$ git clone https://github.com/daveio/bunnypmsl.git
-$ cd bunnypmsl
-$ cargo run -- serve
+git clone https://github.com/daveio/bunnypmsl.git
+cd bunnypmsl
+cargo run -- serve
 ```
 
 ### Installing as a System Service
@@ -258,14 +258,14 @@ For production use on **Linux**, install bunnypmsl as a `systemd` service that s
 
 ```sh
 # Install bunnypmsl first
-$ cargo install bunnypmsl
+cargo install bunnypmsl
 
 # Install as system service (requires sudo, Linux only)
 # Default: localhost only (127.0.0.1)
-$ sudo bunnypmsl service install
+sudo bunnypmsl service install
 
 # For network access (production servers)
-$ sudo bunnypmsl service install --network
+sudo bunnypmsl service install --network
 
 # The installer will:
 # - Create /etc/systemd/system/bunnypmsl.service
@@ -274,12 +274,12 @@ $ sudo bunnypmsl service install --network
 # - Start the service immediately
 
 # Manage the service
-$ sudo bunnypmsl service status
-$ sudo bunnypmsl service logs -f
-$ sudo bunnypmsl service restart
+sudo bunnypmsl service status
+sudo bunnypmsl service logs -f
+sudo bunnypmsl service restart
 
 # Uninstall
-$ sudo bunnypmsl service uninstall
+sudo bunnypmsl service uninstall
 ```
 
 **Network Access:**
@@ -326,11 +326,6 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 <!-- USAGE EXAMPLES -->
 
 ## Command Reference
-
-<details>
-<summary><strong>📚 Click to view all available commands (46 commands, 82+ bindings)</strong></summary>
-
-<br>
 
 ### Development & Package Managers
 
@@ -450,17 +445,17 @@ To build from the source or contribute to the project, read on.
 Make sure you have [Rust installed](https://rust-lang.org/tools/install/).
 
 ```sh
-$ git clone https://github.com/daveio/bunnypmsl.git
-$ cd bunnypmsl
+git clone https://github.com/daveio/bunnypmsl.git
+cd bunnypmsl
 
 # Run the web server
-$ cargo run -- serve
+cargo run -- serve
 
 # OR run the CLI (in a separate terminal)
-$ cargo run -- gh facebook/react
+cargo run -- gh facebook/react
 
 # OR install globally for easier access
-$ cargo install --path .
+cargo install --path .
 ```
 
 ## Deployment with Docker
@@ -469,7 +464,7 @@ $ cargo install --path .
 
 ```sh
 # run on default port 8000
-$ docker compose up -d
+docker compose up -d
 
 # run on custom port 9000
 $BUNNYPMSL_PORT=9000·docker compose up

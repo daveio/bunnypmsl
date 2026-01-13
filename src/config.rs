@@ -289,7 +289,7 @@ impl BunnypmslConfig {
     fn to_toml_with_comments(&self) -> String {
         format!(
             r#"# Bunnypmsl Configuration File
-# https://github.com/facebook/bunnypmsl
+# https://github.com/daveio/bunnypmsl
 #
 # NOTE: Configuration is loaded once at server startup.
 #       You must restart the server (bunnypmsl serve) to apply changes.

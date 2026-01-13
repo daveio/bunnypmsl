@@ -1,4 +1,5 @@
 # Multi-stage build for bunnypmsl
+# trunk-ignore-all(hadolint/DL3008)
 # Stage 1: Build the application
 FROM rust:1.92.0-slim AS builder
 
@@ -45,6 +46,10 @@ COPY config.toml.docker /etc/bunnypmsl/config.toml
 RUN chown -R bunnypmsl:bunnypmsl /app /etc/bunnypmsl
 
 USER bunnypmsl
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
 
 # Run the application
 # Config file at /etc/bunnypmsl/config.toml sets address to 0.0.0.0 for Docker

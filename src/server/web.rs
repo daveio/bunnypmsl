@@ -170,7 +170,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
     bindings.sort_by(|a, b| a.command.to_lowercase().cmp(&b.command.to_lowercase()));
 
     // Clone server_display_url for use in the view
-    let example_url = format!("{}/?cmd=gh facebook/bunnypmsl", server_display_url);
+    let example_url = format!("{}/?cmd=gh daveio/bunnypmsl", server_display_url);
 
     view! {
         <div
@@ -197,7 +197,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
                 style:margin-bottom="20px"
             >
                 <a
-                    href="https://github.com/facebook/bunnypmsl"
+                    href="https://github.com/daveio/bunnypmsl"
                     target="_blank"
                     rel="noopener noreferrer"
                     style:color="var(--accent-blue)"
@@ -284,7 +284,7 @@ pub fn LandingPage(server_display_url: String) -> impl IntoView {
                                 style:font-size="0.9em"
                                 style:white-space="nowrap"
                             >
-                                "gh facebook/bunnypmsl"
+                                "gh daveio/bunnypmsl"
                             </code>
                             " in your address bar to get the same result."
                         </p>

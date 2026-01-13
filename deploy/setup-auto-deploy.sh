@@ -70,15 +70,18 @@ CRON_COMMAND="LOG_FILE=${LOG_FILE} BRANCH=${BRANCH} ${AUTO_DEPLOY_SCRIPT} >> ${L
 CRON_JOB="${CRON_SCHEDULE} ${CRON_COMMAND}"
 
 # Check if cron job already exists
-if crontab -l 2>/dev/null | grep -q "auto-deploy.sh"; then
+crontab_list=$(crontab -l 2>/dev/null || true)
+if grep -q "auto-deploy.sh" <<< "${crontab_list}"; then
 	echo -e "${YELLOW}⚠${NC}  Cron job already exists. Updating..."
 	# Remove existing cron job
-	crontab -l 2>/dev/null | grep -v "auto-deploy.sh" | crontab -
+	crontab_list=$(crontab -l 2>/dev/null || true)
+	filtered_crontab=$(grep -v "auto-deploy.sh" <<< "${crontab_list}")
+	echo "${filtered_crontab}" | crontab -
 fi
 
 # Add new cron job
 (
-	crontab -l 2>/dev/null
+	crontab -l 2>/dev/null || true
 	echo "${CRON_JOB}"
 ) | crontab -
 echo -e "${GREEN}✓${NC} Added cron job ${CRON_SCHEDULE}"

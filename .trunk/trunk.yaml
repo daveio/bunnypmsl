@@ -37,7 +37,7 @@ lint:
 actions:
   definitions:
     - id: pre-commit-script
-      display_name: "Pre-commit Script"
+      display_name: Pre-commit Script
       enabled: true
       run: hooks/pre-commit
       triggers:

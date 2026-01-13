@@ -17,7 +17,8 @@ BRANCH="${BRANCH:-main}"
 
 # Logging function
 log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "${LOG_FILE}"
+  timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+  echo "[${timestamp}] $1" | tee -a "${LOG_FILE}"
 }
 
 # Change to repository directory

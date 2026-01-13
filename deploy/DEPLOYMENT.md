@@ -67,7 +67,7 @@ The recommended deployment method for **Linux** is to install bunnypmsl as a nat
 
 **Note:** Native service installation is only supported on Linux (`systemd`). For macOS and Windows, please use [Docker Deployment](#docker-deployment) instead.
 
-### Prerequisites
+### Native Service Prerequisites
 
 - Rust (only needed if binary not in PATH)
 - **Linux with `systemd`** (Ubuntu 16.04+, Debian 8+, CentOS 7+, etc.)
@@ -153,7 +153,7 @@ log_level = "normal"     # Options: normal, debug, critical
 After editing the config file, restart the service:
 
 ```bash
-$ sudo bunnypmsl service restart
+sudo bunnypmsl service restart
 ```
 
 **Note:** For running `bunnypmsl serve` manually (non-service), the config file is at `~/.config/bunnypmsl/config.toml`.
@@ -196,7 +196,7 @@ The easiest way to deploy bunnypmsl with Docker is using Docker Compose:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/facebook/bunnypmsl.git
+   git clone https://github.com/daveio/bunnypmsl.git
    cd bunnypmsl
    ```
 
@@ -630,4 +630,4 @@ docker build --no-cache -t bunnypmsl .
 
 For issues or questions:
 
-- GitHub Issues: https://github.com/facebook/bunnypmsl/issues
+- GitHub Issues: <https://github.com/daveio/bunnypmsl/issues>
