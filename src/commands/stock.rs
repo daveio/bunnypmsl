@@ -1,5 +1,5 @@
 use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo};
-use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
+use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
 
 pub struct StockCommand;
 

@@ -12,13 +12,13 @@ use bunnypmsl::BunnypmslConfig;
 
 // CLI-only imports
 #[cfg(feature = "cli")]
-use bunnypmsl::{utils, BunnypmslCommandRegistry, History};
+use bunnypmsl::{BunnypmslCommandRegistry, History, utils};
 #[cfg(feature = "cli")]
 use clap_complete::generate;
 #[cfg(feature = "cli")]
 use tabled::{
-    settings::{object::Columns, Color, Modify, Style, Width},
     Table, Tabled,
+    settings::{Color, Modify, Style, Width, object::Columns},
 };
 
 #[derive(Parser)]

@@ -4,19 +4,21 @@
 
 set -e
 
+CARGO="$HOME/.local/share/mise/shims/cargo"
+
 echo "Running pre-commit checks..."
 echo ""
 
 # Format code automatically (moved to first for best UX)
 echo "🎨 Formatting code..."
-cargo fmt --all
+$CARGO fmt --all
 
 # Re-add any Rust files that were modified by formatting
 FORMATTED_FILES=$(git diff --name-only | grep '\.rs$' || true)
 if [[ -n "${FORMATTED_FILES}" ]]; then
 	echo "${FORMATTED_FILES}" | xargs git add
 	FILE_COUNT=$(echo "${FORMATTED_FILES}" | wc -l | tr -d ' ')
-	echo "✅ Formatted and re-stage${ $FILE_COU}NT file(s)"
+	echo "✅ Formatted and re-staged ${FILE_COUNT} file(s)"
 else
 	echo "✅ No files needed formatting"
 fi
@@ -24,17 +26,17 @@ fi
 # Run cargo check (fast compilation check)
 echo ""
 echo "🔍 Running cargo check..."
-cargo check --all-features
+$CARGO check --all-features
 
 # Run clippy (linter)
 echo ""
 echo "🔧 Running cargo clippy..."
-cargo clippy --all-features -- -D warnings
+$CARGO clippy --all-features -- -D warnings
 
 # Run tests
 echo ""
 echo "🧪 Running cargo test..."
-cargo test --all-features
+$CARGO test --all-features
 
 echo ""
 echo "✅ All checks passed! Proceeding with commit."
