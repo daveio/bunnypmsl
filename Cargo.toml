@@ -1,7 +1,6 @@
 [package]
 name = "bunnypmsl"
 version = "0.0.0-pre1"
-authors = ["Dave Williams <dave@dave.io>"]
 edition = "2024"
 description = "Custom fork of bunnylol.rs"
 license = "MIT"
@@ -9,14 +8,21 @@ repository = "https://github.com/daveio/bunnypmsl"
 readme = "README.md"
 homepage = "https://github.com/daveio/bunnypmsl"
 keywords = ["browser", "bookmarks", "shortcuts", "url", "search"]
-categories = ["command-line-utilities", "web-programming::http-server", "development-tools"]
+categories = [
+  "command-line-utilities",
+  "web-programming::http-server",
+  "development-tools",
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package.metadata]
+authors = ["Dave Williams <dave@dave.io>"]
 
 [lib]
 name = "bunnypmsl"
 path = "src/lib.rs"
-crate-type = ["rlib", "dylib"]  # Enable dynamic linking for faster dev builds
+crate-type = ["rlib", "dylib"] # Enable dynamic linking for faster dev builds
 
 [[bin]]
 name = "bunnypmsl"
@@ -58,7 +64,15 @@ libc = "0.2"
 [features]
 default = ["server", "cli"]
 server = ["rocket", "leptos", "leptos_meta"]
-cli = ["open", "tabled", "terminal_size", "whoami", "service-manager", "which", "clap_complete"]
+cli = [
+  "open",
+  "tabled",
+  "terminal_size",
+  "whoami",
+  "service-manager",
+  "which",
+  "clap_complete",
+]
 
 [dev-dependencies]
 assert_cmd = "2.1"

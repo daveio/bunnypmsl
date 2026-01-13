@@ -157,7 +157,8 @@ mod cache_tests {
 
     #[test]
     fn test_command_lookup_contains_all_bindings() {
-        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialise_command_lookup);
+        let lookup =
+            COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialise_command_lookup);
 
         // Verify key bindings are present (using actual command bindings)
         assert!(lookup.contains_key("gh"));
@@ -179,7 +180,8 @@ mod cache_tests {
     fn test_command_lookup_correctness() {
         use crate::commands::*;
 
-        let lookup = COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialise_command_lookup);
+        let lookup =
+            COMMAND_LOOKUP.get_or_init(BunnypmslCommandRegistry::initialise_command_lookup);
 
         // Test GitHub command handler
         let gh_handler = lookup.get("gh").expect("GitHub command should exist");

@@ -4,7 +4,7 @@
 /// duplication across different command implementations.
 extern crate percent_encoding;
 
-use percent_encoding::{AsciiSet, CONTROLS, utf8_percent_encode};
+use percent_encoding::{utf8_percent_encode, AsciiSet, CONTROLS};
 
 /// URL fragment encoding set used for percent encoding
 /// Used as part of the percent_encoding library to safely encode URLs

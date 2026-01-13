@@ -147,8 +147,9 @@ pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError
     let system_config_path = PathBuf::from("/etc/bunnypmsl/config.toml");
 
     // Create directory if needed
-    std::fs::create_dir_all("/etc/bunnypmsl")
-        .map_err(|e| ServiceError::ConfigError(format!("Failed to create /etc/bunnypmsl: {}", e)))?;
+    std::fs::create_dir_all("/etc/bunnypmsl").map_err(|e| {
+        ServiceError::ConfigError(format!("Failed to create /etc/bunnypmsl: {}", e))
+    })?;
 
     use crate::config::BunnypmslConfig;
 

@@ -6,15 +6,11 @@
 [![Stargazers](https://img.shields.io/github/stars/daveio/bunnypmsl.svg?style=flat-square)](https://github.com/daveio/bunnypmsl/stargazers)
 [![License](https://img.shields.io/github/license/daveio/bunnypmsl?style=flat-square)](https://github.com/daveio/bunnypmsl/blob/master/LICENSE)
 
-<p align="center">
-    A modern rust clone of <a href="https://github.com/ccheever/bunny1">bunny1</a>.
-</p>
+> A modern rust clone of [bunny1](https://github.com/ccheever/bunny1).
 
 ## Demo
 
 Enter `gh facebook/react` in your browser's address bar to open the React repository on GitHub.
-
-![bunnypmsl demo](demo.gif)
 
 Or run the CLI:
 
@@ -37,7 +33,7 @@ $ cargo install bunnypmsl --features cli --no-default-features
 $ cargo install bunnypmsl --features server --no-default-features
 ```
 
-Or build from source:
+Or build from the source:
 
 ```sh
 # Clone the repository
@@ -127,7 +123,7 @@ The config file is automatically created with sensible defaults when you first r
 
 ### Configuration Features
 
-The CLI works perfectly fine without any configuration file. However, you can customize the following features:
+The CLI works perfectly fine without any configuration file. However, you can customise the following features:
 
 #### 1. **Default Browser Selection**
 
@@ -142,7 +138,7 @@ If not specified, the system default browser is used.
 
 #### 2. **Custom Command Aliases**
 
-Create your own personalized shortcuts:
+Create your own personalised shortcuts:
 
 ```toml
 [aliases]
@@ -169,7 +165,7 @@ Override Google as the fallback search engine:
 default_search = "ddg"  # Options: "google" (default), "ddg", "bing"
 ```
 
-When a command isn't recognized, it will search using your configured engine instead of Google.
+When a command isn't recognised, it will search using your configured engine instead of Google.
 
 #### 4. **Command History Tracking**
 
@@ -203,7 +199,7 @@ blog = "gh username/blog"
 dotfiles = "gh username/dotfiles"
 notes = "gh username/notes"
 
-# Default search engine when command not recognized (optional)
+# Default search engine when command not recognised (optional)
 # Options: "google" (default), "ddg", "bing"
 default_search = "ddg"
 
@@ -382,7 +378,7 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 
 | Command   | Aliases   | Description                                                   | Example               |
 | --------- | --------- | ------------------------------------------------------------- | --------------------- |
-| `g`       | (default) | Search Google (default fallback for any unrecognized command) | `g rust programming`  |
+| `g`       | (default) | Search Google (default fallback for any unrecognised command) | `g rust programming`  |
 | `gmail`   | `mail`    | Navigate to Gmail                                             | `mail`                |
 | `docs`    | `gdoc`    | Navigate to Google Docs                                       | `docs`                |
 | `gsheets` | —         | Navigate to Google Sheets                                     | `gsheets`             |
@@ -429,7 +425,7 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 - **Instagram profiles**: Prefix with `@` → `ig @username`
 - **Threads profiles**: Prefix with `@` → `threads @username`
 - **Subreddits**: Use `r/` prefix → `r r/rust`
-- **Default fallback**: Any unrecognized command searches Google
+- **Default fallback**: Any unrecognised command searches Google
 
 </details>
 
@@ -447,7 +443,7 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 
 See the [Installation](#installation) section to install bunnypmsl from crates.io.
 
-To build from source or contribute to the project, see [Manual Setup](#manual-setup) below.
+To build from the source or contribute to the project, read on.
 
 ### Manual Setup
 
@@ -488,11 +484,11 @@ Docker makes it easy to deploy anywhere:
 - Any cloud provider (AWS, GCP, Azure, DigitalOcean, Hetzner, etc.)
 - VPS / home servers
 
-For detailed deployment instructions, reverse proxy setup, and troubleshooting, see the **[Deployment Guide](deployment/DEPLOYMENT.md)**.
+For detailed deployment instructions, reverse proxy setup, and troubleshooting, see the **[Deployment Guide](deploy/DEPLOYMENT.md)**.
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. See [`CONTRIBUTING`](CONTRIBUTING.md) for more information.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. See [`CONTRIBUTING`](CONTRIBUTING.md) for more information.
 
 ## License
 
