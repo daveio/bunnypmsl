@@ -3,11 +3,13 @@ on:
   push:
     branches:
       - main
-      - master
+      - bunnypmsl
   pull_request:
     branches:
       - main
-      - master
+      - bunnypmsl
+permissions:
+  contents: read
 env:
   CARGO_TERM_COLOR: always
 jobs:
