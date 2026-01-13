@@ -73,8 +73,8 @@ fn test_cli_dry_run_github_repo() {
     let mut cmd = assert_cmd::cargo::cargo_bin_cmd!("bunnypmsl");
     cmd.arg("--dry-run")
         .arg("gh")
-        .arg("facebook/react")
+        .arg("daveio/bunnypmsl")
         .assert()
         .success()
-        .stdout("https://github.com/facebook/react\n");
+        .stdout("https://github.com/daveio/bunnypmsl\n");
 }

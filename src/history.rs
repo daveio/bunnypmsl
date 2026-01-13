@@ -170,11 +170,11 @@ mod tests {
 
     #[test]
     fn test_history_entry_from_line() {
-        let line = "1234567890|testuser|gh facebook/react";
+        let line = "1234567890|testuser|gh daveio/bunnypmsl";
         let entry = HistoryEntry::from_line(line).unwrap();
         assert_eq!(entry.timestamp, "1234567890");
         assert_eq!(entry.user, "testuser");
-        assert_eq!(entry.command, "gh facebook/react");
+        assert_eq!(entry.command, "gh daveio/bunnypmsl");
     }
 
     #[test]

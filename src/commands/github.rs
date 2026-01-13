@@ -21,7 +21,7 @@ impl BunnypmslCommand for GitHubCommand {
         BunnypmslCommandInfo {
             bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
             description: "Navigate to GitHub repositories".to_string(),
-            example: "gh facebook/react".to_string(),
+            example: "gh daveio/bunnypmsl".to_string(),
         }
     }
 }
@@ -38,16 +38,16 @@ mod tests {
     #[test]
     fn test_github_command_user() {
         assert_eq!(
-            GitHubCommand::process_args("gh facebook"),
-            "https://github.com/facebook"
+            GitHubCommand::process_args("gh daveio"),
+            "https://github.com/daveio"
         );
     }
 
     #[test]
     fn test_github_command_repo() {
         assert_eq!(
-            GitHubCommand::process_args("gh facebook/react"),
-            "https://github.com/facebook/react"
+            GitHubCommand::process_args("gh daveio/bunnypmsl"),
+            "https://github.com/daveio/bunnypmsl"
         );
     }
 }

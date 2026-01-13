@@ -64,8 +64,8 @@ pub fn build_search_url(base_url: &str, query_param: &str, query_value: &str) ->
 /// ```
 /// use bunnypmsl::utils::url_encoding::build_path_url;
 ///
-/// let url = build_path_url("https://github.com", "facebook/react");
-/// assert_eq!(url, "https://github.com/facebook/react");
+/// let url = build_path_url("https://github.com", "daveio/bunnypmsl");
+/// assert_eq!(url, "https://github.com/daveio/bunnypmsl");
 /// ```
 pub fn build_path_url(base_url: &str, path: &str) -> String {
     let encoded_path = encode_url(path);
@@ -99,13 +99,13 @@ mod tests {
 
     #[test]
     fn test_build_path_url() {
-        let url = build_path_url("https://github.com", "facebook/react");
-        assert_eq!(url, "https://github.com/facebook/react");
+        let url = build_path_url("https://github.com", "daveio/bunnypmsl");
+        assert_eq!(url, "https://github.com/daveio/bunnypmsl");
     }
 
     #[test]
     fn test_build_path_url_with_trailing_slash() {
-        let url = build_path_url("https://github.com/", "facebook/react");
-        assert_eq!(url, "https://github.com/facebook/react");
+        let url = build_path_url("https://github.com/", "daveio/bunnypmsl");
+        assert_eq!(url, "https://github.com/daveio/bunnypmsl");
     }
 }

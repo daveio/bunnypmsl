@@ -10,12 +10,12 @@
 
 ## Demo
 
-Enter `gh facebook/react` in your browser's address bar to open the React repository on GitHub.
+Enter `gh daveio/bunnypmsl` in your browser's address bar to open the React repository on GitHub.
 
 Or run the CLI:
 
 ```sh
-bunnypmsl gh facebook/react
+bunnypmsl gh daveio/bunnypmsl
 ```
 
 ## Installation
@@ -64,11 +64,11 @@ bunnypmsl gh
 bunnypmsl ig reels
 
 # Open a specific GitHub repository
-bunnypmsl gh facebook/react
+bunnypmsl gh daveio/bunnypmsl
 
 # Preview URL without opening browser (dry-run)
-bunnypmsl --dry-run gh facebook/react
-# Output: https://github.com/facebook/react
+bunnypmsl --dry-run gh daveio/bunnypmsl
+# Output: https://github.com/daveio/bunnypmsl
 
 # List all available commands with a beautiful table
 bunnypmsl list
@@ -76,17 +76,17 @@ bunnypmsl list
 
 ### Quick Examples
 
-| CLI Command                   | What it does                              |
-| ----------------------------- | ----------------------------------------- |
-| `bunnypmsl gh`                | Open GitHub homepage                      |
-| `bunnypmsl gh facebook/react` | Open facebook/react repository            |
-| `bunnypmsl ig reels`          | Open Instagram Reels                      |
-| `bunnypmsl tw @facebook`      | Open Twitter profile                      |
-| `bunnypmsl r r/rust`          | Open r/rust subreddit                     |
-| `bunnypmsl --dry-run meta ai` | Print Meta AI URL without opening         |
-| `bunnypmsl --help`            | Show help information                     |
-| `bunnypmsl --version`         | Show version information                  |
-| `bunnypmsl list`              | Display all commands in a formatted table |
+| CLI Command                     | What it does                              |
+| ------------------------------- | ----------------------------------------- |
+| `bunnypmsl gh`                  | Open GitHub homepage                      |
+| `bunnypmsl gh daveio/bunnypmsl` | Open daveio/bunnypmsl repository          |
+| `bunnypmsl ig reels`            | Open Instagram Reels                      |
+| `bunnypmsl tw @facebook`        | Open Twitter profile                      |
+| `bunnypmsl r r/rust`            | Open r/rust subreddit                     |
+| `bunnypmsl --dry-run meta ai`   | Print Meta AI URL without opening         |
+| `bunnypmsl --help`              | Show help information                     |
+| `bunnypmsl --version`           | Show version information                  |
+| `bunnypmsl list`                | Display all commands in a formatted table |
 
 ### Recommended: Create a Shell Alias
 
@@ -98,7 +98,7 @@ alias b="bunnypmsl"
 
 # Then use it like this:
 b ig reels
-b gh facebook/react
+b gh daveio/bunnypmsl
 b list
 ```
 
@@ -331,7 +331,7 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 
 | Command     | Aliases           | Description                                                         | Example                    |
 | ----------- | ----------------- | ------------------------------------------------------------------- | -------------------------- |
-| `gh`        | —                 | Navigate to GitHub repositories                                     | `gh facebook/react`        |
+| `gh`        | —                 | Navigate to GitHub repositories                                     | `gh daveio/bunnypmsl`      |
 | `gitlab`    | `gl`              | Navigate to GitLab projects or search GitLab                        | `gitlab gitlab-org/gitlab` |
 | `cargo`     | `crates`          | Navigate to crates.io or search for Rust crates                     | `cargo serde`              |
 | `npm`       | `npmjs`           | Navigate to npmjs.com or search for npm packages                    | `npm react`                |
@@ -452,7 +452,7 @@ cd bunnypmsl
 cargo run -- serve
 
 # OR run the CLI (in a separate terminal)
-cargo run -- gh facebook/react
+cargo run -- gh daveio/bunnypmsl
 
 # OR install globally for easier access
 cargo install --path .
