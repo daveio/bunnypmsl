@@ -248,8 +248,11 @@ fn execute_command(
 
     // Extract command and process with config for custom search engine
     let command = utils::get_command_from_query_string(&resolved_args);
-    let url =
-        BunnypmslCommandRegistry::process_command_with_config(command, &resolved_args, Some(config));
+    let url = BunnypmslCommandRegistry::process_command_with_config(
+        command,
+        &resolved_args,
+        Some(config),
+    );
 
     // Print URL
     println!("{}", url);
