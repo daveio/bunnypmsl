@@ -1,12 +1,12 @@
 # Multi-stage build for bunnypmsl
 # Stage 1: Build the application
-FROM rust:1.91.0-slim AS builder
+FROM rust:1.92.0-slim AS builder
 
 WORKDIR /app
 
 # Install build dependencies
 RUN apt-get update && \
-    apt-get install -y pkg-config libssl-dev && \
+    apt-get install --no-install-recommends -y pkg-config libssl-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy manifest files
@@ -28,7 +28,7 @@ WORKDIR /app
 
 # Install runtime dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates libssl3 curl && \
+    apt-get install --no-install-recommends -y ca-certificates libssl3 curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the built binary from builder
