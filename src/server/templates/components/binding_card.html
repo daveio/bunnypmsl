@@ -1,62 +1,15 @@
-<div
-  class="binding-card"
-  style="
-    background: linear-gradient(
-      135deg,
-      var(--bg-light-gray) 0%,
-      var(--bg-gradient-gray) 100%
-    );
-    border-radius: 8px;
-    padding: 20px;
-    transition:
-      transform 0.2s,
-      box-shadow 0.2s;
-    border: 2px solid var(--border-light);
-  "
->
-  <div
-    style="
-      font-family: &quot;JetBrains Mono&quot;, monospace;
-      font-size: 1.4em;
-      font-weight: 700;
-      color: var(--accent-blue);
-      margin-bottom: 10px;
-      background: var(--bg-white);
-      padding: 8px 12px;
-      border-radius: 4px;
-      display: inline-block;
-    "
-  >
+<div class="binding-card">
+  <div class="binding-command">
     {{ binding.command }}
   </div>
-  <div style="color: var(--text-dark); margin-bottom: 15px; line-height: 1.5">
+  <div class="binding-description">
     {{ binding.description }}
   </div>
-  <div
-    style="
-      background: var(--bg-white);
-      padding: 10px;
-      border-radius: 4px;
-      border-left: 3px solid var(--accent-blue);
-    "
-  >
-    <div
-      style="
-        font-size: 0.85em;
-        color: var(--text-medium);
-        margin-bottom: 5px;
-        font-weight: 600;
-      "
-    >
+  <div class="binding-example-box">
+    <div class="binding-example-label">
       Example:
     </div>
-    <div
-      style="
-        font-family: &quot;JetBrains Mono&quot;, monospace;
-        color: var(--accent-purple);
-        font-weight: 500;
-      "
-    >
+    <div class="binding-example-text">
       {{ binding.example }}
     </div>
   </div>
