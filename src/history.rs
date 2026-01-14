@@ -25,9 +25,11 @@ impl HistoryEntry {
         use std::time::{SystemTime, UNIX_EPOCH};
         let timestamp = SystemTime::now()
             .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_secs()
-            .to_string();
+            .map(|d| d.as_secs().to_string())
+            .unwrap_or_else(|_| {
+                eprintln!("Warning: System clock appears to be before Unix epoch, using 0");
+                "0".to_string()
+            });
 
         Self {
             command,
@@ -121,8 +123,31 @@ impl History {
         let reader = BufReader::new(file);
         let entries: Vec<HistoryEntry> = reader
             .lines()
-            .map_while(Result::ok)
-            .filter_map(|line| HistoryEntry::from_line(&line))
+            .enumerate()
+            .filter_map(|(line_num, result)| match result {
+                Ok(line) => {
+                    if line.trim().is_empty() {
+                        None // Skip empty lines silently
+                    } else if let Some(entry) = HistoryEntry::from_line(&line) {
+                        Some(entry)
+                    } else {
+                        eprintln!(
+                            "Warning: Failed to parse history line {}: {}",
+                            line_num + 1,
+                            line
+                        );
+                        None
+                    }
+                }
+                Err(e) => {
+                    eprintln!(
+                        "Warning: Failed to read history line {}: {}",
+                        line_num + 1,
+                        e
+                    );
+                    None
+                }
+            })
             .collect();
 
         Ok(entries)

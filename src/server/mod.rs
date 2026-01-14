@@ -96,6 +96,7 @@ mod server_impl {
             rocket::response::content::RawHtml(web::render_landing_page_html(config))
         } else {
             // Fallback if config is not available (shouldn't happen)
+            eprintln!("ERROR: Config not available in 404 handler - this should never happen!");
             rocket::response::content::RawHtml(
                 "<html><body><h1>404 Not Found</h1></body></html>".to_string(),
             )

@@ -46,8 +46,7 @@ tokio = { version = "1.49", features = ["macros", "rt-multi-thread"] }
 
 # Web server dependencies
 rocket = { version = "0.5", features = ["json"], optional = true }
-leptos = { version = "0.6", features = ["ssr"], optional = true }
-leptos_meta = { version = "0.6", features = ["ssr"], optional = true }
+askama = { version = "0.12", optional = true }
 
 # CLI dependencies (optional)
 open = { version = "5.3", optional = true }
@@ -63,7 +62,7 @@ libc = "0.2"
 
 [features]
 default = ["server", "cli"]
-server = ["rocket", "leptos", "leptos_meta"]
+server = ["rocket", "askama"]
 cli = [
   "open",
   "tabled",

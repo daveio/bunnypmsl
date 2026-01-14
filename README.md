@@ -428,7 +428,7 @@ You can set your default search engine to `http://localhost:8000/?cmd=%s` and us
 
 - [Rust](https://www.rust-lang.org/)
 - [Rocket](https://rocket.rs/) - Web framework
-- [Leptos](https://leptos.dev/) - Frontend framework for the bindings page
+- [Askama](https://docs.rs/askama/) - Compile-time template engine for the landing page
 - [clap](https://github.com/clap-rs/clap) - CLI argument parser
 - [tabled](https://github.com/zhiburt/tabled) - Beautiful terminal tables
 

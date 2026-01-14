@@ -30,7 +30,7 @@ This document helps autonomous agents work effectively in the `bunnypmsl` codeba
 - `src/main.rs`: Entry point. Dispatches to CLI or Server mode.
 - `src/lib.rs`: Shared library code.
 - `src/commands/`: **Core logic**. Contains individual command implementations (e.g., `github.rs`).
-- `src/server/`: Web server implementation (Rocket + Leptos).
+- `src/server/`: Web server implementation (Rocket + Askama templates).
 - `src/bunnypmsl_command_registry.rs`: Registry mapping strings to command handlers.
 - `tests/`: Integration tests using `assert_cmd`.
 - `deploy/`: Deployment scripts and docs.
