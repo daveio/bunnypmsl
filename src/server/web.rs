@@ -67,6 +67,7 @@ pub fn render_landing_page_html(config: &BunnypmslConfig) -> String {
             };
 
             template.render().unwrap_or_else(|e| {
+                eprintln!("ERROR: Template rendering failed: {}", e);
                 format!(
                     "<html><body><h1>Template Error</h1><p>{}</p></body></html>",
                     e
