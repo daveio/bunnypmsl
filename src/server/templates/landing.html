@@ -1,8 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <div class="main-container">
-  <h1 class="main-title">
-    bunnypmsl
-  </h1>
+  <h1 class="main-title">bunnypmsl</h1>
 
   <div class="github-link-container">
     <a
@@ -53,12 +51,16 @@
         </div>
         <p class="setup-instructions">
           Once configured, just enter
-          <code class="inline-code inline-code-nowrap">gh daveio/bunnypmsl</code>
+          <code class="inline-code inline-code-nowrap"
+            >gh daveio/bunnypmsl</code
+          >
           in your address bar to get the same result.
         </p>
         <p class="setup-instructions">
           Use this URL as your search engine:
-          <code class="inline-code inline-code-nowrap">{{ search_engine_url }}</code>
+          <code class="inline-code inline-code-nowrap"
+            >{{ search_engine_url }}</code
+          >
         </p>
         <div class="setup-browser-links">
           <div class="setup-browser-grid">
@@ -111,9 +113,7 @@
     </div>
   </div>
 
-  <div class="commands-header">
-    Available Commands
-  </div>
+  <div class="commands-header">Available Commands</div>
 
   <div class="commands-grid">
     {% for binding in bindings %} {% include "components/binding_card.html" %}
