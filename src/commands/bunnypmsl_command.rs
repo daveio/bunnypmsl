@@ -21,11 +21,11 @@ pub trait BunnypmslCommand {
         // Check if args starts with any of the bindings
         for binding in Self::BINDINGS {
             if args.split_whitespace().next() == Some(*binding) {
-                if args.len() <= binding.len() {
-                    return "";
+                return if args.len() <= binding.len() {
+                    ""
                 } else {
-                    return args[binding.len()..].trim_start();
-                }
+                    args[binding.len()..].trim_start()
+                };
             }
         }
         args

@@ -20,7 +20,7 @@ pub struct HistoryEntry {
 }
 
 impl HistoryEntry {
-    /// Create a new history entry with current timestamp
+    /// Create a new history entry with the current timestamp
     pub fn new(command: String, user: String) -> Self {
         use std::time::{SystemTime, UNIX_EPOCH};
         let timestamp = SystemTime::now()
@@ -153,7 +153,7 @@ impl History {
         Ok(entries)
     }
 
-    /// Write all history entries to file
+    /// Write all history entries to a file
     fn write_all(&self, entries: &[HistoryEntry]) -> Result<(), String> {
         let mut file = fs::File::create(&self.path)
             .map_err(|e| format!("Failed to create history file: {}", e))?;

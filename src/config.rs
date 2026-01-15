@@ -18,7 +18,7 @@ pub struct BunnypmslConfig {
     #[serde(default)]
     pub browser: Option<String>,
 
-    /// Default search engine when command not recognized (optional)
+    /// Default search engine when command not recognised (optional)
     /// Options: "google" (default), "ddg", "bing"
     #[serde(default = "default_search_engine")]
     pub default_search: String,
@@ -111,13 +111,13 @@ impl Default for ServerConfig {
 }
 
 impl ServerConfig {
-    /// Get the display URL for the server, normalized with protocol
+    /// Get the display URL for the server, normalised with protocol
     ///
     /// Smart defaults when protocol is omitted:
-    /// - Public domains (e.g., "bunny.example.com") → "https://bunny.example.com"
+    /// - Public domains (e.g. "bunny.example.com") → "https://bunny.example.com"
     /// - Local addresses (localhost, 127.0.0.1, 0.0.0.0) → "http://localhost" (or IP)
     ///
-    /// If server_display_url is not set, returns "http://localhost:{port}"
+    /// If server_display_url is not set, it returns "http://localhost:{port}"
     pub fn get_display_url(&self) -> String {
         match &self.server_display_url {
             Some(url) => {
@@ -226,7 +226,7 @@ impl BunnypmslConfig {
     pub fn get_config_path_for_writing() -> Option<PathBuf> {
         // If running as root (or /etc/bunnypmsl exists and is writable), use system config
         let system_config_dir = PathBuf::from("/etc/bunnypmsl");
-        if system_config_dir.exists() || std::fs::create_dir_all(&system_config_dir).is_ok() {
+        if system_config_dir.exists() || fs::create_dir_all(&system_config_dir).is_ok() {
             return Some(system_config_dir.join("config.toml"));
         }
 

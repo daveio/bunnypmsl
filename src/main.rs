@@ -32,7 +32,7 @@ struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
 
-    /// Print URL without opening browser (for command execution mode)
+    /// Print URL without opening the browser (for command execution mode)
     #[arg(short = 'n', long, global = true)]
     dry_run: bool,
 
@@ -46,11 +46,11 @@ enum Commands {
     /// Run the bunnypmsl web server
     #[cfg(feature = "server")]
     Serve {
-        /// Port to bind the server to (overrides config file)
+        /// Port to bind the server to (overrides the config file)
         #[arg(short, long)]
         port: Option<u16>,
 
-        /// Address to bind to (overrides config file)
+        /// Address to bind to (overrides the config file)
         #[arg(short, long)]
         address: Option<String>,
     },
@@ -83,7 +83,7 @@ enum Commands {
 #[cfg(feature = "cli")]
 #[derive(Subcommand)]
 enum ServiceAction {
-    /// Install bunnypmsl server as a service (uses config file for port/address)
+    /// Install bunnypmsl server as a service (uses the config file for port/address)
     Install {
         /// Allow network access (bind to 0.0.0.0). Default: localhost only (127.0.0.1)
         #[arg(short, long)]
@@ -113,14 +113,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     // Load configuration
-    let config = match BunnypmslConfig::load() {
-        Ok(cfg) => cfg,
-        Err(e) => {
-            eprintln!("Warning: {}", e);
-            eprintln!("Continuing with default configuration...");
-            BunnypmslConfig::default()
-        }
-    };
+    let config = BunnypmslConfig::load().unwrap_or_else(|e| {
+        eprintln!("Warning: {}", e);
+        eprintln!("Continuing with default configuration...");
+        BunnypmslConfig::default()
+    });
 
     // Handle global --list flag
     #[cfg(feature = "cli")]
@@ -210,7 +207,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             if args.is_empty() {
                 // No command provided, print full help
-                Cli::command().print_help().unwrap();
+                Cli::command().print_help()?;
                 println!(); // Add newline after help
                 std::process::exit(0);
             }

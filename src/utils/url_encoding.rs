@@ -6,7 +6,7 @@ extern crate percent_encoding;
 
 use percent_encoding::{AsciiSet, CONTROLS, utf8_percent_encode};
 
-/// URL fragment encoding set used for percent encoding
+/// URL fragment encoding set used for per cent encoding
 /// Used as part of the percent_encoding library to safely encode URLs
 pub const FRAGMENT: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'<').add(b'>').add(b'`');
 
@@ -32,8 +32,8 @@ pub fn encode_url(input: &str) -> String {
 /// Build a search URL with proper encoding
 ///
 /// # Arguments
-/// * `base_url` - The base URL (e.g., "https://google.com/search")
-/// * `query_param` - The query parameter name (e.g., "q")
+/// * `base_url` - The base URL (e.g. "https://google.com/search")
+/// * `query_param` - The query parameter name (e.g. "q")
 /// * `query_value` - The search term to encode
 ///
 /// # Returns
@@ -54,11 +54,11 @@ pub fn build_search_url(base_url: &str, query_param: &str, query_value: &str) ->
 /// Build a simple path URL with proper encoding
 ///
 /// # Arguments
-/// * `base_url` - The base URL (e.g., "https://github.com")
+/// * `base_url` - The base URL (e.g.,"https://github.com")
 /// * `path` - The path to append and encode
 ///
 /// # Returns
-/// A complete URL with properly encoded path
+/// A complete URL with properly encoded paths
 ///
 /// # Example
 /// ```

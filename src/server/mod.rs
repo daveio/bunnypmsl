@@ -82,7 +82,7 @@ mod server_impl {
         }
     }
 
-    // Health check endpoint for Docker healthcheck (no verbose logging)
+    // Health check endpoint for Docker health check (no verbose logging)
     #[rocket::get("/health")]
     pub(super) fn health() -> &'static str {
         "ok"
@@ -90,7 +90,7 @@ mod server_impl {
 
     // Catch 404 errors and show landing page
     #[rocket::catch(404)]
-    pub(super) fn not_found(req: &rocket::Request) -> rocket::response::content::RawHtml<String> {
+    pub(super) fn not_found(req: &Request) -> rocket::response::content::RawHtml<String> {
         // Get config from request state
         if let Some(config) = req.rocket().state::<BunnypmslConfig>() {
             rocket::response::content::RawHtml(web::render_landing_page_html(config))

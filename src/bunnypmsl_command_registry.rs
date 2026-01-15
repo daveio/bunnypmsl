@@ -13,30 +13,30 @@ static BINDINGS_DATA: OnceLock<Vec<BunnypmslCommandInfo>> = OnceLock::new();
 /// Macro to register all commands in one place
 /// This prevents bugs where a command is defined but not registered
 macro_rules! register_commands {
-    ($($cmd:ty),+ $(,)?) => {
-        /// Initialise the command lookup HashMap
-        /// Maps all command aliases to their handler functions
-        fn initialise_command_lookup() -> HashMap<&'static str, CommandHandler> {
-            let mut map = HashMap::new();
+  ($($cmd:ty),+ $(,)?) => {
+    /// Initialise the command lookup HashMap
+    /// Maps all command aliases to their handler functions
+    fn initialise_command_lookup() -> HashMap<&'static str, CommandHandler> {
+      let mut map = HashMap::new();
 
-            $(
-                for alias in <$cmd>::BINDINGS {
-                    map.insert(*alias, <$cmd>::process_args as CommandHandler);
-                }
-            )+
-
-            map
+      $(
+        for alias in <$cmd>::BINDINGS {
+          map.insert(*alias, <$cmd>::process_args as CommandHandler);
         }
+      )+
 
-        /// Get all registered command bindings
-        fn get_all_commands_impl() -> Vec<BunnypmslCommandInfo> {
-            vec![
-                $(
-                    <$cmd>::get_info(),
-                )+
-            ]
-        }
-    };
+      map
+    }
+
+    /// Get all registered command bindings
+    fn get_all_commands_impl() -> Vec<BunnypmslCommandInfo> {
+      vec![
+        $(
+          <$cmd>::get_info(),
+        )+
+      ]
+    }
+  };
 }
 
 /// Bunnypmsl Command Registry that manages all Bunnypmsl commands
@@ -48,52 +48,52 @@ pub struct BunnypmslCommandRegistry;
 impl BunnypmslCommandRegistry {
     // Register all commands here - ADD NEW COMMANDS TO THIS LIST
     register_commands! {
-        crate::commands::BindingsCommand,
-        crate::commands::GitHubCommand,
-        crate::commands::GitlabCommand,
-        crate::commands::TwitterCommand,
-        crate::commands::RedditCommand,
-        crate::commands::GmailCommand,
-        crate::commands::REICommand,
-        crate::commands::InstagramCommand,
-        crate::commands::LinkedInCommand,
-        crate::commands::FacebookCommand,
-        crate::commands::ThreadsCommand,
-        crate::commands::WhatsAppCommand,
-        crate::commands::MetaCommand,
-        crate::commands::CargoCommand,
-        crate::commands::NpmCommand,
-        crate::commands::OnePasswordCommand,
-        crate::commands::ClaudeCommand,
-        crate::commands::ChatGPTCommand,
-        crate::commands::RustCommand,
-        crate::commands::HackCommand,
-        crate::commands::AmazonCommand,
-        crate::commands::YouTubeCommand,
-        crate::commands::WikipediaCommand,
-        crate::commands::DuckDuckGoCommand,
-        crate::commands::SchwabCommand,
-        crate::commands::SoundCloudCommand,
-        crate::commands::StockCommand,
-        crate::commands::GoogleDocsCommand,
-        crate::commands::GoogleMapsCommand,
-        crate::commands::GoogleSheetsCommand,
-        crate::commands::GoogleSlidesCommand,
-        crate::commands::GoogleChatCommand,
-        crate::commands::GoogleSearchCommand,
-        crate::commands::BrewCommand,
-        crate::commands::ChocoCommand,
-        crate::commands::DockerhubCommand,
-        crate::commands::GodocsCommand,
-        crate::commands::GopkgCommand,
-        crate::commands::MdnCommand,
-        crate::commands::NodeCommand,
-        crate::commands::NugetCommand,
-        crate::commands::PackagistCommand,
-        crate::commands::PypiCommand,
-        crate::commands::PythonCommand,
-        crate::commands::RubygemsCommand,
-        crate::commands::StackOverflowCommand,
+      crate::commands::BindingsCommand,
+      crate::commands::GitHubCommand,
+      crate::commands::GitlabCommand,
+      crate::commands::TwitterCommand,
+      crate::commands::RedditCommand,
+      crate::commands::GmailCommand,
+      crate::commands::REICommand,
+      crate::commands::InstagramCommand,
+      crate::commands::LinkedInCommand,
+      crate::commands::FacebookCommand,
+      crate::commands::ThreadsCommand,
+      crate::commands::WhatsAppCommand,
+      crate::commands::MetaCommand,
+      crate::commands::CargoCommand,
+      crate::commands::NpmCommand,
+      crate::commands::OnePasswordCommand,
+      crate::commands::ClaudeCommand,
+      crate::commands::ChatGPTCommand,
+      crate::commands::RustCommand,
+      crate::commands::HackCommand,
+      crate::commands::AmazonCommand,
+      crate::commands::YouTubeCommand,
+      crate::commands::WikipediaCommand,
+      crate::commands::DuckDuckGoCommand,
+      crate::commands::SchwabCommand,
+      crate::commands::SoundCloudCommand,
+      crate::commands::StockCommand,
+      crate::commands::GoogleDocsCommand,
+      crate::commands::GoogleMapsCommand,
+      crate::commands::GoogleSheetsCommand,
+      crate::commands::GoogleSlidesCommand,
+      crate::commands::GoogleChatCommand,
+      crate::commands::GoogleSearchCommand,
+      crate::commands::BrewCommand,
+      crate::commands::ChocoCommand,
+      crate::commands::DockerhubCommand,
+      crate::commands::GodocsCommand,
+      crate::commands::GopkgCommand,
+      crate::commands::MdnCommand,
+      crate::commands::NodeCommand,
+      crate::commands::NugetCommand,
+      crate::commands::PackagistCommand,
+      crate::commands::PypiCommand,
+      crate::commands::PythonCommand,
+      crate::commands::RubygemsCommand,
+      crate::commands::StackOverflowCommand,
     }
 
     /// Process commands that use special prefixes (like $ for stock tickers)
