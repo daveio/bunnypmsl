@@ -28,59 +28,59 @@ pub const SERVICE_NAME: &str = "bunnypmsl";
 
 #[derive(Debug)]
 pub enum ServiceError {
-    ServiceManagerError(String),
-    BinaryNotFound,
-    ServiceStartFailed(String),
-    ConfigError(String),
-    IoError(std::io::Error),
-    UnsupportedPlatform,
+  ServiceManagerError(String),
+  BinaryNotFound,
+  ServiceStartFailed(String),
+  ConfigError(String),
+  IoError(std::io::Error),
+  UnsupportedPlatform,
 }
 
 impl fmt::Display for ServiceError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            ServiceError::ServiceManagerError(msg) => {
-                write!(f, "service manager error: {}", msg)
-            }
-            ServiceError::BinaryNotFound => {
-                write!(
-                    f,
-                    "bunnypmsl binary not found in PATH\n\n\
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    match self {
+      ServiceError::ServiceManagerError(msg) => {
+        write!(f, "service manager error: {}", msg)
+      }
+      ServiceError::BinaryNotFound => {
+        write!(
+          f,
+          "bunnypmsl binary not found in PATH\n\n\
                     Please install bunnypmsl first:\n  \
                     cargo install bunnypmsl\n\n\
                     Or install from the current directory:\n  \
                     cargo install --path ."
-                )
-            }
-            ServiceError::ServiceStartFailed(msg) => {
-                write!(f, "service installed but failed to start: {}", msg)
-            }
-            ServiceError::ConfigError(msg) => {
-                write!(f, "config error: {}", msg)
-            }
-            ServiceError::IoError(e) => {
-                write!(f, "I/O error: {}", e)
-            }
-            ServiceError::UnsupportedPlatform => {
-                write!(
-                    f,
-                    "Native service installation is only supported on Linux (systemd).\n\n\
+        )
+      }
+      ServiceError::ServiceStartFailed(msg) => {
+        write!(f, "service installed but failed to start: {}", msg)
+      }
+      ServiceError::ConfigError(msg) => {
+        write!(f, "config error: {}", msg)
+      }
+      ServiceError::IoError(e) => {
+        write!(f, "I/O error: {}", e)
+      }
+      ServiceError::UnsupportedPlatform => {
+        write!(
+          f,
+          "Native service installation is only supported on Linux (systemd).\n\n\
                     For macOS and Windows, please use Docker instead:\n  \
                     docker compose up -d\n\n\
                     Or run the server directly:\n  \
                     bunnypmsl serve"
-                )
-            }
-        }
+        )
+      }
     }
+  }
 }
 
 impl std::error::Error for ServiceError {}
 
 impl From<std::io::Error> for ServiceError {
-    fn from(err: std::io::Error) -> Self {
-        ServiceError::IoError(err)
-    }
+  fn from(err: std::io::Error) -> Self {
+    ServiceError::IoError(err)
+  }
 }
 
 // ============================================================================
@@ -89,19 +89,19 @@ impl From<std::io::Error> for ServiceError {
 
 /// Configuration for service installation
 pub struct ServiceConfig {
-    pub port: u16,
-    pub address: String,
-    pub log_level: String,
+  pub port: u16,
+  pub address: String,
+  pub log_level: String,
 }
 
 impl Default for ServiceConfig {
-    fn default() -> Self {
-        Self {
-            port: 8000,
-            address: "127.0.0.1".to_string(), // Localhost only by default (secure)
-            log_level: "normal".to_string(),
-        }
+  fn default() -> Self {
+    Self {
+      port: 8000,
+      address: "127.0.0.1".to_string(), // Localhost only by default (secure)
+      log_level: "normal".to_string(),
     }
+  }
 }
 
 // ============================================================================
@@ -111,18 +111,18 @@ impl Default for ServiceConfig {
 /// Common helper to set up service manager with label (Linux systemd only)
 #[cfg(target_os = "linux")]
 fn setup_manager() -> Result<(Box<dyn ServiceManager>, ServiceLabel), ServiceError> {
-    let mut manager = <dyn ServiceManager>::native()
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  let mut manager =
+    <dyn ServiceManager>::native().map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
 
-    manager.set_level(ServiceLevel::System).map_err(|e| {
-        ServiceError::ServiceManagerError(format!("Failed to set service level: {}", e))
-    })?;
+  manager.set_level(ServiceLevel::System).map_err(|e| {
+    ServiceError::ServiceManagerError(format!("Failed to set service level: {}", e))
+  })?;
 
-    let label: ServiceLabel = SERVICE_LABEL
-        .parse()
-        .map_err(|e| ServiceError::ServiceManagerError(format!("Invalid label: {}", e)))?;
+  let label: ServiceLabel = SERVICE_LABEL
+    .parse()
+    .map_err(|e| ServiceError::ServiceManagerError(format!("Invalid label: {}", e)))?;
 
-    Ok((manager, label))
+  Ok((manager, label))
 }
 
 // ============================================================================
@@ -132,320 +132,318 @@ fn setup_manager() -> Result<(Box<dyn ServiceManager>, ServiceLabel), ServiceErr
 /// Install bunnypmsl service using systemd (Linux only)
 #[cfg(target_os = "linux")]
 pub fn install_systemd_service(config: ServiceConfig) -> Result<(), ServiceError> {
-    println!("Installing bunnypmsl system service...");
-    println!("Platform: Linux (systemd)");
-    println!();
+  println!("Installing bunnypmsl system service...");
+  println!("Platform: Linux (systemd)");
+  println!();
 
-    let binary_path = which::which("bunnypmsl").map_err(|_| ServiceError::BinaryNotFound)?;
-    println!("✓ Found bunnypmsl binary: {}", binary_path.display());
-    println!(
-        "✓ Service file will be created at: /etc/systemd/system/{}.service",
-        SERVICE_NAME
-    );
+  let binary_path = which::which("bunnypmsl").map_err(|_| ServiceError::BinaryNotFound)?;
+  println!("✓ Found bunnypmsl binary: {}", binary_path.display());
+  println!(
+    "✓ Service file will be created at: /etc/systemd/system/{}.service",
+    SERVICE_NAME
+  );
 
-    // Create or update config file at /etc/bunnypmsl/config.toml
-    let system_config_path = PathBuf::from("/etc/bunnypmsl/config.toml");
+  // Create or update config file at /etc/bunnypmsl/config.toml
+  let system_config_path = PathBuf::from("/etc/bunnypmsl/config.toml");
 
-    // Create directory if needed
-    std::fs::create_dir_all("/etc/bunnypmsl").map_err(|e| {
-        ServiceError::ConfigError(format!("Failed to create /etc/bunnypmsl: {}", e))
-    })?;
+  // Create directory if needed
+  std::fs::create_dir_all("/etc/bunnypmsl")
+    .map_err(|e| ServiceError::ConfigError(format!("Failed to create /etc/bunnypmsl: {}", e)))?;
 
-    use crate::config::BunnypmslConfig;
+  use crate::config::BunnypmslConfig;
 
-    if system_config_path.exists() {
-        println!("✓ Found existing config file: /etc/bunnypmsl/config.toml");
+  if system_config_path.exists() {
+    println!("✓ Found existing config file: /etc/bunnypmsl/config.toml");
 
-        // Load existing config
-        let mut existing_config = BunnypmslConfig::load().map_err(|e| {
-            ServiceError::ConfigError(format!("Failed to load existing config: {}", e))
-        })?;
+    // Load existing config
+    let mut existing_config = BunnypmslConfig::load()
+      .map_err(|e| ServiceError::ConfigError(format!("Failed to load existing config: {}", e)))?;
 
-        let current_address = existing_config.server.address.clone();
-        println!("  Current address: {}", current_address);
-        println!("  New address:     {}", config.address);
+    let current_address = existing_config.server.address.clone();
+    println!("  Current address: {}", current_address);
+    println!("  New address:     {}", config.address);
 
-        if current_address == config.address {
-            println!("✓ Config already has correct address, no changes needed");
-        } else {
-            // Update only the address field, preserve everything else
-            existing_config.server.address = config.address.clone();
-
-            println!("✓ Updating address in config file (preserving other settings)...");
-            if let Err(e) = existing_config.write_to_file(&system_config_path) {
-                return Err(ServiceError::ConfigError(format!(
-                    "Failed to write config: {}",
-                    e
-                )));
-            }
-        }
+    if current_address == config.address {
+      println!("✓ Config already has correct address, no changes needed");
     } else {
-        println!("✓ Creating system config file: /etc/bunnypmsl/config.toml");
+      // Update only the address field, preserve everything else
+      existing_config.server.address = config.address.clone();
 
-        // Create new config with provided ServiceConfig settings
-        let mut default_config = BunnypmslConfig::default();
-        default_config.server.port = config.port;
-        default_config.server.address = config.address.clone();
-        default_config.server.log_level = config.log_level.clone();
-
-        // Write config file
-        if let Err(e) = default_config.write_to_file(&system_config_path) {
-            return Err(ServiceError::ConfigError(format!(
-                "Failed to write config: {}",
-                e
-            )));
-        }
+      println!("✓ Updating address in config file (preserving other settings)...");
+      if let Err(e) = existing_config.write_to_file(&system_config_path) {
+        return Err(ServiceError::ConfigError(format!(
+          "Failed to write config: {}",
+          e
+        )));
+      }
     }
+  } else {
+    println!("✓ Creating system config file: /etc/bunnypmsl/config.toml");
 
-    println!();
+    // Create new config with provided ServiceConfig settings
+    let mut default_config = BunnypmslConfig::default();
+    default_config.server.port = config.port;
+    default_config.server.address = config.address.clone();
+    default_config.server.log_level = config.log_level.clone();
 
-    println!("Service configuration:");
-    println!("  Label:       {}", SERVICE_LABEL);
-    println!("  Binary:      {}", binary_path.display());
-    println!("  Command:     bunnypmsl serve");
-    println!("  Config:      /etc/bunnypmsl/config.toml");
-    println!(
-        "    Port:      {} (can be changed in config file)",
-        config.port
-    );
-    println!(
-        "    Address:   {} (can be changed in config file)",
-        config.address
-    );
-    println!(
-        "    Log level: {} (can be changed in config file)",
-        config.log_level
-    );
-    println!("  Run as:      root");
-    println!("  Autostart:   enabled");
-    println!();
+    // Write config file
+    if let Err(e) = default_config.write_to_file(&system_config_path) {
+      return Err(ServiceError::ConfigError(format!(
+        "Failed to write config: {}",
+        e
+      )));
+    }
+  }
 
-    let (manager, label) = setup_manager()?;
+  println!();
 
-    let args = vec![OsString::from("serve")];
+  println!("Service configuration:");
+  println!("  Label:       {}", SERVICE_LABEL);
+  println!("  Binary:      {}", binary_path.display());
+  println!("  Command:     bunnypmsl serve");
+  println!("  Config:      /etc/bunnypmsl/config.toml");
+  println!(
+    "    Port:      {} (can be changed in config file)",
+    config.port
+  );
+  println!(
+    "    Address:   {} (can be changed in config file)",
+    config.address
+  );
+  println!(
+    "    Log level: {} (can be changed in config file)",
+    config.log_level
+  );
+  println!("  Run as:      root");
+  println!("  Autostart:   enabled");
+  println!();
 
-    let environment = vec![];
+  let (manager, label) = setup_manager()?;
 
-    println!("Creating service file...");
-    let install_ctx = ServiceInstallCtx {
-        label: label.clone(),
-        program: binary_path,
-        args,
-        contents: None,
-        username: None,
-        working_directory: None,
-        environment: Some(environment),
-        autostart: true,
-        restart_policy: RestartPolicy::OnFailure {
-            delay_secs: Some(5),
-        },
-    };
+  let args = vec![OsString::from("serve")];
 
-    manager
-        .install(install_ctx)
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  let environment = vec![];
 
-    println!("✓ Service file created and registered");
+  println!("Creating service file...");
+  let install_ctx = ServiceInstallCtx {
+    label: label.clone(),
+    program: binary_path,
+    args,
+    contents: None,
+    username: None,
+    working_directory: None,
+    environment: Some(environment),
+    autostart: true,
+    restart_policy: RestartPolicy::OnFailure {
+      delay_secs: Some(5),
+    },
+  };
 
-    println!();
-    println!("Starting service...");
+  manager
+    .install(install_ctx)
+    .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
 
-    manager
-        .start(ServiceStartCtx { label })
-        .map_err(|e| ServiceError::ServiceStartFailed(e.to_string()))?;
+  println!("✓ Service file created and registered");
 
-    println!("✓ Service started");
+  println!();
+  println!("Starting service...");
 
-    println!();
-    println!("🎉 Bunnypmsl server installed successfully!");
-    println!();
-    println!(
-        "Server URL (from config): http://{}:{}",
-        config.address, config.port
-    );
-    println!(
-        "Add to browser search: http://{}:{}/?cmd=%s",
-        config.address, config.port
-    );
-    println!();
-    println!("To change port/address, edit: /etc/bunnypmsl/config.toml");
-    println!("Then restart the service: sudo bunnypmsl service restart");
+  manager
+    .start(ServiceStartCtx { label })
+    .map_err(|e| ServiceError::ServiceStartFailed(e.to_string()))?;
 
-    println!();
-    println!("Manage service:");
-    println!("  bunnypmsl service status");
-    println!("  bunnypmsl service logs");
-    println!("  bunnypmsl service restart");
-    println!("  bunnypmsl service uninstall");
+  println!("✓ Service started");
 
-    Ok(())
+  println!();
+  println!("🎉 Bunnypmsl server installed successfully!");
+  println!();
+  println!(
+    "Server URL (from config): http://{}:{}",
+    config.address, config.port
+  );
+  println!(
+    "Add to browser search: http://{}:{}/?cmd=%s",
+    config.address, config.port
+  );
+  println!();
+  println!("To change port/address, edit: /etc/bunnypmsl/config.toml");
+  println!("Then restart the service: sudo bunnypmsl service restart");
+
+  println!();
+  println!("Manage service:");
+  println!("  bunnypmsl service status");
+  println!("  bunnypmsl service logs");
+  println!("  bunnypmsl service restart");
+  println!("  bunnypmsl service uninstall");
+
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn install_systemd_service(_config: ServiceConfig) -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }
 
 /// Uninstall bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn uninstall_service() -> Result<(), ServiceError> {
-    println!("Uninstalling bunnypmsl system service...");
-    println!("Service file: /etc/systemd/system/{}.service", SERVICE_NAME);
-    println!();
+  println!("Uninstalling bunnypmsl system service...");
+  println!("Service file: /etc/systemd/system/{}.service", SERVICE_NAME);
+  println!();
 
-    let (manager, label) = setup_manager()?;
+  let (manager, label) = setup_manager()?;
 
-    println!("Stopping service...");
-    let stop_ctx = ServiceStopCtx {
-        label: label.clone(),
-    };
+  println!("Stopping service...");
+  let stop_ctx = ServiceStopCtx {
+    label: label.clone(),
+  };
 
-    match manager.stop(stop_ctx) {
-        Ok(_) => println!("✓ Service stopped"),
-        Err(e) => {
-            let err_msg = e.to_string().to_lowercase();
-            if err_msg.contains("not found")
-                || err_msg.contains("not loaded")
-                || err_msg.contains("could not be found")
-            {
-                println!("ℹ Service was not running")
-            } else {
-                println!("⚠ Warning: Could not stop service: {}", e)
-            }
-        }
+  match manager.stop(stop_ctx) {
+    Ok(_) => println!("✓ Service stopped"),
+    Err(e) => {
+      let err_msg = e.to_string().to_lowercase();
+      if err_msg.contains("not found")
+        || err_msg.contains("not loaded")
+        || err_msg.contains("could not be found")
+      {
+        println!("ℹ Service was not running")
+      } else {
+        println!("⚠ Warning: Could not stop service: {}", e)
+      }
     }
+  }
 
-    println!("Removing service file...");
+  println!("Removing service file...");
 
-    manager
-        .uninstall(ServiceUninstallCtx { label })
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  manager
+    .uninstall(ServiceUninstallCtx { label })
+    .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
 
-    println!("✓ Service file removed");
-    println!();
-    println!("✓ Bunnypmsl service uninstalled successfully");
+  println!("✓ Service file removed");
+  println!();
+  println!("✓ Bunnypmsl service uninstalled successfully");
 
-    Ok(())
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn uninstall_service() -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }
 
 /// Start the bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn start_service() -> Result<(), ServiceError> {
-    let (manager, label) = setup_manager()?;
+  let (manager, label) = setup_manager()?;
 
-    manager
-        .start(ServiceStartCtx { label })
-        .map_err(|e| ServiceError::ServiceStartFailed(e.to_string()))?;
+  manager
+    .start(ServiceStartCtx { label })
+    .map_err(|e| ServiceError::ServiceStartFailed(e.to_string()))?;
 
-    println!("✓ Service started");
-    Ok(())
+  println!("✓ Service started");
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn start_service() -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }
 
 /// Stop the bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn stop_service() -> Result<(), ServiceError> {
-    let (manager, label) = setup_manager()?;
+  let (manager, label) = setup_manager()?;
 
-    manager
-        .stop(ServiceStopCtx { label })
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  manager
+    .stop(ServiceStopCtx { label })
+    .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
 
-    println!("✓ Service stopped");
-    Ok(())
+  println!("✓ Service stopped");
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn stop_service() -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }
 
 /// Restart the bunnypmsl service (Linux only)
 #[cfg(target_os = "linux")]
 pub fn restart_service() -> Result<(), ServiceError> {
-    println!("Restarting bunnypmsl service...");
+  println!("Restarting bunnypmsl service...");
 
-    let (manager, label) = setup_manager()?;
+  let (manager, label) = setup_manager()?;
 
-    manager
-        .stop(ServiceStopCtx {
-            label: label.clone(),
-        })
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
-    println!("✓ Service stopped");
+  manager
+    .stop(ServiceStopCtx {
+      label: label.clone(),
+    })
+    .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  println!("✓ Service stopped");
 
-    manager
-        .start(ServiceStartCtx { label })
-        .map_err(|e| ServiceError::ServiceStartFailed(e.to_string()))?;
-    println!("✓ Service started");
+  manager
+    .start(ServiceStartCtx { label })
+    .map_err(|e| ServiceError::ServiceStartFailed(e.to_string()))?;
+  println!("✓ Service started");
 
-    Ok(())
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn restart_service() -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }
 
 /// Get the status of the bunnypmsl service (Linux systemd only)
 #[cfg(target_os = "linux")]
 pub fn service_status() -> Result<(), ServiceError> {
-    let cmd = Command::new("systemctl")
-        .args(["status", SERVICE_NAME])
-        .status()
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  let cmd = Command::new("systemctl")
+    .args(["status", SERVICE_NAME])
+    .status()
+    .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
 
-    if !cmd.success() {
-        eprintln!(
-            "\nNote: Service may not be running (exit code: {})",
-            cmd.code().unwrap_or(-1)
-        );
-    }
+  if !cmd.success() {
+    eprintln!(
+      "\nNote: Service may not be running (exit code: {})",
+      cmd.code().unwrap_or(-1)
+    );
+  }
 
-    Ok(())
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn service_status() -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }
 
 /// View logs for the bunnypmsl service (Linux systemd only)
 #[cfg(target_os = "linux")]
 pub fn service_logs(follow: bool, lines: u32) -> Result<(), ServiceError> {
-    let mut cmd = Command::new("journalctl");
-    cmd.args(["-u", SERVICE_NAME, "-n", &lines.to_string()]);
-    if follow {
-        cmd.arg("-f");
-    }
+  let mut cmd = Command::new("journalctl");
+  cmd.args(["-u", SERVICE_NAME, "-n", &lines.to_string()]);
+  if follow {
+    cmd.arg("-f");
+  }
 
-    let status = cmd
-        .status()
-        .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
+  let status = cmd
+    .status()
+    .map_err(|e| ServiceError::ServiceManagerError(e.to_string()))?;
 
-    if !status.success() {
-        return Err(ServiceError::ServiceManagerError(format!(
-            "journalctl exited with code {}",
-            status.code().unwrap_or(-1)
-        )));
-    }
+  if !status.success() {
+    return Err(ServiceError::ServiceManagerError(format!(
+      "journalctl exited with code {}",
+      status.code().unwrap_or(-1)
+    )));
+  }
 
-    Ok(())
+  Ok(())
 }
 
 #[cfg(not(target_os = "linux"))]
 pub fn service_logs(
-    #[allow(unused_variables)] follow: bool,
-    #[allow(unused_variables)] lines: u32,
+  #[allow(unused_variables)] follow: bool,
+  #[allow(unused_variables)] lines: u32,
 ) -> Result<(), ServiceError> {
-    Err(ServiceError::UnsupportedPlatform)
+  Err(ServiceError::UnsupportedPlatform)
 }

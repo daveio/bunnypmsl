@@ -26,7 +26,7 @@ pub const FRAGMENT: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'<').add(b'>'
 /// assert_eq!(encoded, "hello%20world");
 /// ```
 pub fn encode_url(input: &str) -> String {
-    utf8_percent_encode(input, FRAGMENT).to_string()
+  utf8_percent_encode(input, FRAGMENT).to_string()
 }
 
 /// Build a search URL with proper encoding
@@ -47,8 +47,8 @@ pub fn encode_url(input: &str) -> String {
 /// assert_eq!(url, "https://google.com/search?q=hello%20world");
 /// ```
 pub fn build_search_url(base_url: &str, query_param: &str, query_value: &str) -> String {
-    let encoded_query = encode_url(query_value);
-    format!("{}?{}={}", base_url, query_param, encoded_query)
+  let encoded_query = encode_url(query_value);
+  format!("{}?{}={}", base_url, query_param, encoded_query)
 }
 
 /// Build a simple path URL with proper encoding
@@ -68,44 +68,44 @@ pub fn build_search_url(base_url: &str, query_param: &str, query_value: &str) ->
 /// assert_eq!(url, "https://github.com/daveio/bunnypmsl");
 /// ```
 pub fn build_path_url(base_url: &str, path: &str) -> String {
-    let encoded_path = encode_url(path);
-    format!("{}/{}", base_url.trim_end_matches('/'), encoded_path)
+  let encoded_path = encode_url(path);
+  format!("{}/{}", base_url.trim_end_matches('/'), encoded_path)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn test_encode_url_simple() {
-        assert_eq!(encode_url("hello"), "hello");
-    }
+  #[test]
+  fn test_encode_url_simple() {
+    assert_eq!(encode_url("hello"), "hello");
+  }
 
-    #[test]
-    fn test_encode_url_with_spaces() {
-        assert_eq!(encode_url("hello world"), "hello%20world");
-    }
+  #[test]
+  fn test_encode_url_with_spaces() {
+    assert_eq!(encode_url("hello world"), "hello%20world");
+  }
 
-    #[test]
-    fn test_encode_url_with_special_chars() {
-        assert_eq!(encode_url("hello<world>"), "hello%3Cworld%3E");
-    }
+  #[test]
+  fn test_encode_url_with_special_chars() {
+    assert_eq!(encode_url("hello<world>"), "hello%3Cworld%3E");
+  }
 
-    #[test]
-    fn test_build_search_url() {
-        let url = build_search_url("https://google.com/search", "q", "hello world");
-        assert_eq!(url, "https://google.com/search?q=hello%20world");
-    }
+  #[test]
+  fn test_build_search_url() {
+    let url = build_search_url("https://google.com/search", "q", "hello world");
+    assert_eq!(url, "https://google.com/search?q=hello%20world");
+  }
 
-    #[test]
-    fn test_build_path_url() {
-        let url = build_path_url("https://github.com", "daveio/bunnypmsl");
-        assert_eq!(url, "https://github.com/daveio/bunnypmsl");
-    }
+  #[test]
+  fn test_build_path_url() {
+    let url = build_path_url("https://github.com", "daveio/bunnypmsl");
+    assert_eq!(url, "https://github.com/daveio/bunnypmsl");
+  }
 
-    #[test]
-    fn test_build_path_url_with_trailing_slash() {
-        let url = build_path_url("https://github.com/", "daveio/bunnypmsl");
-        assert_eq!(url, "https://github.com/daveio/bunnypmsl");
-    }
+  #[test]
+  fn test_build_path_url_with_trailing_slash() {
+    let url = build_path_url("https://github.com/", "daveio/bunnypmsl");
+    assert_eq!(url, "https://github.com/daveio/bunnypmsl");
+  }
 }

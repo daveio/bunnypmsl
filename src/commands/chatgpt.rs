@@ -5,38 +5,38 @@ use crate::commands::bunnypmsl_command::{BunnypmslCommand, BunnypmslCommandInfo}
 pub struct ChatGPTCommand;
 
 impl BunnypmslCommand for ChatGPTCommand {
-    const BINDINGS: &'static [&'static str] = &["chatgpt"];
+  const BINDINGS: &'static [&'static str] = &["chatgpt"];
 
-    fn process_args(_args: &str) -> String {
-        "https://chatgpt.com".to_string()
-    }
+  fn process_args(_args: &str) -> String {
+    "https://chatgpt.com".to_string()
+  }
 
-    fn get_info() -> BunnypmslCommandInfo {
-        BunnypmslCommandInfo {
-            bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
-            description: "Navigate to ChatGPT".to_string(),
-            example: "chatgpt".to_string(),
-        }
+  fn get_info() -> BunnypmslCommandInfo {
+    BunnypmslCommandInfo {
+      bindings: Self::BINDINGS.iter().map(|s| s.to_string()).collect(),
+      description: "Navigate to ChatGPT".to_string(),
+      example: "chatgpt".to_string(),
     }
+  }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn test_chatgpt_command() {
-        assert_eq!(
-            ChatGPTCommand::process_args("chatgpt"),
-            "https://chatgpt.com"
-        );
-    }
+  #[test]
+  fn test_chatgpt_command() {
+    assert_eq!(
+      ChatGPTCommand::process_args("chatgpt"),
+      "https://chatgpt.com"
+    );
+  }
 
-    #[test]
-    fn test_chatgpt_command_with_args() {
-        assert_eq!(
-            ChatGPTCommand::process_args("chatgpt some args"),
-            "https://chatgpt.com"
-        );
-    }
+  #[test]
+  fn test_chatgpt_command_with_args() {
+    assert_eq!(
+      ChatGPTCommand::process_args("chatgpt some args"),
+      "https://chatgpt.com"
+    );
+  }
 }
