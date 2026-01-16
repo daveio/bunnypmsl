@@ -9,8 +9,9 @@
 | `i`    | imdb                   | <https://www.imdb.com/find/?q=%s>                                                                                     |
 | `l`    | linear                 | <https://linear.app/dave-io/search?q=%s>                                                                              |
 | `m`    | themoviedb             | <https://www.themoviedb.org/search?language=en-GB&query=%s>                                                           |
-| `p`    | putflix                | <https://putflix.app/search?q=%s>                                                                                     |
-| `pu`   | put.io                 | <https://app.put.io/search?phrase=%s>                                                                                 |
+| `pf`    | putflix                | <https://putflix.app/search?q=%s>  
+| `r` | rutracker.me | TBD                                                                                   |
+| `p`   | put.io                 | <https://app.put.io/search?phrase=%s>                                                                                 |
 | `t`    | tvdb                   | <https://www.thetvdb.com/search?query=%s>                                                                             |
 | `v`    | vampire survivors wiki | <https://vampire.survivors.wiki/w/Special:Search?search=%s>                                                           |
 | `w`    | wikipedia              | <https://en.wikipedia.org/w/index.php?title=Special%3ASearch&profile=advanced&fulltext=1&ns0=1&skin=Vector&search=%s> |
