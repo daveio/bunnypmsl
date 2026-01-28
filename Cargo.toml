@@ -3,15 +3,15 @@ name = "bunnypmsl"
 version = "0.0.0-pre1"
 edition = "2024"
 description = "Custom fork of bunnylol.rs"
-license = "MIT"
-repository = "https://github.com/daveio/bunnypmsl"
 readme = "README.md"
 homepage = "https://github.com/daveio/bunnypmsl"
-keywords = ["browser", "bookmarks", "shortcuts", "url", "search"]
+repository = "https://github.com/daveio/bunnypmsl"
+license = "MIT"
+keywords = ["bookmarks", "browser", "search", "shortcuts", "url"]
 categories = [
   "command-line-utilities",
-  "web-programming::http-server",
   "development-tools",
+  "web-programming::http-server",
 ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -20,63 +20,58 @@ categories = [
 authors = ["Dave Williams <dave@dave.io>"]
 
 [lib]
+crate-type = ["dylib", "rlib"] # Enable dynamic linking for faster dev builds
 name = "bunnypmsl"
 path = "src/lib.rs"
-crate-type = ["rlib", "dylib"] # Enable dynamic linking for faster dev builds
 
 [[bin]]
 name = "bunnypmsl"
 path = "src/main.rs"
 
 [dependencies]
-# Shared dependencies
-percent-encoding = "2.3"
-serde = { version = "1.0", features = ["derive"] }
-toml = "0.9"
-xdg = "3.0"
-
+askama = { version = "0.15.3", optional = true }
 # Command-line parsing (used by both server and CLI)
-clap = { version = "4.5", features = ["derive"] }
-
-# Async runtime (used by server, available to CLI)
-tokio = { version = "1.49", features = ["macros", "rt-multi-thread"] }
-
-# These are marked as optional so that we can optimize the size of each binary
-# They are all needed for one or the other
-
-# Web server dependencies
-rocket = { version = "0.5", features = ["json"], optional = true }
-askama = { version = "0.12", optional = true }
-
+clap = { version = "4.5.55", features = ["derive"] }
+clap_complete = { version = "4.5", optional = true }
 # CLI dependencies (optional)
 open = { version = "5.3", optional = true }
+# Shared dependencies
+percent-encoding = "2.3"
+# These are marked as optional so that we can optimize the size of each binary
+# They are all needed for one or the other
+# Web server dependencies
+rocket = { version = "0.5", features = ["json"], optional = true }
+serde = { version = "1.0", features = ["derive"] }
+service-manager = { version = "0.10", optional = true }
 tabled = { version = "0.20", optional = true }
 terminal_size = { version = "0.4", optional = true }
-whoami = { version = "1.6", optional = true }
-service-manager = { version = "0.10", optional = true }
+# Async runtime (used by server, available to CLI)
+tokio = { version = "1.49", features = ["macros", "rt-multi-thread"] }
+toml = "0.9.11+spec-1.1.0"
 which = { version = "8.0", optional = true }
-clap_complete = { version = "4.5", optional = true }
-
-[target.'cfg(target_os = "linux")'.dependencies]
-libc = "0.2"
-
-[features]
-default = ["server", "cli"]
-server = ["rocket", "askama"]
-cli = [
-  "open",
-  "tabled",
-  "terminal_size",
-  "whoami",
-  "service-manager",
-  "which",
-  "clap_complete",
-]
+whoami = { version = "1.6.1", optional = true }                        # pinned
+xdg = "3.0"
 
 [dev-dependencies]
 assert_cmd = "2.1"
 predicates = "3.1"
 
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
+
+[features]
+default = ["cli", "server"]
+cli = [
+  "clap_complete",
+  "open",
+  "service-manager",
+  "tabled",
+  "terminal_size",
+  "which",
+  "whoami",
+]
+server = ["askama", "rocket"]
+
 [profile.release]
-lto = true
 strip = true
+lto = true

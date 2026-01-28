@@ -23,16 +23,16 @@ lint:
   enabled:
     - rustfmt@1.92.0
     - actionlint@1.7.10
-    - checkov@3.2.497
+    - checkov@3.2.499
     - clippy@1.92.0
     - git-diff-check
     - hadolint@2.14.0
     - markdownlint@0.47.0
-    - osv-scanner@2.3.1
-    - prettier@3.8.0
+    - osv-scanner@2.3.2
+    - prettier@3.8.1
     - shellcheck@0.11.0
     - taplo@0.10.0
-    - trufflehog@3.92.4
+    - trufflehog@3.92.5
     - yamllint@1.38.0
 actions:
   definitions:
