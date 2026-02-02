@@ -41,7 +41,7 @@ RUN useradd -m -u 1000 bunnypmsl && \
     mkdir -p /etc/bunnypmsl
 
 # Copy Docker-specific config template
-COPY config.toml.docker /etc/bunnypmsl/config.toml
+COPY config.docker.toml /etc/bunnypmsl/config.toml
 
 # Set ownership
 RUN chown -R bunnypmsl:bunnypmsl /app /etc/bunnypmsl
