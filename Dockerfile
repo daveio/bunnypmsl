@@ -12,6 +12,7 @@ RUN apt-get update && \
 
 # Copy manifest files
 COPY Cargo.toml Cargo.lock ./
+COPY askama.toml ./
 
 # Create a dummy main.rs to cache dependencies
 RUN mkdir -p src
