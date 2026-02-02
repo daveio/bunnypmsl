@@ -29,9 +29,9 @@ name = "bunnypmsl"
 path = "src/main.rs"
 
 [dependencies]
-askama = { version = "0.15.3", optional = true }
+askama = { version = "0.15.4", optional = true }
 # Command-line parsing (used by both server and CLI)
-clap = { version = "4.5.55", features = ["derive"] }
+clap = { version = "4.5.56", features = ["derive"] }
 clap_complete = { version = "4.5", optional = true }
 # CLI dependencies (optional)
 open = { version = "5.3", optional = true }
