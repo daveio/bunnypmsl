@@ -32,19 +32,19 @@ path = "src/main.rs"
 askama = { version = "0.15.4", optional = true }
 # Command-line parsing (used by both server and CLI)
 clap = { version = "4.5.56", features = ["derive"] }
-clap_complete = { version = "4.5", optional = true }
+clap_complete = { version = "4.5.65", optional = true }
 # CLI dependencies (optional)
-open = { version = "5.3", optional = true }
+open = { version = "5.3.3", optional = true }
 # Shared dependencies
-percent-encoding = "2.3"
+percent-encoding = "2.3.2"
 # These are marked as optional so that we can optimize the size of each binary
 # They are all needed for one or the other
 # Web server dependencies
-rocket = { version = "0.5", features = ["json"], optional = true }
-serde = { version = "1.0", features = ["derive"] }
+rocket = { version = "0.5.1", features = ["json"], optional = true }
+serde = { version = "1.0.228", features = ["derive"] }
 service-manager = { version = "0.10", optional = true }
 tabled = { version = "0.20", optional = true }
-terminal_size = { version = "0.4", optional = true }
+terminal_size = { version = "0.4.3", optional = true }
 # Async runtime (used by server, available to CLI)
 tokio = { version = "1.49", features = ["macros", "rt-multi-thread"] }
 toml = "0.9.11+spec-1.1.0"
@@ -53,8 +53,8 @@ whoami = { version = "1.6.1", optional = true }                        # pinned
 xdg = "3.0"
 
 [dev-dependencies]
-assert_cmd = "2.1"
-predicates = "3.1"
+assert_cmd = "2.1.2"
+predicates = "3.1.3"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 libc = "0.2"
