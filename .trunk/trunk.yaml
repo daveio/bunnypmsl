@@ -23,7 +23,7 @@ lint:
   enabled:
     - rustfmt@1.92.0
     - actionlint@1.7.10
-    - checkov@3.2.499
+    - checkov@3.2.500
     - clippy@1.92.0
     - git-diff-check
     - hadolint@2.14.0
