@@ -1,84 +1,67 @@
-# Agent Guide for Bunnypmsl
+# bunnypmsl Agent Guide
 
-This document helps autonomous agents work effectively in the `bunnypmsl` codebase.
+This repository contains `bunnypmsl`, a Rust-based smart browser bookmarking tool (bunny1 clone). It operates as both a CLI tool and a web server.
 
-## Project Overview
-
-`bunnypmsl` is a smart browser bookmark/shortcut tool written in Rust. It has two modes:
-
-1. **CLI**: Runs commands directly in terminal (opens browser or prints URL).
-2. **Server**: Runs a web server to redirect HTTP requests (like `http://localhost:8000/?cmd=gh`).
-
-## Essential Commands
-
-### Build & Run
+## ⚡️ Quick Start
 
 - **Build**: `cargo build`
+- **Run CLI**: `cargo run -- <command> <args>` (e.g., `cargo run -- gh bunnypmsl`)
 - **Run Server**: `cargo run -- serve`
-- **Run CLI**: `cargo run -- [command]` (e.g., `cargo run -- gh`)
-- **Docker**: `docker compose up -d`
+- **Test**: `cargo test`
 
-### Testing & Quality
+## 📂 Project Structure
 
-- **Test All**: `cargo test --all-features`
-- **Lint**: `cargo clippy --all-features -- -D warnings`
-- **Format**: `cargo fmt --all -- --check`
-- **Trunk**: Uses `.trunk/trunk.yaml` for meta-linting configuration.
+- `src/main.rs`: Entry point. Dispatches to CLI or Server modes.
+- `src/lib.rs`: Shared library logic.
+- `src/commands/`: **Core logic**. Contains individual command implementations (e.g., `github.rs`, `google.rs`).
+- `src/bunnypmsl_command_registry.rs`: **Registry**. Maps command strings to their implementations.
+- `src/server/`: Web server implementation (Rocket framework).
+- `src/server/templates/`: HTML templates (Askama).
+- `deploy/`: Deployment scripts and documentation.
 
-## Project Structure
+## 🛠 Common Tasks
 
-- `src/main.rs`: Entry point. Dispatches to CLI or Server mode.
-- `src/lib.rs`: Shared library code.
-- `src/commands/`: **Core logic**. Contains individual command implementations (e.g., `github.rs`).
-- `src/server/`: Web server implementation (Rocket + Askama templates).
-- `src/bunnypmsl_command_registry.rs`: Registry mapping strings to command handlers.
-- `tests/`: Integration tests using `assert_cmd`.
-- `deploy/`: Deployment scripts and docs.
+### Adding a New Command
 
-## Development Patterns
+To add a new command (e.g., `mynewservice`), you must modify three files:
 
-### 1. Adding a New Command
+1.  **Create Implementation**: Add `src/commands/mynewservice.rs`.
+    - Implement `BunnypmslCommand` trait.
+    - Define `BINDINGS` (aliases like `["mns", "myservice"]`).
+    - Implement `process_args` (URL generation).
+    - Implement `get_info` (metadata for help/docs).
 
-To add a new shortcut (e.g., `mycmd`):
+2.  **Export Module**: Edit `src/commands/mod.rs`.
+    - Add `pub mod mynewservice;`
+    - Add `pub use mynewservice::MyNewServiceCommand;`
 
-1. **Create Implementation**: Add `src/commands/mycmd.rs`.
-   - Implement struct `MyCmdCommand`.
-   - Define `BINDINGS` constant (aliases).
-   - Implement `process_args` function.
-   - Implement `get_info` function.
-   - Look at `src/commands/github.rs` or others for a template.
+3.  **Register Command**: Edit `src/bunnypmsl_command_registry.rs`.
+    - Add `crate::commands::MyNewServiceCommand` to the `register_commands!` macro list.
 
-2. **Export Module**: Add to `src/commands/mod.rs`:
+### Web Server & Templates
 
-   ```rust
-   pub mod mycmd;
-   pub use mycmd::MyCmdCommand;
-   ```
+- The web server uses **Rocket**.
+- HTML is rendered using **Askama** (compile-time templates).
+- Templates are in `src/server/templates/`.
+- **Note**: If you modify a `.html` template, you must recompile the Rust code to see changes.
 
-3. **Register Command**: Add to `src/bunnypmsl_command_registry.rs` inside `register_commands!`:
-   ```rust
-   crate::commands::MyCmdCommand,
-   ```
+## 🧪 Testing
 
-### 2. Testing
+- **Unit Tests**: Place in the command file itself inside a `mod tests` block.
+- **Integration Tests**: `tests/cli_integration.rs`.
+- Run all tests: `cargo test`
 
-- **Unit Tests**: Place in the same file `src/commands/mycmd.rs` under `#[cfg(test)] mod tests`.
-- **Integration Tests**: Add cases to `tests/cli_integration.rs` if needed, verifying CLI output.
+## 🚀 Deployment
 
-### 3. Feature Flags
+- **Docker**: `docker-compose up -d` (uses `Dockerfile`).
+- **Systemd (Linux)**: See `deploy/DEPLOYMENT.md`.
+- **Config**:
+  - Local dev: `~/.config/bunnypmsl/config.toml` (Mac/Linux) or `%APPDATA%\bunnypmsl\config.toml` (Windows).
+  - Docker: Configured via env vars or mounted volumes.
 
-- The project uses `server` and `cli` features.
-- Default includes both.
-- When running `cargo run`, you usually want default features unless testing specific compilation targets.
+## ⚠️ Gotchas & Patterns
 
-## Configuration
-
-- Config loading uses `xdg` crate.
-- Default paths: `~/.config/bunnypmsl/config.toml` (Linux/macOS).
-- See `README.md` for config schema.
-
-## Deployment
-
-- Deployment is handled via Docker or systemd.
-- See `deploy/DEPLOYMENT.md` for details.
-- `deploy/auto-deploy.sh` handles automated updates.
+- **Symlinks**: `CLAUDE.md`, `GEMINI.md`, `JULES.md`, `WARP.md` are symlinks to this file (`AGENTS.md`).
+- **Command Registry**: Forgot to register your command? It won't work even if the code compiles. Check `src/bunnypmsl_command_registry.rs`.
+- **URL Encoding**: Use `crate::utils::url_encoding::build_path_url` helper for safe URL construction.
+- **Optional Dependencies**: The project uses features `cli` and `server`. By default both are enabled.
