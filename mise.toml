@@ -5,6 +5,6 @@ BUNNYPMSL_MISE_ACTIVE = 'true'
 env_file = '.env'
 
 [tools]
-rust = { version = '1.93.1' }
+rust = { version = '1.94.0' }
 
 # [tasks]
